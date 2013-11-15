@@ -7,7 +7,8 @@ public class MainBySpring {
 
 	public static void main(String[] args) {
 		String configLocation = "classpath:applicationContext.xml";
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+		AbstractApplicationContext ctx = 
+				new GenericXmlApplicationContext(configLocation);
 		Project project = ctx.getBean("sampleProject", Project.class);
 		project.build();
 		ctx.close();

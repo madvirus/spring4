@@ -22,6 +22,16 @@
 				<ref bean="user2" />
 			</list>
 		</property>
+		<property name="dd">
+			<map>
+				<entry>
+					<key></key>
+					<ref bean=""/>
+				</entry>
+				<entry key="" value="" />
+				<entry key-ref="" value-ref="" />
+			</map>
+		</property>
 	</bean>
 
 	<bean id="pwChangeSvc" 

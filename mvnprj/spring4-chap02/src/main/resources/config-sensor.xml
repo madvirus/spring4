@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="sensor1" class="net.madvirus.spring4.chap02.sensor.Sensor">
+		<property name="additionalInfo">
+			<props>
+				<prop key="addition"></prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sensor2" class="net.madvirus.spring4.chap02.sensor.Sensor">
+		<property name="agentCodes">
+			<set>
+				<value>200</value>
+				<value>300</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="monitor" class="net.madvirus.spring4.chap02.sensor.Monitor">
+		<property name="sensorMap">
+			<map>
+				<entry>
+					<key>
+						<value>frontDoor</value>
+					</key>
+					<ref bean="sensor1" />
+				</entry>
+				<entry key="backDoor" value-ref="sensor2" />
+			</map>
+		</property>
+		<property name="config">
+			<map>
+				<entry key="interval" value="1000" />
+				<entry key="period">
+					<value>2000</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>
+

@@ -18,7 +18,7 @@
 			c:userRepository-ref="userRepository" />
 	
 	<bean id="authFailLogger" class="net.madvirus.spring4.chap02.AuthFailLogger"
-			p:thresold="2" />
+			p:threshold="2" />
 
 	<bean id="authenticationService" 
 			class="net.madvirus.spring4.chap02.AuthenticationService"

@@ -30,7 +30,7 @@
 	</bean>
 	
 	<bean id="authFailLogger" class="net.madvirus.spring4.chap02.AuthFailLogger">
-		<property name="thresold" value="2" />
+		<property name="threshold" value="2" />
 	</bean>
 
 	<bean id="authenticationService" 

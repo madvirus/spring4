@@ -8,7 +8,8 @@
 	<bean id="sensor1" class="net.madvirus.spring4.chap02.sensor.Sensor">
 		<property name="additionalInfo">
 			<props>
-				<prop key="addition"></prop>
+				<prop key="threshold">1500</prop>
+				<prop key="retry">3</prop>
 			</props>
 		</property>
 	</bean>
@@ -19,6 +20,12 @@
 				<value>200</value>
 				<value>300</value>
 			</set>
+		</property>
+		<property name="additionalInfo">
+			<value>
+				threshold = 3000
+				retry = 5
+			</value>
 		</property>
 	</bean>
 

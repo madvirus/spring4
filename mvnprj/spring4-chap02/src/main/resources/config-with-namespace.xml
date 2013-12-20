@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="user1" class="net.madvirus.spring4.chap02.User"
+		c:id="bkchoi" c:password="1234" />
+	
+	<bean id="user2" class="net.madvirus.spring4.chap02.User"
+		c:_0="madvirus" c:_1="qwer" />
+
+	<bean id="pwChangeSvc" 
+			class="net.madvirus.spring4.chap02.PasswordChangeService"
+			c:userRepository-ref="userRepository" />
+	
+	<bean id="authFailLogger" class="net.madvirus.spring4.chap02.AuthFailLogger"
+			p:thresold="2" />
+
+	<bean id="authenticationService" 
+			class="net.madvirus.spring4.chap02.AuthenticationService"
+			p:failLogger-ref="authFailLogger"
+			p:userRepository-ref="userRepository" /> 
+	
+	<bean id="userRepository" class="net.madvirus.spring4.chap02.UserRepository">
+		<property name="users">
+			<list>
+				<ref bean="user1" />
+				<ref bean="user2" />
+			</list>
+		</property>
+	</bean>
+</beans>
+

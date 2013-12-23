@@ -1,4 +1,7 @@
-package net.madvirus.spring4.chap02;
+package net.madvirus.spring4.chap02.main;
+
+import net.madvirus.spring4.chap02.AuthenticationService;
+import net.madvirus.spring4.chap02.PasswordChangeService;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 

@@ -7,6 +7,11 @@
 
 	<bean id="factory" class="net.madvirus.spring4.chap02.erp.ErpClientFactory"
 		factory-method="instance">
+		<constructor-arg>
+			<props>
+				<prop key="server">10.50.0.101</prop>
+			</props>
+		</constructor-arg>
 	</bean>
 
 </beans>

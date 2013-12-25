@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="searchClientFactory"
+		class="net.madvirus.spring4.chap02.search.SearchClientFactoryBean">
+		<property name="server" value="10.20.30.40" />
+		<property name="port" value="8888" />
+		<property name="contentType" value="json" />
+	</bean>
+
+</beans>
+

@@ -14,12 +14,17 @@ public class HttpSearchClientFactory implements SearchClientFactory {
 
 	@Override
 	public void init() {
-		System.out.printf("HttpSearchClientFactory: 연결 초기화 함 - %s, %s, %s\n", server, contentType, encoding);
+		System.out.printf("HttpSearchClientFactory: 초기화 함 - %s, %s, %s\n", server, contentType, encoding);
 	}
 
 	@Override
 	public String toString() {
 		return "HttpSearchClientFactory [server=" + server + ", contentType=" + contentType + ", encoding=" + encoding + "]";
+	}
+
+	@Override
+	public SearchClient create() {
+		return new HttpSearchClient();
 	}
 
 }

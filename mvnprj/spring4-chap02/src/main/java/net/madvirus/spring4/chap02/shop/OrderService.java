@@ -1,5 +1,8 @@
 package net.madvirus.spring4.chap02.shop;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import net.madvirus.spring4.chap02.erp.ErpClient;
 import net.madvirus.spring4.chap02.erp.ErpClientFactory;
 import net.madvirus.spring4.chap02.erp.ErpOrderData;
@@ -15,14 +18,15 @@ public class OrderService {
 
 	private SearchClientFactory searchClientFactory;
 
-	@Autowired
+	@Inject
 	public void setErpClientFactory(ErpClientFactory erpClientFactory) {
 		this.erpClientFactory = erpClientFactory;
 	}
 
-	@Autowired
-	@Qualifier("order")
-	public void setSearchClientFactory(SearchClientFactory searchClientFactory) {
+	//@Autowired
+	@Inject
+	public void setSearchClientFactory(//@Qualifier("order") 
+	@Named("orderSearchClientFactory") SearchClientFactory searchClientFactory) {
 		this.searchClientFactory = searchClientFactory;
 	}
 

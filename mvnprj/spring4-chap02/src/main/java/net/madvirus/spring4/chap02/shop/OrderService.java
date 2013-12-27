@@ -1,7 +1,6 @@
 package net.madvirus.spring4.chap02.shop;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import net.madvirus.spring4.chap02.erp.ErpClient;
 import net.madvirus.spring4.chap02.erp.ErpClientFactory;
@@ -23,10 +22,8 @@ public class OrderService {
 		this.erpClientFactory = erpClientFactory;
 	}
 
-	//@Autowired
-	@Inject
-	public void setSearchClientFactory(//@Qualifier("order") 
-	@Named("orderSearchClientFactory") SearchClientFactory searchClientFactory) {
+	@Autowired
+	public void setSearchClientFactory(@Qualifier("order") SearchClientFactory searchClientFactory) {
 		this.searchClientFactory = searchClientFactory;
 	}
 

@@ -2,6 +2,7 @@ package net.madvirus.spring4.chap02.main;
 
 import net.madvirus.spring4.chap02.conf.ConfigShop;
 import net.madvirus.spring4.chap02.search.SearchClientFactory;
+import net.madvirus.spring4.chap02.search.SearchServiceHealthChecker;
 import net.madvirus.spring4.chap02.shop.OrderInfo;
 import net.madvirus.spring4.chap02.shop.OrderService;
 import net.madvirus.spring4.chap02.shop.ProductInfo;
@@ -34,6 +35,9 @@ public class MainForShop {
 
 		SearchClientFactory orderSearchClientFactory = ctx.getBean("orderSearchClientFactory", SearchClientFactory.class);
 		System.out.println(orderSearchClientFactory);
+		
+		SearchServiceHealthChecker healthChecker = ctx.getBean("searchServiceHealthChecker", SearchServiceHealthChecker.class);
+		healthChecker.check();
 	}
 
 	private static void runByUsingJavaConfig() {

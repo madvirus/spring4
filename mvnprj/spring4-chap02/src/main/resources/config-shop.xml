@@ -31,6 +31,16 @@
 		<property name="contentType" value="json" />
 	</bean>
 
+	<bean id="searchServiceHealthChecker"
+		class="net.madvirus.spring4.chap02.search.SearchServiceHealthChecker">
+		<property name="factories">
+			<list>
+				<ref bean="orderSearchClientFactory" />
+				<ref bean="productSearchClientFactory" />
+			</list>
+		</property>
+	</bean>
+
 	<bean id="ecFactory" class="net.madvirus.spring4.chap02.erp.ErpClientFactory"
 		factory-method="instance">
 		<constructor-arg>

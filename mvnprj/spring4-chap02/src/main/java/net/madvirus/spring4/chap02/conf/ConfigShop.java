@@ -1,9 +1,12 @@
 package net.madvirus.spring4.chap02.conf;
 
+import java.util.Arrays;
 import java.util.Properties;
 
 import net.madvirus.spring4.chap02.erp.ErpClientFactory;
+import net.madvirus.spring4.chap02.search.SearchClientFactory;
 import net.madvirus.spring4.chap02.search.SearchClientFactoryBean;
+import net.madvirus.spring4.chap02.search.SearchServiceHealthChecker;
 import net.madvirus.spring4.chap02.shop.OrderService;
 import net.madvirus.spring4.chap02.shop.ProductService;
 
@@ -50,4 +53,15 @@ public class ConfigShop {
 		return ErpClientFactory.instance(props);
 	}
 
+	@Bean
+	public SearchServiceHealthChecker searchServiceHealthChecker(
+			SearchClientFactory orderSearchClientFactory,
+			SearchClientFactory productSearchClientFactory
+			) throws Exception {
+		SearchServiceHealthChecker healthChecker = new SearchServiceHealthChecker();
+		healthChecker.setFactories(Arrays.asList(
+				orderSearchClientFactory, productSearchClientFactory
+		));
+		return healthChecker;
+	}
 }

@@ -7,4 +7,9 @@ public class HttpSearchClient implements SearchClient {
 		System.out.println("문서 추가함");
 	}
 
+	@Override
+	public void checkLive() {
+		System.out.println("상태 확인");
+	}
+
 }

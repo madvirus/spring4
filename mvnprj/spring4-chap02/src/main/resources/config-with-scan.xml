@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="net.madvirus.spring4.chap02.shop">
+	</context:component-scan>
+
+	<bean id="orderSearchClientFactory"
+		class="net.madvirus.spring4.chap02.search.SearchClientFactoryBean">
+		<qualifier value="order" />
+		<property name="server" value="10.20.30.40" />
+		<property name="port" value="8888" />
+		<property name="contentType" value="json" />
+	</bean>
+
+	<bean id="productSearchClientFactory"
+		class="net.madvirus.spring4.chap02.search.SearchClientFactoryBean">
+		<property name="server" value="10.20.30.41" />
+		<property name="port" value="9999" />
+		<property name="contentType" value="json" />
+	</bean>
+
+	<bean id="searchServiceHealthChecker"
+		class="net.madvirus.spring4.chap02.search.SearchServiceHealthChecker">
+		<property name="factories">
+			<list>
+				<ref bean="orderSearchClientFactory" />
+				<ref bean="productSearchClientFactory" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="ecFactory" class="net.madvirus.spring4.chap02.erp.ErpClientFactory"
+		factory-method="instance">
+		<constructor-arg>
+			<props>
+				<prop key="server">10.50.0.101</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+</beans>

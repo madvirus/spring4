@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<bean id="workProto" class="net.madvirus.spring4.chap03.Work"
+		scope="prototype">
+		<property name="timeout" value="2000" />
+		<property name="type" value="#{T(net.madvirus.spring4.chap03.Work$WorkType).SINGLE}" />
+	</bean>
+	
+	<bean id="workRunner" class="net.madvirus.spring4.chap03.WorkRunner" />
+
+	<bean id="workScheduler" class="net.madvirus.spring4.chap03.WorkScheduler">
+		<property name="workRunner" ref="workRunner" />
+	</bean>
+</beans>
+

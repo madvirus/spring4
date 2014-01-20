@@ -1,4 +1,7 @@
-package net.madvirus.spring4.chap04;
+package net.madvirus.spring4.chap04.config;
+
+import net.madvirus.spring4.chap04.ConnectionProvider;
+import net.madvirus.spring4.chap04.JdbcConnectionProvider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +30,7 @@ public class ConfigByProp {
 
 	@Bean(initMethod = "init")
 	public ConnectionProvider connectionProvider() {
-		ConnectionProvider connectionProvider = new ConnectionProvider();
+		JdbcConnectionProvider connectionProvider = new JdbcConnectionProvider();
 		connectionProvider.setDriver(driver);
 		connectionProvider.setUrl(jdbcUrl);
 		connectionProvider.setUser(user);

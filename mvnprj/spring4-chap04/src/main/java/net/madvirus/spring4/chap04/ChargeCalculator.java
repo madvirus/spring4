@@ -1,5 +1,7 @@
 package net.madvirus.spring4.chap04;
 
+import java.sql.Connection;
+
 public class ChargeCalculator {
 
 	private int batchSize;
@@ -14,6 +16,8 @@ public class ChargeCalculator {
 	}
 
 	public void calculate() {
-		System.out.printf("요금 계산[batchSize=%d]\n", batchSize);
+		System.out.printf("ChargeCalculator: 요금 계산[batchSize=%d]\n", batchSize);
+		Connection conn = connectionProvider.getConnection();
+		System.out.println("ChargeCalculator: DB 연결 구함: " + conn);
 	}
 }

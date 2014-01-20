@@ -1,4 +1,7 @@
-package net.madvirus.spring4.chap04;
+package net.madvirus.spring4.chap04.config;
+
+import net.madvirus.spring4.chap04.ConnectionProvider;
+import net.madvirus.spring4.chap04.JdbcConnectionProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +19,7 @@ public class ConfigByEnv {
 
 	@Bean(initMethod = "init")
 	public ConnectionProvider connectionProvider() {
-		ConnectionProvider connectionProvider = new ConnectionProvider();
+		JdbcConnectionProvider connectionProvider = new JdbcConnectionProvider();
 		connectionProvider.setDriver(env.getProperty("db.driver"));
 		connectionProvider.setUrl(env.getProperty("db.jdbcUrl"));
 		connectionProvider.setUser(env.getProperty("db.user"));

@@ -17,6 +17,7 @@ public class CacheStockReader implements StockReader {
 	@Override
 	public int getClosePrice(Date date, String code) {
 		String key = createKey(date, code);
+		System.out.println("CacheStockReader: " + key);
 		if (cache.containsKey(key))
 			return cache.get(key);
 

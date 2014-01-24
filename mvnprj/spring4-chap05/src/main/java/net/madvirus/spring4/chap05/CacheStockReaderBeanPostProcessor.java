@@ -25,7 +25,7 @@ public class CacheStockReaderBeanPostProcessor implements BeanPostProcessor, Ord
 
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		System.out.println("CacheStockReaderBeanPostProcessor:after-" + beanName);
+		System.out.println("CacheStockReaderBeanPostProcessor:after-" + beanName + ":" + bean.getClass().getName());
 		if (StockReader.class.isAssignableFrom(bean.getClass()))
 			return new CacheStockReader((StockReader) bean);
 		else

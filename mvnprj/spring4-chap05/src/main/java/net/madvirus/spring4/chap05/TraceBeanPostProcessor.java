@@ -29,7 +29,7 @@ public class TraceBeanPostProcessor implements BeanPostProcessor, Ordered {
 
 	@Override
 	public Object postProcessAfterInitialization(final Object bean, String beanName) throws BeansException {
-		System.out.println("TraceBeanPostProcessor:after-" + beanName);
+		System.out.println("TraceBeanPostProcessor:after-" + beanName+":"+bean.getClass().getName());
 		Class<?>[] interfaces = bean.getClass().getInterfaces();
 		if (interfaces.length == 0)
 			return bean;

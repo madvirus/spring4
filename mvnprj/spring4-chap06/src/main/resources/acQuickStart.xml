@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:aop="http://www.springframework.org/schema/aop" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/aop
@@ -29,6 +28,5 @@
 
 	<bean id="articleDao" class="net.madvirus.spring4.chap06.board.MemoryArticleDao" />
 
-	<bean id="memberService"
-		class="net.madvirus.spring4.chap06.member.service.MemberServiceImpl" />
+	<bean id="memberService" class="net.madvirus.spring4.chap06.member.MemberServiceImpl" />
 </beans>

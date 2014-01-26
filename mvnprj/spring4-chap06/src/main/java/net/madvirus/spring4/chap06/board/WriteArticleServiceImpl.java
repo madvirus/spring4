@@ -4,6 +4,10 @@ public class WriteArticleServiceImpl implements WriteArticleService {
 
 	private ArticleDao articleDao;
 
+	public WriteArticleServiceImpl(ArticleDao articleDao) {
+		this.articleDao = articleDao;
+	}
+
 	@Override
 	public void write(NewArticleRequest newArticleReq) {
 		Article article = toArticle(newArticleReq);

@@ -23,7 +23,6 @@ public class MainQuickStart {
 				new MemberRegRequest("id", "name", "pw");
 		memberService.regist(memberRegReq);
 
-
 		ReadArticleService readArticleService = ctx.getBean(ReadArticleService.class);
 		readArticleService.read(1);
 		readArticleService.read(1);

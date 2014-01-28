@@ -26,7 +26,9 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="articleDao" class="net.madvirus.spring4.chap06.board.MemoryArticleDao" />
+	<bean id="articleDao" 
+		class="net.madvirus.spring4.chap06.board.MemoryArticleDao" />
 
-	<bean id="memberService" class="net.madvirus.spring4.chap06.member.MemberServiceImpl" />
+	<bean id="memberService" 
+		class="net.madvirus.spring4.chap06.member.MemberServiceImpl" />
 </beans>

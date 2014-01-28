@@ -10,7 +10,9 @@ public class MemoryArticleDao implements ArticleDao {
 
 	@Override
 	public void insert(Article article) {
+		System.out.println("MemoryArticleDao.insert() 호출됨");
 		articleNo++;
+		article.setId(articleNo);
 		articleMap.put(articleNo, article);
 	}
 

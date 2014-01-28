@@ -28,11 +28,6 @@ public class MainQuickStart {
 		readArticleService.read(1);
 		readArticleService.read(1);
 
-
-		ReadArticleService readArticleService = ctx.getBean(ReadArticleService.class);
-		readArticleService.read(1);
-		readArticleService.read(1);
-
 		ctx.close();
 	}
 }

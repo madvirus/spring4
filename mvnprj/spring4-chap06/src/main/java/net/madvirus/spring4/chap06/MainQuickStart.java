@@ -1,6 +1,7 @@
 package net.madvirus.spring4.chap06;
 
 import net.madvirus.spring4.chap06.board.NewArticleRequest;
+import net.madvirus.spring4.chap06.board.ReadArticleService;
 import net.madvirus.spring4.chap06.board.WriteArticleService;
 import net.madvirus.spring4.chap06.member.MemberRegRequest;
 import net.madvirus.spring4.chap06.member.MemberService;
@@ -21,6 +22,16 @@ public class MainQuickStart {
 		MemberRegRequest memberRegReq = 
 				new MemberRegRequest("id", "name", "pw");
 		memberService.regist(memberRegReq);
+
+
+		ReadArticleService readArticleService = ctx.getBean(ReadArticleService.class);
+		readArticleService.read(1);
+		readArticleService.read(1);
+
+
+		ReadArticleService readArticleService = ctx.getBean(ReadArticleService.class);
+		readArticleService.read(1);
+		readArticleService.read(1);
 
 		ctx.close();
 	}

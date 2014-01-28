@@ -31,4 +31,18 @@
 
 	<bean id="memberService" 
 		class="net.madvirus.spring4.chap06.member.MemberServiceImpl" />
+
+	<bean id="cache" class=" net.madvirus.spring4.chap06.aop.ArticleCacheAdvice" />
+
+	<aop:config>
+		<aop:aspect id="cacheAspect" ref="cache">
+			<aop:around method="cache"
+				pointcut="execution(public * *..ReadArticleService.*(..))" />
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="readArticleService"
+		class="net.madvirus.spring4.chap06.board.ReadArticleServiceImpl">
+		<property name="articleDao" ref="articleDao" />
+	</bean>
 </beans>

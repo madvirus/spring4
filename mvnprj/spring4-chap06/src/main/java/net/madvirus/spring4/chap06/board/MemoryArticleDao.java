@@ -16,4 +16,9 @@ public class MemoryArticleDao implements ArticleDao {
 		articleMap.put(articleNo, article);
 	}
 
+	@Override
+	public Article selectById(Integer id) {
+		return articleMap.get(id);
+	}
+
 }

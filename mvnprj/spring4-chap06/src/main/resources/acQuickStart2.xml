@@ -7,17 +7,11 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<!-- Advice 클래스를 빈으로 등록 -->
-	<bean id="profiler" class="net.madvirus.spring4.chap06.aop.Profiler" />
+	<aop:aspectj-autoproxy />
 
-	<!-- Aspect 설정: Advice를 어떤 Pointcut에 적용할 지 설정 -->
-	<aop:config>
-		<aop:aspect id="traceAspect" ref="profiler">
-			<aop:pointcut id="publicMethod"
-				expression="execution(public * net.madvirus.spring4.chap06..*(..))" />
-			<aop:around pointcut-ref="publicMethod" method="trace" />
-		</aop:aspect>
-	</aop:config>
+    <!-- Aspect 클래스를 빈으로 등록 -->
+    <bean id="performanceTraceAspect"
+        class="net.madvirus.spring4.chap06.aop.ProfilingAspect" />
 
 	<bean id="writeArticleService"
 		class="net.madvirus.spring4.chap06.board.WriteArticleServiceImpl">
@@ -32,14 +26,7 @@
 	<bean id="memberService" 
 		class="net.madvirus.spring4.chap06.member.MemberServiceImpl" />
 
-	<bean id="cache" class="net.madvirus.spring4.chap06.aop.ArticleCacheAdvice" />
-
-	<aop:config>
-		<aop:aspect id="cacheAspect" ref="cache">
-			<aop:around method="cache"
-				pointcut="execution(public * *..ReadArticleService.*(..))" />
-		</aop:aspect>
-	</aop:config>
+	<bean id="cache" class="net.madvirus.spring4.chap06.aop.ArticleCacheAspect" />
 
 	<bean id="readArticleService"
 		class="net.madvirus.spring4.chap06.board.ReadArticleServiceImpl">

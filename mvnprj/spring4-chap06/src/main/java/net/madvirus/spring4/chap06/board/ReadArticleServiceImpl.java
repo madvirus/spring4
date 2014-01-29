@@ -10,6 +10,7 @@ public class ReadArticleServiceImpl implements ReadArticleService {
 
 	@Override
 	public Article read(Integer id) {
+		System.out.printf("ReadArticleServiceImpl.read(%d) 호출됨\n", id);
 		return articleDao.selectById(id);
 	}
 }

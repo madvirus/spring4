@@ -7,4 +7,10 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("MemberServiceImpl.regist() 호출됨");
 	}
 
+	@Override
+	public boolean update(String id, UpdateInfo updateInfo) {
+		System.out.println("MemberServiceImpl.update() 호출됨");
+		return true;
+	}
+
 }

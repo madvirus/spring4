@@ -9,19 +9,20 @@
 
 	<!-- Advice 클래스를 빈으로 등록 -->
 	<bean id="profiler" class="net.madvirus.spring4.chap06.aop.Profiler" />
-	<bean id="memberUpdateTraceAdvice"
-		class="net.madvirus.spring4.chap06.aop.UpdateMemberInfoTraceAdvice" />
+	<bean id="cache" class="net.madvirus.spring4.chap06.aop.ArticleCacheAdvice" />
 
 	<!-- Aspect 설정: Advice를 어떤 Pointcut에 적용할 지 설정 -->
 	<aop:config>
-		<aop:aspect id="traceAspect" ref="profiler">
+		<aop:aspect id="traceAspect" ref="profiler" order="2">
 			<aop:pointcut id="publicMethod"
-				expression="execution(public * net.madvirus.spring4.chap06..*(..))" />
+				expression="within(net.madvirus.spring4.chap06.board)" />
 			<aop:around pointcut-ref="publicMethod" method="trace" />
 		</aop:aspect>
-		<aop:aspect id="memberUpdateTraceAspect" ref="memberUpdateTraceAdvice">
-			<aop:after-returning pointcut="args(memberId,info)"
-				method="traceReturn" />
+	</aop:config>
+	<aop:config>
+		<aop:aspect id="cacheAspect" ref="cache" order="1">
+			<aop:around method="cache"
+				pointcut="execution(public * net.madvirus.spring4.chap06.board.ReadArticleServiceImpl.*(..))" />
 		</aop:aspect>
 	</aop:config>
 
@@ -33,18 +34,6 @@
 	</bean>
 
 	<bean id="articleDao" class="net.madvirus.spring4.chap06.board.MemoryArticleDao" />
-
-
-	<bean id="memberService" class="net.madvirus.spring4.chap06.member.MemberServiceImpl" />
-
-	<bean id="cache" class="net.madvirus.spring4.chap06.aop.ArticleCacheAdvice" />
-
-	<aop:config>
-		<aop:aspect id="cacheAspect" ref="cache">
-			<aop:around method="cache"
-				pointcut="execution(public * *..ReadArticleService.*(..))" />
-		</aop:aspect>
-	</aop:config>
 
 	<bean id="readArticleService"
 		class="net.madvirus.spring4.chap06.board.ReadArticleServiceImpl">

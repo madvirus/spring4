@@ -3,17 +3,18 @@ package net.madvirus.spring4.chap06;
 import net.madvirus.spring4.chap06.board.NewArticleRequest;
 import net.madvirus.spring4.chap06.board.ReadArticleService;
 import net.madvirus.spring4.chap06.board.WriteArticleService;
+import net.madvirus.spring4.chap06.config.QuickStartConfig;
 import net.madvirus.spring4.chap06.member.MemberRegRequest;
 import net.madvirus.spring4.chap06.member.MemberService;
 import net.madvirus.spring4.chap06.member.UpdateInfo;
 
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class MainQuickStart2 {
+public class MainJavaConfigQuickStart {
 
 	public static void main(String[] args) {
-		GenericXmlApplicationContext ctx =
-				new GenericXmlApplicationContext("classpath:acQuickStart2.xml");
+		AnnotationConfigApplicationContext ctx =
+				new AnnotationConfigApplicationContext(QuickStartConfig.class);
 
 		WriteArticleService writeArticleService =
 				ctx.getBean("writeArticleService", WriteArticleService.class);

@@ -15,7 +15,7 @@
 	<aop:config>
 		<aop:aspect id="traceAspect" ref="profiler" order="2">
 			<aop:pointcut id="publicMethod"
-				expression="within(net.madvirus.spring4.chap06.board)" />
+				expression="within(net.madvirus.spring4.chap06.*)" />
 			<aop:around pointcut-ref="publicMethod" method="trace" />
 		</aop:aspect>
 	</aop:config>

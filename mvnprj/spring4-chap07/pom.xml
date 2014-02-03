@@ -22,11 +22,18 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.0.1.RELEASE</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<finalName>spring4-chap07</finalName>
 		<plugins>
@@ -39,19 +46,13 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.8.v20121106</version>
+				<version>9.1.1.v20140108</version>
 				<configuration>
-					<scanIntervalSeconds>3</scanIntervalSeconds>
 					<webApp>
 						<contextPath>/spring4-chap07</contextPath>
 					</webApp>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8080</port>
-						</connector>
-					</connectors>
 				</configuration>
 			</plugin>
 		</plugins>

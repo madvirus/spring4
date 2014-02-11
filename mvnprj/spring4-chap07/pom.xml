@@ -53,6 +53,7 @@
 					<webApp>
 						<contextPath>/spring4-chap07</contextPath>
 					</webApp>
+					<scanIntervalSeconds>3</scanIntervalSeconds>
 				</configuration>
 			</plugin>
 		</plugins>

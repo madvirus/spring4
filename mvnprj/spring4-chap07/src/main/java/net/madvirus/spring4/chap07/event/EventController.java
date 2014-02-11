@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/event")
 public class EventController {
 
-	@RequestMapping("/event/list")
+	@RequestMapping("/list")
 	public String list(Model model) {
 		List<Event> eventList = getOpenedEventList();
 		model.addAttribute("eventList", eventList);
 		return "event/list";
 	}
 
-	@RequestMapping("/event/list2")
+	@RequestMapping("/list2")
 	public ModelAndView list2() {
 		List<Event> eventList = getOpenedEventList();
 		ModelAndView modelView = new ModelAndView();

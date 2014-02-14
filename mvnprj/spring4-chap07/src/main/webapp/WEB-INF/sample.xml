@@ -20,4 +20,5 @@
 	<bean class="net.madvirus.spring4.chap07.event.EventController" />
 	<bean class="net.madvirus.spring4.chap07.member.RegistrationController" />
 	<bean class="net.madvirus.spring4.chap07.member.MemberController" />
+	<bean class="net.madvirus.spring4.chap07.file.FileController" />
 </beans>

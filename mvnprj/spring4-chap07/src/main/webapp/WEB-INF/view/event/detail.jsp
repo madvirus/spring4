@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>회원 가입</title>
+<title>이벤트 정보</title>
 </head>
 <body>
-
-${memberInfo.name}님의 회원 가입을 완료했습니다.
-
+<ul>
+	<li>ID: ${event.id}</li>
+	<li>이름: ${event.name}</li>
+</ul>
 </body>
 </html>

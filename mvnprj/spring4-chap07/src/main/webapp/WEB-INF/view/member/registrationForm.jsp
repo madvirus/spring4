@@ -8,9 +8,20 @@
 <body>
 
 <form method="post">
-이메일: <input type="text" name="email" /> <br/>
-암호: <input type="password" name="password" /> <br/>
-암호 확인: <input type="password" name="confirmPassword" /> <br/>
+<label for="email">이메일</label>: 
+<input type="text" name="email" id="email" /> <br/>
+<label for="name">이름</label>: 
+<input type="text" name="name" id="name" /> <br/>
+<label for="password">암호</label>: 
+<input type="password" name="password" id="password" /> <br/>
+<label for="password">확인</label>: 
+<input type="password" name="confirmPassword" id="confirmPassword" /> <br/>
+
+<label>
+	<input type="checkbox" name="allowNoti" value="true" />
+	이메일을 수신합니다.
+</label>
+<br/>
 <input type="submit" value="가입" />
 
 </form>

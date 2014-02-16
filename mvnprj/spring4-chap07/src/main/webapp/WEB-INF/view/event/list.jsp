@@ -9,7 +9,7 @@
 현재 오픈된 이벤트:
 <ul>
 	<c:forEach var="event" items="${eventList}">
-	<li>${event.name}</li>
+	<li><a href="/spring4-chap07/event/detail?id=${event.id}">${event.name}</a></li>
 	</c:forEach>
 </ul>
 </body>

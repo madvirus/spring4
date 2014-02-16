@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>회원 가입</title>
+<title>회원 정보 수정</title>
 </head>
 <body>
 
-${memberInfo.name}님의 회원 가입을 완료했습니다.
+${modReq.name}님의 정보를 수정했습니다.
 
 </body>
 </html>

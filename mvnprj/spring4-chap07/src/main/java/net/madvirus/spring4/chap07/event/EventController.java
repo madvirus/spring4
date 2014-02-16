@@ -1,10 +1,7 @@
 package net.madvirus.spring4.chap07.event;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,17 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/event")
 public class EventController {
 	private static final String REDIRECT_EVENT_LIST = "redirect:/event/list";
-	private SortedMap<Long, Event> eventMap = new TreeMap<>();
+	private EventService eventService;
 
 	public EventController() {
-		eventMap.put(1L, Event.create(1L, "JCO 객체 지향 발들이기"));
-		eventMap.put(2L, Event.create(2L, "Okjsp 생존 테스트 프로그래밍"));
+		eventService = new EventService();
 	}
 
-	@ModelAttribute("recommendList")
+	@ModelAttribute("recEventList")
 	public List<Event> recommend() {
-		List<Event> recommendList = new ArrayList<>();
-		return recommendList;
+		return eventService.getRecommendedEventService();
 	}
 
 	@RequestMapping("/list")
@@ -50,7 +45,7 @@ public class EventController {
 		} catch (NumberFormatException e) {
 			return REDIRECT_EVENT_LIST;
 		}
-		Event event = findEventById(eventId);
+		Event event = getEvent(eventId);
 		if (event == null)
 			return REDIRECT_EVENT_LIST;
 
@@ -58,8 +53,8 @@ public class EventController {
 		return "event/detail";
 	}
 
-	private Event findEventById(Long eventId) {
-		return eventMap.get(eventId);
+	private Event getEvent(Long eventId) {
+		return eventService.getEvent(eventId);
 	}
 
 	@RequestMapping("/list2")
@@ -73,7 +68,7 @@ public class EventController {
 
 	@RequestMapping("/detail2")
 	public String list2(@RequestParam("id") long eventId, Model model) {
-		Event event = findEventById(eventId);
+		Event event = getEvent(eventId);
 		if (event == null)
 			return REDIRECT_EVENT_LIST;
 		model.addAttribute("event", event);
@@ -81,6 +76,6 @@ public class EventController {
 	}
 
 	private List<Event> getOpenedEventList() {
-		return new ArrayList<Event>(eventMap.values());
+		return eventService.getOpenedEventList();
 	}
 }

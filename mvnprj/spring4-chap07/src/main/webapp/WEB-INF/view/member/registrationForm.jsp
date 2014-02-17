@@ -16,6 +16,13 @@
 <input type="password" name="password" id="password" /> <br/>
 <label for="password">확인</label>: 
 <input type="password" name="confirmPassword" id="confirmPassword" /> <br/>
+<label>주소</label>:
+주소1 
+<input type="text" name="address.address1" /> <br/>
+주소2
+<input type="text" name="address.address2" /> <br/>
+우편번호
+<input type="text" name="address.zipcode" /> <br/>
 
 <label>
 	<input type="checkbox" name="allowNoti" value="true" />

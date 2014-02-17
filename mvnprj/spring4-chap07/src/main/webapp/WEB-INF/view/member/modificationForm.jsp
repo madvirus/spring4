@@ -13,6 +13,14 @@
 <input type="text" name="email" id="email" value="${modReq.email}"/> <br/>
 <label for="name">이름</label>: 
 <input type="text" name="name" id="name" value="${modReq.name}"/> <br/>
+<label>주소</label>:
+주소1 
+<input type="text" name="address.address1" value="${modReq.address.address1}" /> <br/>
+주소2
+<input type="text" name="address.address2" value="${modReq.address.address2}" /> <br/>
+우편번호
+<input type="text" name="address.zipcode" value="${modReq.address.zipcode}" /> <br/>
+
 <label>
 	<input type="checkbox" name="allowNoti" value="true" 
 		<c:if test='${modReq.allowNoti}'>checked='checked'</c:if> />

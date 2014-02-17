@@ -6,15 +6,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class FileController {
 
-	@RequestMapping("/files/{fileId:[a-zA-Z]\\d{3}}")
+	@RequestMapping(value="/files/{fileId:[a-zA-Z]\\d{3}}", method=RequestMethod.GET)
 	public String fileInfo(@PathVariable String fileId) {
 		return "files/fileInfo";
 	}
 
+	@RequestMapping(value="/files/{fileId:[a-zA-Z]\\d{3}}", method=RequestMethod.POST)
+	public String updateFile(@PathVariable String fileId) {
+		return "redirect:/files/{fileId}";
+	}
+	
 	@RequestMapping("/files/?*.download")
 	public String fileInfo(HttpServletRequest request) {
 		return "files/fileDownload";

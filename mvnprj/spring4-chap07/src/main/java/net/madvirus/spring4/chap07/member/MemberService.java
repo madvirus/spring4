@@ -11,8 +11,8 @@ public class MemberService {
 	private Map<String, MemberInfo> memberMap = new HashMap<>();
 
 	public MemberService() {
-		memberMap.put("m1", new MemberInfo("m1", "이상화", "sanghwa@sanghwa.com", "sanghwa", false));
-		memberMap.put("m2", new MemberInfo("m2", "김연아", "yuna@yuna.com", "yuna", false));
+		memberMap.put("m1", new MemberInfo("m1", "이상화", "sanghwa@sanghwa.com", "sanghwa", false, new Address()));
+		memberMap.put("m2", new MemberInfo("m2", "김연아", "yuna@yuna.com", "yuna", false, new Address()));
 		nextMemberId = 3;
 	}
 
@@ -30,6 +30,7 @@ public class MemberService {
 		mi.setEmail(modReq.getEmail());
 		mi.setName(modReq.getName());
 		mi.setAllowNoti(modReq.isAllowNoti());
+		mi.setAddress(modReq.getAddress());
 	}
 
 	public List<MemberInfo> getMembers() {
@@ -39,7 +40,7 @@ public class MemberService {
 	public void registNewMember(MemberRegistRequest memRegReq) {
 		MemberInfo mi = new MemberInfo("m" + nextMemberId,
 				memRegReq.getName(), memRegReq.getEmail(), memRegReq.getPassword(),
-				memRegReq.isAllowNoti());
+				memRegReq.isAllowNoti(), memRegReq.getAddress());
 		memberMap.put(mi.getId(), mi);
 	}
 }

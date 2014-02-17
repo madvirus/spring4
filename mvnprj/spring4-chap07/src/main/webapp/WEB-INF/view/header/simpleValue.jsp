@@ -3,14 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>파일 정보</title>
+<title>헤더 정보</title>
 </head>
 <body>
-파일 정보:
 
-파일 변경:
-<form method="post">
-<input type="submit" value="파일교체">
-</form>
+Accept: ${acceptType}
+<br/>
+Auth Cookie: ${auth}
+
 </body>
 </html>

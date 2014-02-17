@@ -7,6 +7,7 @@ public class MemberRegistRequest {
 	private String password;
 	private String confirmPassword;
 	private boolean allowNoti;
+	private Address address;
 
 	public String getEmail() {
 		return email;
@@ -46,6 +47,14 @@ public class MemberRegistRequest {
 
 	public void setAllowNoti(boolean allowNoti) {
 		this.allowNoti = allowNoti;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	@Override

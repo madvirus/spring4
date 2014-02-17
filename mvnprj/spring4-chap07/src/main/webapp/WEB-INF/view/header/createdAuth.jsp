@@ -3,14 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>파일 정보</title>
+<title>쿠키 생성</title>
 </head>
 <body>
-파일 정보:
 
-파일 변경:
-<form method="post">
-<input type="submit" value="파일교체">
-</form>
+auth 쿠키를 생성하였습니다.
+
 </body>
 </html>

@@ -7,6 +7,7 @@ public class MemberModRequest {
 	private String email;
 	private boolean allowNoti;
 	private String currentPassword;
+	private Address address;
 
 	public String getId() {
 		return id;
@@ -46,6 +47,14 @@ public class MemberModRequest {
 
 	public void setCurrentPassword(String currentPassword) {
 		this.currentPassword = currentPassword;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }

@@ -7,13 +7,15 @@ public class MemberInfo {
 	private String email;
 	private String password;
 	private boolean allowNoti;
+	private Address address;
 
-	public MemberInfo(String id, String name, String email, String password, boolean alloNoti) {
+	public MemberInfo(String id, String name, String email, String password, boolean alloNoti, Address address) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.allowNoti = alloNoti;
+		this.address = address;
 	}
 
 	public String getId() {
@@ -32,6 +34,10 @@ public class MemberInfo {
 		return allowNoti;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
 	public boolean matchPassword(String inputPassword) {
 		System.out.printf("암호 검사 = [%s] = [%s]\n", password, inputPassword);
 		return password.equals(inputPassword);
@@ -47,6 +53,10 @@ public class MemberInfo {
 
 	public void setAllowNoti(boolean allowNoti) {
 		this.allowNoti = allowNoti;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }

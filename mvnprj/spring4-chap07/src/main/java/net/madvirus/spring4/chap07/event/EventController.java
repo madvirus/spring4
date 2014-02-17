@@ -28,9 +28,10 @@ public class EventController {
 	}
 
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Event> eventList = getOpenedEventList();
+	public String list(SearchOption option, Model model) {
+		List<Event> eventList = eventService.getOpenedEventList(option);
 		model.addAttribute("eventList", eventList);
+		model.addAttribute("eventTypes", EventType.values());
 		return "event/list";
 	}
 
@@ -58,11 +59,12 @@ public class EventController {
 	}
 
 	@RequestMapping("/list2")
-	public ModelAndView list2() {
-		List<Event> eventList = getOpenedEventList();
+	public ModelAndView list2(SearchOption option) {
+		List<Event> eventList = eventService.getOpenedEventList(option);
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName("event/list");
 		modelView.addObject("eventList", eventList);
+		modelView.addObject("eventTypes", EventType.values());
 		return modelView;
 	}
 
@@ -73,9 +75,5 @@ public class EventController {
 			return REDIRECT_EVENT_LIST;
 		model.addAttribute("event", event);
 		return "event/detail";
-	}
-
-	private List<Event> getOpenedEventList() {
-		return eventService.getOpenedEventList();
 	}
 }

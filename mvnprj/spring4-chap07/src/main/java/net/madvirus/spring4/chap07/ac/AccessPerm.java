@@ -71,4 +71,8 @@ public class AccessPerm {
 				+ ", removed=" + removed + "]";
 	}
 
+	public boolean hasData() {
+		return id != null;
+	}
+
 }

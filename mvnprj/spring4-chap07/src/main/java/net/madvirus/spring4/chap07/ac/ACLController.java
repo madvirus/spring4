@@ -1,5 +1,8 @@
 package net.madvirus.spring4.chap07.ac;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +20,13 @@ public class ACLController {
 
 	@RequestMapping("/acl/modify")
 	public String modify(AclModRequest modReq) {
-		System.out.printf("modReq.length: %d\n", modReq.getPerms().size());
-		for (int i = 0 ; i < modReq.getPerms().size() ; i++) {
-			System.out.printf("mod[%d]=%s\n", i, modReq.getPerms().get(i));
-		}
-		//aclService.modifyAccessControll(modReq);
+		List<AccessPerm> perms = new ArrayList<>();
+		for (AccessPerm reqPerm : modReq.getPerms())
+			if (reqPerm.hasData())
+				perms.add(reqPerm);
+		modReq.setPerms(perms);
+
+		aclService.modifyAccessControll(modReq);
 		return "redirect:/acl/list";
 	}
 

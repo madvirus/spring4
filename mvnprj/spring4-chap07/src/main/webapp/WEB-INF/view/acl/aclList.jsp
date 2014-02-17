@@ -17,43 +17,6 @@
 	<td>삭제</td>
 	<td>사용안함</td>
 </tr>
-<tr>
-	<td>
-		bkchoi
-		<input type="hidden" name="perms[0].id" value="bkchoi">
-	</td>
-	<td><input type="checkbox" name="perms[0].canRead" value="true" checked>
-	<td><input type="checkbox" name="perms[0].canCreate" value="true" checked>
-	<td><input type="checkbox" name="perms[0].canModify" value="true" checked>
-	<td><input type="checkbox" name="perms[0].canDelete" value="true" checked>
-	<td><input type="checkbox" name="perms[0].removed" value="true" >
-</tr>
-
-<tr>
-	<td>
-		madvirus
-		<input type="hidden" name="perms[2].id" value="madvirus">
-	</td>
-	<td><input type="checkbox" name="perms[2].canRead" value="true" checked>
-	<td><input type="checkbox" name="perms[2].canCreate" value="true" >
-	<td><input type="checkbox" name="perms[2].canModify" value="true" checked>
-	<td><input type="checkbox" name="perms[2].canDelete" value="true" >
-	<td><input type="checkbox" name="perms[2].removed" value="true" >
-</tr>
-
-<tr>
-	<td>
-		spring4
-		<input type="hidden" name="perms[3].id" value="spring4">
-	</td>
-	<td><input type="checkbox" name="perms[3].canRead" value="true" checked>
-	<td><input type="checkbox" name="perms[3].canCreate" value="true" checked>
-	<td><input type="checkbox" name="perms[3].canModify" value="true" checked>
-	<td><input type="checkbox" name="perms[3].canDelete" value="true" checked>
-	<td><input type="checkbox" name="perms[3].removed" value="true" >
-</tr>
-
-<%--
 <c:forEach var="perm" items="${aclList}" varStatus="status">
 <tr>
 	<td>
@@ -67,7 +30,6 @@
 	<td><input type="checkbox" name="perms[${status.index}].removed" value="true" ${perm.removed ? 'checked' : '' }>
 </tr>
 </c:forEach>
---%>
 <tr>
 	<td colspan="6">
 	<input type="submit" value="수정">

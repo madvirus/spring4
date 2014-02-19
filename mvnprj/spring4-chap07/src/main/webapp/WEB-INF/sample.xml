@@ -31,9 +31,26 @@
 	<bean class="net.madvirus.spring4.chap07.file.FileController" />
 	<bean class="net.madvirus.spring4.chap07.search.SearchController" />
 	<bean class="net.madvirus.spring4.chap07.etc.SimpleHeaderController" />
-	
+
 	<bean id="aclService" class="net.madvirus.spring4.chap07.ac.AclService" />
 	<bean class="net.madvirus.spring4.chap07.ac.ACLController">
 		<property name="aclService" ref="aclService" />
 	</bean>
+
+	<bean id="authenticator" class="net.madvirus.spring4.chap07.auth.Authenticator" />
+	<bean class="net.madvirus.spring4.chap07.auth.LoginController">
+		<property name="authenticator" ref="authenticator" />
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message.error</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+
 </beans>

@@ -57,10 +57,20 @@ public class MemberRegistRequest {
 		this.address = address;
 	}
 
+	public boolean isSamePasswordConfirmPassword() {
+		if (password == null || confirmPassword == null)
+			return false;
+		return password.equals(confirmPassword);
+	}
+
 	@Override
 	public String toString() {
 		return "MemberRegistRequest [email=" + email + ", name=" + name + ", password=" + password + ", confirmPassword=" + confirmPassword + ", allowNoti="
 				+ allowNoti + "]";
+	}
+
+	public boolean hasPassword() {
+		return password != null && password.trim().length() > 0;
 	}
 
 }

@@ -1,11 +1,18 @@
 package net.madvirus.spring4.chap07.event;
 
 import java.util.Collection;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class SearchOption {
 
 	private Collection<EventType> types;
 	private boolean allType;
+	@DateTimeFormat(pattern="yyyyMMdd")
+	private Date from;
+	
+	private Date to;
 
 	public Collection<EventType> getTypes() {
 		return types;
@@ -21,6 +28,22 @@ public class SearchOption {
 
 	public void setAllType(boolean allType) {
 		this.allType = allType;
+	}
+
+	public Date getFrom() {
+		return from;
+	}
+
+	public void setFrom(Date from) {
+		this.from = from;
+	}
+
+	public Date getTo() {
+		return to;
+	}
+
+	public void setTo(Date to) {
+		this.to = to;
 	}
 
 }

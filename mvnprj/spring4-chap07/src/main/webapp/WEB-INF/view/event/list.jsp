@@ -11,6 +11,7 @@
 <c:forEach var="eventType" items="${eventTypes}">
 <label><input type="checkbox" name="types" value="${eventType}">${eventType}</label>
 </c:forEach>
+시작일:<input type="text" name="from" />~<input type="text" name="to" />
 <input type="submit" value="검색" />
 </form>
 현재 오픈된 이벤트:

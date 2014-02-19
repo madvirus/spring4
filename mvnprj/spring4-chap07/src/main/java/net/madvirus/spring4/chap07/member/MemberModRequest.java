@@ -11,6 +11,7 @@ public class MemberModRequest {
 	private String id;
 	@NotEmpty
 	private String name;
+	@NotEmpty
 	@Email
 	private String email;
 	private boolean allowNoti;

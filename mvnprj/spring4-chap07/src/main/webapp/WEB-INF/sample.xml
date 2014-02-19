@@ -25,9 +25,15 @@
 	<bean class="net.madvirus.spring4.chap07.member.MemberController">
 		<property name="memberService" ref="memberService" />
 	</bean>
+
+	<bean id="jsr303Validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
 	<bean class="net.madvirus.spring4.chap07.member.MemberModificationController">
 		<property name="memberService" ref="memberService" />
+		<property name="validator" ref="jsr303Validator" />
 	</bean>
+	
 	<bean class="net.madvirus.spring4.chap07.file.FileController" />
 	<bean class="net.madvirus.spring4.chap07.search.SearchController" />
 	<bean class="net.madvirus.spring4.chap07.etc.SimpleHeaderController" />

@@ -1,12 +1,22 @@
 package net.madvirus.spring4.chap07.member;
 
+import javax.validation.Valid;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class MemberModRequest {
 
+	@NotEmpty
 	private String id;
+	@NotEmpty
 	private String name;
+	@Email
 	private String email;
 	private boolean allowNoti;
+	@NotEmpty
 	private String currentPassword;
+	@Valid
 	private Address address;
 
 	public String getId() {

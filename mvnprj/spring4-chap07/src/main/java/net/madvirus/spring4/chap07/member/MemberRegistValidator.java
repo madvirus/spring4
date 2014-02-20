@@ -38,6 +38,7 @@ public class MemberRegistValidator implements Validator {
 				errors.popNestedPath();
 			}
 		}
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthday", "required");
 	}
 
 }

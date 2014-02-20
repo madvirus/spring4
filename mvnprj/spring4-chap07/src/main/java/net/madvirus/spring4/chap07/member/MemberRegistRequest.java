@@ -1,5 +1,9 @@
 package net.madvirus.spring4.chap07.member;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MemberRegistRequest {
 
 	private String email;
@@ -8,6 +12,7 @@ public class MemberRegistRequest {
 	private String confirmPassword;
 	private boolean allowNoti;
 	private Address address;
+	private Date birthday;
 
 	public String getEmail() {
 		return email;
@@ -63,14 +68,23 @@ public class MemberRegistRequest {
 		return password.equals(confirmPassword);
 	}
 
+	public boolean hasPassword() {
+		return password != null && password.trim().length() > 0;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	@DateTimeFormat(pattern="yyyyMMdd")
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberRegistRequest [email=" + email + ", name=" + name + ", password=" + password + ", confirmPassword=" + confirmPassword + ", allowNoti="
 				+ allowNoti + "]";
-	}
-
-	public boolean hasPassword() {
-		return password != null && password.trim().length() > 0;
 	}
 
 }

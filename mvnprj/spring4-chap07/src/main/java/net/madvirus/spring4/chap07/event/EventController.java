@@ -1,12 +1,17 @@
 package net.madvirus.spring4.chap07.event;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +38,12 @@ public class EventController {
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("eventTypes", EventType.values());
 		return "event/list";
+	}
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		CustomDateEditor dateEditor = new CustomDateEditor(new SimpleDateFormat("yyyyMMdd"), true);
+		binder.registerCustomEditor(Date.class, dateEditor);
 	}
 
 	@RequestMapping("/detail")

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -20,11 +21,11 @@
 <form:errors path="memberInfo.name"/> <br/>
 
 <label for="password">암호</label>: 
-<input type="password" name="password" id="password" />
+<input type="password" name="password" id="password" value="${memberInfo.password}"/>
 <form:errors path="memberInfo.password"/> <br/>
 
 <label for="password">확인</label>: 
-<input type="password" name="confirmPassword" id="confirmPassword" />
+<input type="password" name="confirmPassword" id="confirmPassword" value="${memberInfo.confirmPassword}"/>
 <form:errors path="memberInfo.confirmPassword"/> <br/>
 
 <label>주소</label>:
@@ -43,6 +44,10 @@
 	이메일을 수신합니다.
 </label>
 <br/>
+<label for="birthday">생일</label>: 형식: YYYYMMDD, 예: 20140101
+<input type="text" name="birthday" id="birthday" value='<fmt:formatDate value="${memberInfo.birthday}" pattern="yyyyMMdd" />'/>
+<form:errors path="memberInfo.birthday"/> <br/>
+
 <input type="submit" value="가입" />
 
 </form>

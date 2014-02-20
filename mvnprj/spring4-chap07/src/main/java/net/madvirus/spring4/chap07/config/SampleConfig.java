@@ -100,7 +100,7 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public Authenticator authenticator() {
-		return new Authenticator();
+		return new Authenticator(memberService());
 	}
 
 	@Bean

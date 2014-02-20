@@ -1,5 +1,7 @@
 package net.madvirus.spring4.chap07.auth;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -22,12 +24,15 @@ public class LoginController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String login(@Valid LoginCommand loginCommand, Errors errors) {
+	public String login(@Valid LoginCommand loginCommand, Errors errors,
+			HttpServletRequest request) {
 		if (errors.hasErrors()) {
 			return LOGIN_FORM;
 		}
 		try {
-			authenticator.authenticate(loginCommand.getEmail(), loginCommand.getPassword());
+			Auth auth = authenticator.authenticate(loginCommand.getEmail(), loginCommand.getPassword());
+			HttpSession session = request.getSession();
+			session.setAttribute("auth", auth);
 			return "redirect:/index.jsp";
 		} catch (AuthenticationException ex) {
 			errors.reject("invalidIdOrPassword");
@@ -35,10 +40,10 @@ public class LoginController {
 		}
 	}
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(new LoginCommandValidator());
-    }
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new LoginCommandValidator());
+	}
 
 	public void setAuthenticator(Authenticator authenticator) {
 		this.authenticator = authenticator;

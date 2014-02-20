@@ -43,4 +43,12 @@ public class MemberService {
 				memRegReq.isAllowNoti(), memRegReq.getAddress());
 		memberMap.put(mi.getId(), mi);
 	}
+
+	public MemberInfo getMemberInfoByEmail(String email) {
+		for (MemberInfo mi : memberMap.values()) {
+			if (mi.getEmail().equals(email))
+				return mi;
+		}
+		return null;
+	}
 }

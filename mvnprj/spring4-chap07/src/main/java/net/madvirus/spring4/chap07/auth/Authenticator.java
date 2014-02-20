@@ -1,10 +1,23 @@
 package net.madvirus.spring4.chap07.auth;
 
+import net.madvirus.spring4.chap07.member.MemberInfo;
+import net.madvirus.spring4.chap07.member.MemberService;
+
 public class Authenticator {
 
-	public void authenticate(String email, String password) {
-		if (!password.equals("1234"))
-			throw new AuthenticationException();
+	private MemberService memberService;
+
+	public Authenticator(MemberService memberService) {
+		this.memberService = memberService;
 	}
 
+	public Auth authenticate(String email, String password) {
+		MemberInfo mi = memberService.getMemberInfoByEmail(email);
+		if (mi == null)
+			throw new AuthenticationException();
+		if (mi.matchPassword(password))
+			throw new AuthenticationException();
+
+		return new Auth(mi.getId(), mi.getName());
+	}
 }

@@ -8,12 +8,13 @@ public class EventForm {
 
 	private String name;
 	private EventType type;
-	@DateTimeFormat(pattern = "yyyyMMdd")
-	private Date from;
-	@DateTimeFormat(pattern = "yyyyMMdd")
-	private Date to;
 
-	private String[] memberGrardes;
+	@DateTimeFormat(pattern = "yyyyMMdd")
+	private Date beginDate;
+	@DateTimeFormat(pattern = "yyyyMMdd")
+	private Date endDate;
+
+	private String target;
 
 	public String getName() {
 		return name;
@@ -31,28 +32,43 @@ public class EventForm {
 		this.type = type;
 	}
 
-	public Date getFrom() {
-		return from;
+	public Date getBeginDate() {
+		return beginDate;
 	}
 
-	public void setFrom(Date from) {
-		this.from = from;
+	public void setBeginDate(Date from) {
+		this.beginDate = from;
 	}
 
-	public Date getTo() {
-		return to;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setTo(Date to) {
-		this.to = to;
+	public void setEndDate(Date to) {
+		this.endDate = to;
+	}
+	
+	public boolean hasPeriod() {
+		return beginDate != null || endDate != null;
 	}
 
-	public String[] getMemberGrardes() {
-		return memberGrardes;
+	public String getTarget() {
+		return target;
 	}
 
-	public void setMemberGrardes(String[] memberGrardes) {
-		this.memberGrardes = memberGrardes;
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public boolean isEndDateBeforeNow() {
+		return endDate != null && endDate.before(new Date());
+	}
+
+	public boolean isBeginDateAfterEndDate() {
+		if (beginDate != null && endDate != null) {
+			return beginDate.after(endDate);
+		}
+		return false;
 	}
 
 }

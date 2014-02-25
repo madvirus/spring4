@@ -12,8 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class FileController {
 
 	@RequestMapping(value="/files/{fileId:[a-zA-Z]\\d{3}}", method=RequestMethod.GET)
-	public String fileInfo(@PathVariable String fileId) {
+	public String fileInfo(@PathVariable String fileId) throws NoFileInfoException {
+		FileInfo fileInfo = getFileInfo(fileId);
+		if (fileInfo == null) {
+			throw new NoFileInfoException();
+		}
 		return "files/fileInfo";
+	}
+
+	private FileInfo getFileInfo(String fileId) {
+		return null;
 	}
 
 	@RequestMapping(value="/files/{fileId:[a-zA-Z]\\d{3}}", method=RequestMethod.POST)

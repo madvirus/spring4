@@ -20,7 +20,7 @@
 
 	<bean class="net.madvirus.spring4.chap07.event.EventController" />
 	<bean class="net.madvirus.spring4.chap07.event.EventCreationController" />
-	
+
 	<bean class="net.madvirus.spring4.chap07.member.RegistrationController">
 		<property name="memberService" ref="memberService" />
 	</bean>
@@ -31,7 +31,7 @@
 	<bean class="net.madvirus.spring4.chap07.member.MemberModificationController">
 		<property name="memberService" ref="memberService" />
 	</bean>
-	
+
 	<bean class="net.madvirus.spring4.chap07.file.FileController" />
 	<bean class="net.madvirus.spring4.chap07.search.SearchController" />
 	<bean class="net.madvirus.spring4.chap07.etc.SimpleHeaderController" />
@@ -47,6 +47,10 @@
 	<bean class="net.madvirus.spring4.chap07.auth.LoginController">
 		<property name="authenticator" ref="authenticator" />
 	</bean>
+
+	<bean class="net.madvirus.spring4.chap07.calculator.CalculationController" />
+
+	<bean class="net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler" />
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

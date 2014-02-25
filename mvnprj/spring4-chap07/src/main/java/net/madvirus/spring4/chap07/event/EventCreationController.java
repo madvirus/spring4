@@ -1,7 +1,5 @@
 package net.madvirus.spring4.chap07.event;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,15 +19,12 @@ public class EventCreationController {
 	private static final String EVENT_CREATION_STEP3 = "event/creationStep3";
 	private static final String EVENT_CREATION_DONE = "event/creationDone";
 
-	/*
-	@RequestMapping("/newevent/step1")
-	public String step1(HttpSession session, Model model) {
-		if (session.getAttribute("eventForm") == null)
-			model.addAttribute("eventForm", new EventForm());
-		return EVENT_CREATION_STEP1;
-	}
-	*/
-	
+//	@RequestMapping("/newevent/step1")
+//	public String step1(Model model) {
+//		model.addAttribute("eventForm", new EventForm());
+//		return EVENT_CREATION_STEP1;
+//	}
+
 	@ModelAttribute("eventForm")
 	public EventForm formData() {
 		return new EventForm();

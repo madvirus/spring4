@@ -1,7 +1,7 @@
 package net.madvirus.spring4.chap07.event;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+//import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;

@@ -4,8 +4,11 @@ import net.madvirus.spring4.chap07.ac.ACLController;
 import net.madvirus.spring4.chap07.ac.AclService;
 import net.madvirus.spring4.chap07.auth.Authenticator;
 import net.madvirus.spring4.chap07.auth.LoginController;
+import net.madvirus.spring4.chap07.calculator.CalculationController;
 import net.madvirus.spring4.chap07.etc.SimpleHeaderController;
 import net.madvirus.spring4.chap07.event.EventController;
+import net.madvirus.spring4.chap07.event.EventCreationController;
+import net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler;
 import net.madvirus.spring4.chap07.file.FileController;
 import net.madvirus.spring4.chap07.member.MemberController;
 import net.madvirus.spring4.chap07.member.MemberModificationController;
@@ -20,6 +23,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -30,6 +34,11 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/index").setViewName("index");
 	}
 
 	@Bean
@@ -48,6 +57,11 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public EventController eventController() {
 		return new EventController();
+	}
+
+	@Bean
+	public EventCreationController eventCreationController() {
+		return new EventCreationController();
 	}
 
 	@Bean
@@ -108,6 +122,16 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 		LoginController result = new LoginController();
 		result.setAuthenticator(authenticator());
 		return result;
+	}
+
+	@Bean
+	public CalculationController calculationController() {
+		return new CalculationController();
+	}
+
+	@Bean
+	public CommonExceptionHandler commonExceptionHandler() {
+		return new CommonExceptionHandler();
 	}
 
 	@Bean

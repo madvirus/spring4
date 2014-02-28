@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!-- mvc:annotation-driven 태그가 생성하는 빈 설정 시작 -->
+	<bean id="mvcContentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="mediaTypes">
+			<props>
+				<!-- ROME가 존재하면 -->
+<!-- 				<prop key="atom">application/atom+xml</prop> -->
+<!-- 				<prop key="rss">application/rss+xml</prop> -->
+				<!-- Jackson2가 존재하면 -->
+<!-- 				<prop key="json">application/json</prop> -->
+				<!-- JAXB2가 존재하면, -->
+<!-- 				<prop key="xml">application/xml</prop> -->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="formattingConversionService" 
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	</bean>
+	
+	<bean id="optionalValidatorFactoryBean" 
+		class="org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean">
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="order" value="0" />
+		<property name="contentNegotiationManager" ref="mvcContentNegotiationManager" />
+	</bean>
+	
+	<bean id="configurableWebBindingInitializer" 
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+		<property name="conversionService" ref="formattingConversionService" />
+		<property name="validator" ref="optionalValidatorFactoryBean" />
+		<property name="messageCodeResolver"><null/></property>
+	</bean>
+	
+	<util:list id="messageConverters">
+		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+			<property name="writeAcceptCharset" value="false" />
+		</bean>
+		<bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+		<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+		<bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter" />
+		<!-- ROME가 존재하면 -->
+<!-- 		<bean class="org.springframework.http.converter.feed.AtomFeedHttpMessageConverter" /> -->
+<!-- 		<bean class="org.springframework.http.converter.feed.RssChannelHttpMessageConverter" /> -->
+		<!-- JAXB2가 존재하면 -->
+<!-- 		<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" /> -->
+		<!-- Jackson2가 존재하면 -->
+<!-- 		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" /> -->
+	</util:list>
+	
+	<bean id="requestMappingHandlerAdapter" 
+			class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="contentNegotiationManager" ref="mvcContentNegotiationManager" />
+		<property name="webBindingInitializer" ref="configurableWebBindingInitializer" />
+		<property name="messageConverters" ref="messageConverters" />
+	</bean>
+
+	<bean id="mvcUriComponentsContributor" 
+			class="org.springframework.web.servlet.config.AnnotationDrivenBeanDefinitionParser.CompositeUriComponentsContributorFactoryBean">
+		<property name="handlerAdapter" ref="requestMappingHandlerAdapter" />
+		<property name="conversionService" ref="formattingConversionService" />
+	</bean>
+
+	<bean class="org.springframework.web.servlet.handler.MappedInterceptor">
+		<constructor-arg><null /></constructor-arg>
+		<constructor-arg>
+			<bean class="org.springframework.web.servlet.handler.ConversionServiceExposingInterceptor">
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
+		<property name="contentNegotiationManager" ref="mvcContentNegotiationManager" />
+		<property name="messageConverters" ref="messageConverters" />
+		<property name="order" ref="0" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver">
+		<property name="order" ref="1" />
+	</bean>
+		
+	<bean class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver">
+		<property name="order" ref="2" />
+	</bean>
+	<!-- mvc:annotation-driven 태그가 생성하는 빈 설정 끝 -->	
+
+	
+	<!-- mvc:default-servlet-handler 태그가 생성하는 빈 설정 시작 -->
+	<bean id="defaultServletHttpRequestHandler" 
+		class="org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler">
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="urlMap">
+			<map>
+				<entry key="/**" value-ref="defaultServletHttpRequestHandler" />
+			</map>
+		</property>
+	</bean>
+	<!-- mvc:default-servlet-handler 태그가 생성하는 빈 설정 끝 -->
+
+	
+	<!-- mvc:view-controller 태그가 생성하는 빈 설정 시작 -->
+	<!-- mvc:view-controller를 위한 SimpleUrlHandlerMapping -->
+	<bean name="org.springframework.web.servlet.config.viewControllerHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order" value="1" />
+		<property name="urlMap">
+			<map>
+				<!-- mvc:view-controller 마다 한 개의 entry 생성 -->
+				<entry key="path값">
+					<bean class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+						<property name="viewName" value="view-name값" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<!-- mvc:view-controller 태그가 생성하는 빈 설정 끝 -->
+	
+	<!-- mvc 어노테이션에 의해 추가로 등록되는 빈들 -->
+	<bean id="BeanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="order" value="2" />
+	</bean>
+	
+	<bean id="HttpRequestHandlerAdapter" class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter">
+	</bean>
+	
+	<bean id="SimpleControllerHandlerAdapter" class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter">
+	</bean>
+	<!-- mvc 어노테이션에 의해 추가로 등록되는 빈들 -->
+	
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="memberService" class="net.madvirus.spring4.chap07.member.MemberService" />
+
+	<bean class="net.madvirus.spring4.chap07.event.EventController" />
+	<bean class="net.madvirus.spring4.chap07.event.EventCreationController" />
+
+	<bean class="net.madvirus.spring4.chap07.member.RegistrationController">
+		<property name="memberService" ref="memberService" />
+	</bean>
+	<bean class="net.madvirus.spring4.chap07.member.MemberController">
+		<property name="memberService" ref="memberService" />
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap07.member.MemberModificationController">
+		<property name="memberService" ref="memberService" />
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap07.file.FileController" />
+	<bean class="net.madvirus.spring4.chap07.search.SearchController" />
+	<bean class="net.madvirus.spring4.chap07.etc.SimpleHeaderController" />
+
+	<bean id="aclService" class="net.madvirus.spring4.chap07.ac.AclService" />
+	<bean class="net.madvirus.spring4.chap07.ac.ACLController">
+		<property name="aclService" ref="aclService" />
+	</bean>
+
+	<bean id="authenticator" class="net.madvirus.spring4.chap07.auth.Authenticator">
+		<constructor-arg ref="memberService" />
+	</bean>
+	<bean class="net.madvirus.spring4.chap07.auth.LoginController">
+		<property name="authenticator" ref="authenticator" />
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap07.calculator.CalculationController" />
+
+	<bean class="net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler" />
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message.error</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+</beans>

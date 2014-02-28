@@ -7,8 +7,11 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+	</mvc:annotation-driven>
+	
 	<mvc:default-servlet-handler />
+	
 	<mvc:view-controller path="/index" view-name="index"/>
 
 	<bean id="viewResolver"

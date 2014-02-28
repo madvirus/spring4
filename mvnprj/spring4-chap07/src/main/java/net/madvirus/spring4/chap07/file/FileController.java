@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FileController {
 
-	@RequestMapping(value="/files/{fileId:[a-zA-Z]\\d{3}}", method=RequestMethod.GET)
+	@RequestMapping(value = "/files/{fileId:[a-zA-Z]\\d{3}}", method = RequestMethod.GET)
 	public String fileInfo(@PathVariable String fileId) throws NoFileInfoException {
 		FileInfo fileInfo = getFileInfo(fileId);
 		if (fileInfo == null) {
@@ -21,14 +21,16 @@ public class FileController {
 	}
 
 	private FileInfo getFileInfo(String fileId) {
-		return null;
+		if ("a111".equals(fileId))
+			return null;
+		return new FileInfo(fileId);
 	}
 
-	@RequestMapping(value="/files/{fileId:[a-zA-Z]\\d{3}}", method=RequestMethod.POST)
+	@RequestMapping(value = "/files/{fileId:[a-zA-Z]\\d{3}}", method = RequestMethod.POST)
 	public String updateFile(@PathVariable String fileId) {
 		return "redirect:/files/{fileId}";
 	}
-	
+
 	@RequestMapping("/files/?*.download")
 	public String fileInfo(HttpServletRequest request) {
 		return "files/fileDownload";
@@ -48,5 +50,5 @@ public class FileController {
 		}
 		return "files/filesInFolder";
 	}
-	
+
 }

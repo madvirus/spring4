@@ -49,25 +49,24 @@ org.springframework.web.context.support.AnnotationConfigWebApplicationContext
 	<servlet>
 		<servlet-name>dispatcher3</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-<!-- 		<init-param> -->
-<!-- 			<param-name>contextConfigLocation</param-name> -->
-<!-- 			<param-value> -->
-<!-- 				/WEB-INF/sample.xml -->
-<!-- 			</param-value> -->
-<!-- 		</init-param> -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				net.madvirus.spring4.chap07.config.SampleConfig
+				/WEB-INF/sample.xml
 			</param-value>
 		</init-param>
-		<init-param>
-			<param-name>contextClass</param-name>
-			<param-value>
-org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-        	</param-value>
-		</init-param>
-
+<!-- 		<init-param> -->
+<!-- 			<param-name>contextConfigLocation</param-name> -->
+<!-- 			<param-value> -->
+<!-- 				net.madvirus.spring4.chap07.config.SampleConfig -->
+<!-- 			</param-value> -->
+<!-- 		</init-param> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>contextClass</param-name> -->
+<!-- 			<param-value> -->
+<!-- org.springframework.web.context.support.AnnotationConfigWebApplicationContext -->
+<!--         	</param-value> -->
+<!-- 		</init-param> -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 

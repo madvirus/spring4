@@ -113,7 +113,6 @@
 
 	
 	<!-- mvc:view-controller 태그가 생성하는 빈 설정 시작 -->
-	<!-- mvc:view-controller를 위한 SimpleUrlHandlerMapping -->
 	<bean name="org.springframework.web.servlet.config.viewControllerHandlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order" value="1" />
@@ -129,6 +128,29 @@
 		</property>
 	</bean>
 	<!-- mvc:view-controller 태그가 생성하는 빈 설정 끝 -->
+
+
+	<!-- mvc:resources 설정 시작 -->
+	<!-- mvc:resources 마다 -->
+	<bean id="resourceHttpRequestHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
+		<property name="locations">
+			<list>
+				<value>location 속성 콤마로 분리한 목록</value>
+			</list>
+		</property>
+		<property name="cacheSeconds" value="cache-period의 값" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="urlMap">
+			<map>
+				<entry key="mapping값" value-ref="resourceHttpRequestHandler" />
+			</map>
+		</property>
+		<property name="order" value="order속성 값" />
+	</bean>
+	<!-- mvc:resources 설정 끝 -->
+	
 	
 	<!-- mvc 어노테이션에 의해 추가로 등록되는 빈들 -->
 	<bean id="BeanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
@@ -142,7 +164,6 @@
 	</bean>
 	<!-- mvc 어노테이션에 의해 추가로 등록되는 빈들 -->
 	
-
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />

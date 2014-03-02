@@ -5,6 +5,7 @@ import net.madvirus.spring4.chap07.ac.AclService;
 import net.madvirus.spring4.chap07.auth.Authenticator;
 import net.madvirus.spring4.chap07.auth.LoginController;
 import net.madvirus.spring4.chap07.calculator.CalculationController;
+import net.madvirus.spring4.chap07.common.MeasuringInterceptor;
 import net.madvirus.spring4.chap07.etc.SimpleHeaderController;
 import net.madvirus.spring4.chap07.event.EventController;
 import net.madvirus.spring4.chap07.event.EventCreationController;
@@ -23,6 +24,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -45,8 +47,19 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/images/**")
-			.addResourceLocations("/images/", "/WEB-INF/resources/")
-			.setCachePeriod(60);
+				.addResourceLocations("/images/", "/WEB-INF/resources/")
+				.setCachePeriod(60);
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(measuringInterceptor())
+				.addPathPatterns("/event/**", "/folders/**");
+	}
+
+	@Bean
+	public MeasuringInterceptor measuringInterceptor() {
+		return new MeasuringInterceptor();
 	}
 
 	@Bean

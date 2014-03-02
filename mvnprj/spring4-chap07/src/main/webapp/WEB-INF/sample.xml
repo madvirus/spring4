@@ -7,13 +7,21 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<mvc:annotation-driven>
-	</mvc:annotation-driven>
+	<mvc:annotation-driven />
+	
 	<mvc:default-servlet-handler />
 
 	<mvc:view-controller path="/index" view-name="index"/>
 
 	<mvc:resources mapping="/images/**" location="/images/, /WEB-INF/resources/" cache-period="60"/>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/event/**"/>
+			<mvc:mapping path="/folders/**"/>
+			<bean class="net.madvirus.spring4.chap07.common.MeasuringInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

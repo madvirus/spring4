@@ -19,5 +19,9 @@
 <input type="submit" value="로그인">
 
 </form:form>
+
+<ul>
+	<li>이메일/암호로 yuna@yuna.com/yuna 입력 또는 sanghwa@sanghwa.com/sanghwa 로 테스트</li>
+</ul>
 </body>
 </html>

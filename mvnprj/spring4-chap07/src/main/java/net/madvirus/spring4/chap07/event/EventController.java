@@ -47,7 +47,7 @@ public class EventController {
 	}
 
 	@RequestMapping("/detail")
-	public String list(HttpServletRequest request, Model model) throws IOException {
+	public String detail(HttpServletRequest request, Model model) throws IOException {
 		String id = request.getParameter("id");
 		if (id == null)
 			return REDIRECT_EVENT_LIST;
@@ -80,7 +80,7 @@ public class EventController {
 	}
 
 	@RequestMapping("/detail2")
-	public String list2(@RequestParam("id") long eventId, Model model) {
+	public String detail2(@RequestParam("id") long eventId, Model model) {
 		Event event = getEvent(eventId);
 		if (event == null)
 			return REDIRECT_EVENT_LIST;

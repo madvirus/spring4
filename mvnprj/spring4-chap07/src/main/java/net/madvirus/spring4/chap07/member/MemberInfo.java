@@ -39,7 +39,6 @@ public class MemberInfo {
 	}
 
 	public boolean matchPassword(String inputPassword) {
-		System.out.printf("암호 검사 = [%s] = [%s]\n", password, inputPassword);
 		return password.equals(inputPassword);
 	}
 

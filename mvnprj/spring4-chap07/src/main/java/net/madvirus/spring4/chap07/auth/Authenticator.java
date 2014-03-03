@@ -15,7 +15,7 @@ public class Authenticator {
 		MemberInfo mi = memberService.getMemberInfoByEmail(email);
 		if (mi == null)
 			throw new AuthenticationException();
-		if (mi.matchPassword(password))
+		if (!mi.matchPassword(password))
 			throw new AuthenticationException();
 
 		return new Auth(mi.getId(), mi.getName());

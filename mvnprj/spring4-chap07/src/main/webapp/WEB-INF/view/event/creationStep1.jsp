@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>이벤트 생성</title>
+<title>이벤트 생성: ${project}</title>
 </head>
 <body>
 

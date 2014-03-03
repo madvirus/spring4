@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>권한 목록</title>
+<title>권한 목록: ${project}</title>
 </head>
 <body>
 

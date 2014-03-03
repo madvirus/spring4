@@ -4,12 +4,15 @@ import net.madvirus.spring4.chap07.ac.ACLController;
 import net.madvirus.spring4.chap07.ac.AclService;
 import net.madvirus.spring4.chap07.auth.Authenticator;
 import net.madvirus.spring4.chap07.auth.LoginController;
+import net.madvirus.spring4.chap07.auth.LogoutController;
 import net.madvirus.spring4.chap07.calculator.CalculationController;
+import net.madvirus.spring4.chap07.common.AuthInterceptor;
+import net.madvirus.spring4.chap07.common.CommonModelInterceptor;
 import net.madvirus.spring4.chap07.common.MeasuringInterceptor;
 import net.madvirus.spring4.chap07.etc.SimpleHeaderController;
 import net.madvirus.spring4.chap07.event.EventController;
 import net.madvirus.spring4.chap07.event.EventCreationController;
-import net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler;
+//import net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler;
 import net.madvirus.spring4.chap07.file.FileController;
 import net.madvirus.spring4.chap07.member.MemberController;
 import net.madvirus.spring4.chap07.member.MemberModificationController;
@@ -33,7 +36,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 public class SampleConfig extends WebMvcConfigurerAdapter {
-
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
@@ -53,13 +55,21 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(measuringInterceptor())
-				.addPathPatterns("/event/**", "/folders/**");
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/acl/**");
+		registry.addInterceptor(measuringInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(commonModelInterceptor())
+				.addPathPatterns("/acl/**", "/header/**", "/newevent/**")
+				.excludePathPatterns("/acl/modify");
 	}
 
 	@Bean
 	public MeasuringInterceptor measuringInterceptor() {
 		return new MeasuringInterceptor();
+	}
+
+	@Bean
+	public CommonModelInterceptor commonModelInterceptor() {
+		return new CommonModelInterceptor();
 	}
 
 	@Bean
@@ -146,14 +156,19 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
+	public LogoutController logoutController() {
+		return new LogoutController();
+	}
+
+	@Bean
 	public CalculationController calculationController() {
 		return new CalculationController();
 	}
 
-	@Bean
-	public CommonExceptionHandler commonExceptionHandler() {
-		return new CommonExceptionHandler();
-	}
+	// @Bean
+	// public CommonExceptionHandler commonExceptionHandler() {
+	// return new CommonExceptionHandler();
+	// }
 
 	@Bean
 	public MessageSource messageSource() {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+<!-- 				<bean class="net.madvirus.spring4.chap05.MoneyGenericConverter" /> -->
+				<bean class="net.madvirus.spring4.chap05.StringToMoneyConverter" />
+				<bean class="net.madvirus.spring4.chap05.StringToDateConverter">
+					<property name="pattern" value="yyyy-MM-dd HH:mm:ss" />
+				</bean>
+			</set>
+		</property>
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap05.RestClient">
+		<property name="serverUrl"
+			value="https://www.googleapis.com/language/translate/v2" />
+		<property name="apiDate" value="2010-03-01 09:30:00" />
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap05.InvestmentSimulator">
+		<property name="minimumAmount" value="10000WON" />
+	</bean>
+</beans>

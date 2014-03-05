@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="net.madvirus.spring4.chap05.Money"
+					value="net.madvirus.spring4.chap05.MoneyEditor2" />
+			</map>
+		</property>
+		<property name="propertyEditorRegistrars">
+			<list>
+				<ref bean="customPropertyEditorRegistrar"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="customPropertyEditorRegistrar" class="net.madvirus.spring4.chap05.CustomPropertyEditorRegistrar">
+		<property name="datePattern" value="yyyy-MM-dd HH:mm:ss" />
+	</bean>
+	
+	<bean class="net.madvirus.spring4.chap05.RestClient">
+		<property name="serverUrl"
+			value="https://www.googleapis.com/language/translate/v2" />
+		<property name="apiDate" value="2010-03-01 09:30:00" />
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap05.InvestmentSimulator">
+		<property name="minimumAmount" value="10000WON" />
+	</bean>
+</beans>

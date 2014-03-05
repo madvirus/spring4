@@ -40,7 +40,7 @@
 		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
 		<property name="conversionService" ref="formattingConversionService" />
 		<property name="validator" ref="optionalValidatorFactoryBean" />
-		<property name="messageCodeResolver"><null/></property>
+		<property name="messageCodesResolver"><null/></property>
 	</bean>
 	
 	<util:list id="messageConverters">
@@ -77,6 +77,7 @@
 		<constructor-arg><null /></constructor-arg>
 		<constructor-arg>
 			<bean class="org.springframework.web.servlet.handler.ConversionServiceExposingInterceptor">
+				<constructor-arg ref="formattingConversionService"/>
 			</bean>
 		</constructor-arg>
 	</bean>
@@ -84,15 +85,15 @@
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
 		<property name="contentNegotiationManager" ref="mvcContentNegotiationManager" />
 		<property name="messageConverters" ref="messageConverters" />
-		<property name="order" ref="0" />
+		<property name="order" value="0" />
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver">
-		<property name="order" ref="1" />
+		<property name="order" value="1" />
 	</bean>
 		
 	<bean class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver">
-		<property name="order" ref="2" />
+		<property name="order" value="2" />
 	</bean>
 	<!-- mvc:annotation-driven 태그가 생성하는 빈 설정 끝 -->	
 
@@ -108,6 +109,7 @@
 				<entry key="/**" value-ref="defaultServletHttpRequestHandler" />
 			</map>
 		</property>
+		<property name="order" value="2147483647" />
 	</bean>
 	<!-- mvc:default-servlet-handler 태그가 생성하는 빈 설정 끝 -->
 
@@ -119,9 +121,9 @@
 		<property name="urlMap">
 			<map>
 				<!-- mvc:view-controller 마다 한 개의 entry 생성 -->
-				<entry key="path값">
+				<entry key="/index">
 					<bean class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-						<property name="viewName" value="view-name값" />
+						<property name="viewName" value="index" />
 					</bean>
 				</entry>
 			</map>
@@ -135,22 +137,67 @@
 	<bean id="resourceHttpRequestHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
 		<property name="locations">
 			<list>
-				<value>location 속성 콤마로 분리한 목록</value>
+				<value>/images/</value>
+				<value>/WEB-INF/resources/</value>
 			</list>
 		</property>
-		<property name="cacheSeconds" value="cache-period의 값" />
+		<property name="cacheSeconds" value="60" />
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<map>
-				<entry key="mapping값" value-ref="resourceHttpRequestHandler" />
+				<entry key="/images/**" value-ref="resourceHttpRequestHandler" />
 			</map>
 		</property>
-		<property name="order" value="order속성 값" />
+		<property name="order" value="2147483646" />
 	</bean>
 	<!-- mvc:resources 설정 끝 -->
+
+
+	<!-- mvc:interceptors 설정 시작 -->
+	<bean class="org.springframework.web.servlet.handler.MappedInterceptor">
+		<constructor-arg>
+			<list>
+				<value>/acl/**</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg>
+			<list></list>
+		</constructor-arg>
+		<constructor-arg>
+			<bean class="net.madvirus.spring4.chap07.common.AuthInterceptor" />
+		</constructor-arg>
+	</bean>
 	
+	<bean class="org.springframework.web.servlet.handler.MappedInterceptor">
+		<constructor-arg><null /></constructor-arg>
+		<constructor-arg><null /></constructor-arg>
+		<constructor-arg>
+			<bean class="net.madvirus.spring4.chap07.common.MeasuringInterceptor" />
+		</constructor-arg>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.handler.MappedInterceptor">
+		<constructor-arg>
+			<list>
+				<value>/acl/**</value>
+				<value>/header/**</value>
+				<value>/newevent/**</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg>
+			<list>
+				<value>/acl/modify</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="commonModelInterceptor" />
+		</constructor-arg>
+	</bean>
+	<!-- mvc:interceptors 설정 끝 -->	
+	<bean id="commonModelInterceptor"
+		class="net.madvirus.spring4.chap07.common.CommonModelInterceptor" />
 	
 	<!-- mvc 어노테이션에 의해 추가로 등록되는 빈들 -->
 	<bean id="BeanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">

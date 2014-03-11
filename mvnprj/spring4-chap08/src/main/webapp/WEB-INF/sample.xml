@@ -11,6 +11,18 @@
 
 	<mvc:default-servlet-handler />
 
+	<bean class="net.madvirus.spring4.chap08.quickstart.HelloController" />
+
+	<bean class="net.madvirus.spring4.chap08.auth.LoginController">
+		<property name="authenticator" ref="authenticator" />
+	</bean>
+
+	<bean id="authenticator" class="net.madvirus.spring4.chap08.auth.Authenticator">
+		<constructor-arg ref="memberService" />
+	</bean>
+
+	<bean id="memberService" class="net.madvirus.spring4.chap08.member.MemberService" />
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
@@ -22,6 +34,7 @@
 		<property name="basenames">
 			<list>
 				<value>message.error</value>
+				<value>message.label</value>
 			</list>
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />

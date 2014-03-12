@@ -12,7 +12,12 @@ public class MemberRegistRequest {
 	private String confirmPassword;
 	private boolean allowNoti;
 	private Address address;
+	@DateTimeFormat(pattern = "yyyyMMdd")
 	private Date birthday;
+	private String jobCode;
+	private String[] favoriteOs;
+	private String tool;
+	private String etc;
 
 	public String getEmail() {
 		return email;
@@ -76,15 +81,40 @@ public class MemberRegistRequest {
 		return birthday;
 	}
 
-	@DateTimeFormat(pattern="yyyyMMdd")
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberRegistRequest [email=" + email + ", name=" + name + ", password=" + password + ", confirmPassword=" + confirmPassword + ", allowNoti="
-				+ allowNoti + "]";
+	public String getJobCode() {
+		return jobCode;
+	}
+
+	public void setJobCode(String jobCode) {
+		this.jobCode = jobCode;
+	}
+
+	public String[] getFavoriteOs() {
+		return favoriteOs;
+	}
+
+	public void setFavoriteOs(String[] favoriteOs) {
+		this.favoriteOs = favoriteOs;
+	}
+
+	public String getTool() {
+		return tool;
+	}
+
+	public void setTool(String tool) {
+		this.tool = tool;
+	}
+
+	public String getEtc() {
+		return etc;
+	}
+
+	public void setEtc(String etc) {
+		this.etc = etc;
 	}
 
 }

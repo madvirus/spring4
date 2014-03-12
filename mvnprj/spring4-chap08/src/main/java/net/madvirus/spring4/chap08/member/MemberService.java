@@ -20,19 +20,6 @@ public class MemberService {
 		return memberMap.get(memberId);
 	}
 
-	public void modifyMemberInfo(MemberModRequest modReq) {
-		MemberInfo mi = memberMap.get(modReq.getId());
-		if (mi == null)
-			throw new MemberNotFoundException();
-		if (!mi.matchPassword(modReq.getCurrentPassword()))
-			throw new NotMatchPasswordException();
-
-		mi.setEmail(modReq.getEmail());
-		mi.setName(modReq.getName());
-		mi.setAllowNoti(modReq.isAllowNoti());
-		mi.setAddress(modReq.getAddress());
-	}
-
 	public List<MemberInfo> getMembers() {
 		return new ArrayList<MemberInfo>(memberMap.values());
 	}

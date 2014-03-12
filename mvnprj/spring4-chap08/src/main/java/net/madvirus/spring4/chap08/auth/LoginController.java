@@ -1,5 +1,8 @@
 package net.madvirus.spring4.chap08.auth;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,8 +22,18 @@ public class LoginController {
 	private static final String LOGIN_FORM = "auth/loginForm";
 	private Authenticator authenticator;
 
+	@ModelAttribute("loginTypes")
+	protected List<String> referenceData() {
+		List<String> loginTypes = new ArrayList<String>();
+		loginTypes.add("일반회원");
+		loginTypes.add("기업회원");
+		loginTypes.add("헤드헌터회원");
+		return loginTypes;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String loginForm(LoginCommand loginCommand) {
+		loginCommand.setSecurityLevel(SecurityLevel.HIGH);
 		return LOGIN_FORM;
 	}
 

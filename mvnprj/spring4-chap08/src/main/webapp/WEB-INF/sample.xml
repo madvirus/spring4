@@ -23,6 +23,10 @@
 
 	<bean id="memberService" class="net.madvirus.spring4.chap08.member.MemberService" />
 
+	<bean class="net.madvirus.spring4.chap08.member.RegistrationController">
+		<property name="memberService" ref="memberService" />
+	</bean>
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />

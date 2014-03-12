@@ -13,7 +13,7 @@
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="formatters">
 			<set>
-				<bean class="net.madvirus.spring4.chap05.MoneyFormatter" />
+				<bean class="net.madvirus.spring4.chap07.common.MoneyFormatter" />
 			</set>
 		</property>
 	</bean>

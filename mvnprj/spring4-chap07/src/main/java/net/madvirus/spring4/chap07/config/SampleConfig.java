@@ -9,6 +9,7 @@ import net.madvirus.spring4.chap07.calculator.CalculationController;
 import net.madvirus.spring4.chap07.common.AuthInterceptor;
 import net.madvirus.spring4.chap07.common.CommonModelInterceptor;
 import net.madvirus.spring4.chap07.common.MeasuringInterceptor;
+import net.madvirus.spring4.chap07.common.MoneyFormatter;
 import net.madvirus.spring4.chap07.etc.SimpleHeaderController;
 import net.madvirus.spring4.chap07.event.EventController;
 import net.madvirus.spring4.chap07.event.EventCreationController;
@@ -24,6 +25,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -39,6 +41,11 @@ public class SampleConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addFormatter(new MoneyFormatter());
 	}
 
 	@Override

@@ -57,18 +57,20 @@
 		<form:options items="${jobCodes}" itemLabel="label" itemValue="code" />
 	</form:select>
 </p>
-
 <p>
 	<form:label path="favoriteOs">선호 OS</form:label>
 	<form:checkboxes items="${favoriteOsNames}" path="favoriteOs"/>
 	<form:errors path="favoriteOs" />
 </p>
-
 <p>
 	<form:label path="tool">주로 사용하는 개발툴</form:label>
 	<form:radiobuttons items="${tools}" path="tool" />
 </p>
-
+<p>
+	<form:label path="allowance">용돈</form:label>: 형식: 2000WON, 10000USD
+	<form:input path="allowance" />
+	<form:errors path="allowance" />
+</p>
 <p>
 	<form:label path="etc">기타</form:label>
 	<form:textarea path="etc" cols="20" rows="3"/>

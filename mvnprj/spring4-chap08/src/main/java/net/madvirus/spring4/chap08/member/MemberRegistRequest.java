@@ -2,6 +2,8 @@ package net.madvirus.spring4.chap08.member;
 
 import java.util.Date;
 
+import net.madvirus.spring4.chap08.common.Money;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class MemberRegistRequest {
@@ -18,6 +20,7 @@ public class MemberRegistRequest {
 	private String[] favoriteOs;
 	private String tool;
 	private String etc;
+	private Money allowance;
 
 	public String getEmail() {
 		return email;
@@ -115,6 +118,14 @@ public class MemberRegistRequest {
 
 	public void setEtc(String etc) {
 		this.etc = etc;
+	}
+
+	public Money getAllowance() {
+		return allowance;
+	}
+
+	public void setAllowance(Money allowance) {
+		this.allowance = allowance;
 	}
 
 }

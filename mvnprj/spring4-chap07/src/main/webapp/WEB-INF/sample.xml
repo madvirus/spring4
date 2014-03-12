@@ -86,9 +86,7 @@
 
 	<bean class="net.madvirus.spring4.chap07.calculator.CalculationController" />
 
-	<!-- 
-	<bean class="net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler"/>
-	-->
+	<!-- <bean class="net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler"/> -->
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

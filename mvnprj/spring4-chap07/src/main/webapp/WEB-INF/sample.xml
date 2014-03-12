@@ -7,10 +7,17 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<mvc:annotation-driven>
-		
-	</mvc:annotation-driven>
+	<mvc:annotation-driven conversion-service="formattingConversionService" />
 
+	<bean id="formattingConversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="formatters">
+			<set>
+				<bean class="net.madvirus.spring4.chap05.MoneyFormatter" />
+			</set>
+		</property>
+	</bean>
+	
 	<mvc:default-servlet-handler />
 
 	<mvc:view-controller path="/index" view-name="index" />
@@ -79,9 +86,7 @@
 
 	<bean class="net.madvirus.spring4.chap07.calculator.CalculationController" />
 
-	<!-- 
-	<bean class="net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler"/>
-	-->
+	<!-- <bean class="net.madvirus.spring4.chap07.exhandler.CommonExceptionHandler"/> -->
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

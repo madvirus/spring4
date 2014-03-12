@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/member/regist")
 public class RegistrationController {
 	private static final String MEMBER_REGISTRATION_FORM = "member/registrationForm";
-	
+
 	private MemberService memberService;
 
 	@ModelAttribute("jobCodes")
@@ -23,19 +23,19 @@ public class RegistrationController {
 				new Code("2", "프로그래머"),
 				new Code("3", "예술가"),
 				new Code("4", "작가")
-		);
+				);
 	}
-	
+
 	@ModelAttribute("favoriteOsNames")
 	public List<String> favoriteOs() {
 		return Arrays.asList("윈도우XP", "윈도우7", "윈도우8", "맥OS", "우분투");
 	}
-	
+
 	@ModelAttribute("tools")
 	public List<String> tools() {
 		return Arrays.asList("이클립스", "인텔리J", "넷빈즈", "Vim");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String form(@ModelAttribute("memberInfo") MemberRegistRequest memRegReq) {
 		return MEMBER_REGISTRATION_FORM;

@@ -21,18 +21,18 @@
 </p>
 <p>
     <label for="loginType"><spring:message code="login.form.type" /></label>
-<%--     <form:select path="loginType" items="${loginTypes}" /> --%>
+    <form:select path="loginType" items="${loginTypes}" />
 
 <%-- 	<form:select path="loginType"> --%>
 <!-- 		<option value="">--- 선택하세요 ---</option> -->
 <%-- 		<form:options items="${loginTypes}"/> --%>
 <%-- 	</form:select> --%>
 
-	<form:select path="loginType">
-		<form:option value="일반회원" />
-		<form:option value="기업회원">기업</form:option>
-		<form:option value="헤드헌터회원" label="헤드헌터" />
-	</form:select>
+<%-- 	<form:select path="loginType"> --%>
+<%-- 		<form:option value="일반회원" /> --%>
+<%-- 		<form:option value="기업회원">기업</form:option> --%>
+<%-- 		<form:option value="헤드헌터회원" label="헤드헌터" /> --%>
+<%-- 	</form:select> --%>
 </p>
 
 <input type="submit" value="<spring:message code="login.form.login" />">

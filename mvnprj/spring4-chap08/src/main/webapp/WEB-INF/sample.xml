@@ -36,7 +36,26 @@
 		<property name="memberService" ref="memberService" />
 	</bean>
 
-	<bean id="viewResolver"
+	<bean class="net.madvirus.spring4.chap08.file.DownloadController">
+	</bean>
+
+	<bean id="download" class="net.madvirus.spring4.chap08.file.DownloadView">
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap08.stat.PageRankStatController">
+	</bean>
+
+	<bean id="pageRank" class="net.madvirus.spring4.chap08.stat.PageRankView">
+	</bean>
+
+	<bean id="pageReport" class="net.madvirus.spring4.chap08.stat.PageReportView">
+	</bean>
+
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1" />
+	</bean>
+
+	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
@@ -53,4 +72,19 @@
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
+	<bean class="net.madvirus.spring4.chap08.locale.LocaleChangeController">
+		<property name="localeResolver" ref="localeResolver" />
+	</bean>
+
+	<bean class="net.madvirus.spring4.chap08.locale.LocaleChangeController2">
+	</bean>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="language" />
+		</bean>
+	</mvc:interceptors>
 </beans>

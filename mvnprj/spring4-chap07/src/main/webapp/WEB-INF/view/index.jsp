@@ -95,7 +95,7 @@
 <li>핸들러 인터셉터
 	<ul>
 	<li>확장자 없는 모든 요청 경로: 콘솔에 실행 시간 출력됨, MeasuringInterceptor</li>
-	<li><a href="acl/list">/acl/list</a>: AuthInterceptor 적용. 로그인 전 접근하면 404 응답 화면 출력</li>
+	<li><a href="acl/list">/acl/list</a>: AuthInterceptor 적용. 로그인 전 접근하면 403 응답 화면 출력</li>
 	</ul>
 </li>
 </ul>

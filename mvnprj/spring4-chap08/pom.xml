@@ -5,7 +5,7 @@
 	<artifactId>spring4-chap08</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring4-chap07 Maven Webapp</name>
+	<name>spring4-chap08 Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<dependencies>

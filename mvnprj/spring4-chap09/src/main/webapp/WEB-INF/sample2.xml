@@ -7,21 +7,9 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<mvc:annotation-driven>
-		<!-- <mvc:message-converters> -->
-		<!-- <bean class="x.y.CustomMessageConverter"/> -->
-		<!-- </mvc:message-converters> -->
-	</mvc:annotation-driven>
+	<mvc:annotation-driven />
 
-	<mvc:default-servlet-handler />
-
-	<mvc:resources location="/js/" mapping="/js/**" />
-
-	<bean class="net.madvirus.spring4.chap09.mc.SimpleConverterController" />
-
-	<bean class="net.madvirus.spring4.chap09.gm.GuestMessageController" />
-
-	<bean class="net.madvirus.spring4.chap09.upload.UploadController" />
+	<bean class="net.madvirus.spring4.chap09.upload.UploadController2" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,8 +18,6 @@
 	</bean>
 
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="utf-8" />
-	</bean>
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 
 </beans>

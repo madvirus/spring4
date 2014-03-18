@@ -7,6 +7,28 @@
 	<display-name>spring4-chap08</display-name>
 
 	<servlet>
+		<servlet-name>dispatcher2</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/sample2.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<max-file-size>-1</max-file-size>
+			<max-request-size>-1</max-request-size>
+			<file-size-threshold>1024</file-size-threshold>
+		</multipart-config>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher2</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -15,18 +37,18 @@
 				/WEB-INF/sample.xml
 			</param-value>
 		</init-param>
-<!-- 		<init-param> -->
-<!-- 			<param-name>contextConfigLocation</param-name> -->
-<!-- 			<param-value> -->
-<!-- 				net.madvirus.spring4.chap09.config.SampleConfig -->
-<!-- 			</param-value> -->
-<!-- 		</init-param> -->
-<!-- 		<init-param> -->
-<!-- 			<param-name>contextClass</param-name> -->
-<!-- 			<param-value> -->
-<!-- org.springframework.web.context.support.AnnotationConfigWebApplicationContext -->
-<!--         	</param-value> -->
-<!-- 		</init-param> -->
+		<!-- <init-param> -->
+		<!-- <param-name>contextConfigLocation</param-name> -->
+		<!-- <param-value> -->
+		<!-- net.madvirus.spring4.chap09.config.SampleConfig -->
+		<!-- </param-value> -->
+		<!-- </init-param> -->
+		<!-- <init-param> -->
+		<!-- <param-name>contextClass</param-name> -->
+		<!-- <param-value> -->
+		<!-- org.springframework.web.context.support.AnnotationConfigWebApplicationContext -->
+		<!-- </param-value> -->
+		<!-- </init-param> -->
 
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -35,7 +57,6 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>

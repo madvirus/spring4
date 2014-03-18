@@ -30,10 +30,16 @@
 <ul>
 <li>HttpMessageConverter:
 	<ul>
-	<li><a href="mc/simple">/mc/simple</a>: 요청몸체->String / String->응답몸체, SimpleConverterController</li>
-	<li><a href="guestmessage/list.xml">/guestmessage/list.xml</a>: 자바객체->XML응답, GuestMessageController.listXml()</li>
-	<li><a href="javascript:postXml()">/guestmessage/post.xml</a>: XML요청->자바객체, GuestMessageController.postXml()</li>
-	<li><a href="guestmessage/list.json">/guestmessage/list.json</a>: 자바객체->JSON응답, GuestMessageController.listJson()</li>
+	<li><a href="mc/simple">/mc/simple</a>: 요청몸체-&gt;String / String-&gt;응답몸체, SimpleConverterController</li>
+	<li><a href="guestmessage/list.xml">/guestmessage/list.xml</a>: 자바객체-&gt;XML응답, GuestMessageController.listXml()</li>
+	<li><a href="javascript:postXml()">/guestmessage/post.xml</a>: XML요청-&gt;자바객체, GuestMessageController.postXml()</li>
+	<li><a href="guestmessage/list.json">/guestmessage/list.json</a>: 자바객체-&gt;JSON응답, GuestMessageController.listJson()</li>
+	</ul>
+</li>
+<li>파일 업로드:
+	<ul>
+	<li><a href="upload/form">/upload/form</a>: 파일 업로드 폼, UploadController</li>
+	<li><a href="upload/form.do">/upload/form.do</a>: 파일 업로드 폼(서블릿3 Part 이용), UploadController2</li>
 	</ul>
 </li>
 </ul>

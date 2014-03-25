@@ -37,10 +37,4 @@
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
 
-	<websocket:handlers>
-		<websocket:mapping handler="chatHandler" path="/chat" />
-	</websocket:handlers>
-
-	<bean id="chatHandler" class="net.madvirus.spring4.chap09.ws.ChatWebsocketHandler" />
-
 </beans>

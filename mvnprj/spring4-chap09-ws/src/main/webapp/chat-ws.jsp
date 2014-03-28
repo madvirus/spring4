@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>채팅</title>
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
@@ -9,28 +10,40 @@
 	
 	function connect() {
 		wsocket = new WebSocket("ws://localhost:8080/spring4-chap09-ws/chat-ws");
+		wsocket.onopen = onOpen;
 		wsocket.onmessage = onMessage;
 		wsocket.onclose = onClose;
+	}
+	function disconnect() {
+		wsocket.close();
+	}
+	function onOpen(evt) {
+		appendMessage("연결되었습니다.");
 	}
 	function onMessage(evt) {
 		var data = evt.data;
 		if (data.substring(0, 4) == "msg:") {
-			$("#chatMessageArea").append(data+"<br>");
-			var chatAreaHeight = $("#chatArea").height();
-			var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-			$("#chatArea").scrollTop(maxScroll);
+			appendMessage(data.substring(4))
 		}
 	}
 	function onClose(evt) {
-		console.log("close");
+		appendMessage("연결을 끊었습니다.");
 	}
 	
 	function send() {
+		var nickname = $("#nickname").val();
 		var msg = $("#message").val();
-		wsocket.send(msg);
+		wsocket.send("msg:"+nickname+":" + msg);
 		$("#message").val("");
 	}
-	
+
+	function appendMessage(msg) {
+		$("#chatMessageArea").append(msg+"<br>");
+		var chatAreaHeight = $("#chatArea").height();
+		var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
+		$("#chatArea").scrollTop(maxScroll);
+	}
+
 	$(document).ready(function() {
 		$('#message').keypress(function(event){
 			var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -40,7 +53,8 @@
 			event.stopPropagation();
 		});
 		$('#sendBtn').click(function() { send(); });
-		connect();
+		$('#enterBtn').click(function() { connect(); });
+		$('#exitBtn').click(function() { disconnect(); });
 	});
 </script>
 <style>
@@ -50,7 +64,11 @@
 </style>
 </head>
 <body>
-    <h1>chat</h1>
+	이름:<input type="text" id="nickname">
+	<input type="button" id="enterBtn" value="입장">
+	<input type="button" id="exitBtn" value="나가기">
+    
+    <h1>대화 영역</h1>
     <div id="chatArea"><div id="chatMessageArea"></div></div>
     <br/>
     <input type="text" id="message">

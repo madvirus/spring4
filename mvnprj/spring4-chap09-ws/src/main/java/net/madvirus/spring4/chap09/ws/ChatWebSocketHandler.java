@@ -28,10 +28,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		log(session.getId() + "로부터 메시지 수신: " + message.getPayload());
-		TextMessage pubMsg = new TextMessage("msg:" + session.getId() + ":" + message.getPayload());
 		for (WebSocketSession s : users.values()) {
-			s.sendMessage(pubMsg);
-			log(s.getId() + "에 메시지 발송: " + pubMsg.getPayload());
+			s.sendMessage(message);
+			log(s.getId() + "에 메시지 발송: " + message.getPayload());
 		}
 	}
 

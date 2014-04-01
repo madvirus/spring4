@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,8 @@
 	var wsocket;
 	
 	function connect() {
-		wsocket = new WebSocket("ws://localhost:8080/spring4-chap09-ws/chat-ws");
+		wsocket = new WebSocket(
+				"ws://localhost:8080/spring4-chap09-ws/chat-ws");
 		wsocket.onopen = onOpen;
 		wsocket.onmessage = onMessage;
 		wsocket.onclose = onClose;
@@ -23,7 +24,7 @@
 	function onMessage(evt) {
 		var data = evt.data;
 		if (data.substring(0, 4) == "msg:") {
-			appendMessage(data.substring(4))
+			appendMessage(data.substring(4));
 		}
 	}
 	function onClose(evt) {
@@ -68,7 +69,7 @@
 	<input type="button" id="enterBtn" value="입장">
 	<input type="button" id="exitBtn" value="나가기">
     
-    <h1>대화 영역</h1>
+    <h1>대화 영역</h1>
     <div id="chatArea"><div id="chatMessageArea"></div></div>
     <br/>
     <input type="text" id="message">

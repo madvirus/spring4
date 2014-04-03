@@ -1,0 +1,56 @@
+package net.madvirus.spring4.chap10.webconf;
+
+import javax.servlet.Filter;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
+
+public class SpringServletConfig2 extends AbstractDispatcherServletInitializer {
+	// abstract 메서드 재정의
+	@Override
+	protected WebApplicationContext createServletApplicationContext() {
+		XmlWebApplicationContext servletAppContext =
+				new XmlWebApplicationContext();
+		servletAppContext.setConfigLocation("/WEB-INF/dispatcher.xml");
+		return servletAppContext;
+	}
+
+	// 상위 클래스는 "dispatcher" 리턴
+	@Override
+	protected String getServletName() {
+		return "dispatcher2"; // 기본 값은 "dispatcher"
+	}
+
+	// abstract 메서드 재정의
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "*.do" };
+	}
+
+	// 상위 클래스는 true 리턴
+	@Override
+	protected boolean isAsyncSupported() {
+		return super.isAsyncSupported();
+	}
+
+	// abstract 메서드 재정의
+	@Override
+	protected WebApplicationContext createRootApplicationContext() {
+		XmlWebApplicationContext rootAppContext =
+				new XmlWebApplicationContext();
+		rootAppContext.setConfigLocation("/WEB-INF/root.xml");
+		return rootAppContext;
+	}
+
+	// 상위 클래스는 기본으로 null 리턴
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+		encodingFilter.setEncoding("utf-8");
+		Filter[] filters = new Filter[] { encodingFilter };
+		return filters;
+	}
+
+}

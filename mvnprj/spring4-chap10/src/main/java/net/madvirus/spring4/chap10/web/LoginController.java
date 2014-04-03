@@ -1,4 +1,4 @@
-package net.madvirus.spring4.chap01.web;
+package net.madvirus.spring4.chap10.web;
 
 import org.springframework.stereotype.Controller;
 

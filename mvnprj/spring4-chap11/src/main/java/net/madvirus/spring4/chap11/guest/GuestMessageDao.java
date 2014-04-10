@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface GuestMessageDao {
 
-	List<GuestMessage> list(int start, int size);
+	List<GuestMessage> select(int start, int size);
 
+	public int insert(GuestMessage message);
 }

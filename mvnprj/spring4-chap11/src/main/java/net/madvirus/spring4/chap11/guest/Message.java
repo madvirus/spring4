@@ -2,7 +2,7 @@ package net.madvirus.spring4.chap11.guest;
 
 import java.util.Date;
 
-public class GuestMessage {
+public class Message {
 	private int id;
 	private String name;
 	private String message;

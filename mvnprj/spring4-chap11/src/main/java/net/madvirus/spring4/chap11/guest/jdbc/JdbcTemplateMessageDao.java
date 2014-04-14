@@ -58,14 +58,12 @@ public class JdbcTemplateMessageDao implements MessageDao {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection conn)
 					throws SQLException {
-				PreparedStatement pstmt = conn
-						.prepareStatement(
+				PreparedStatement pstmt = conn.prepareStatement(
 								"insert into guestmessage (name, message, creationTime) values (?,?,?)",
 								new String[] { "id" });
 				pstmt.setString(1, message.getName());
 				pstmt.setString(2, message.getMessage());
-				pstmt.setTimestamp(3, new Timestamp(message.getCreationTime()
-						.getTime()));
+				pstmt.setTimestamp(3, new Timestamp(message.getCreationTime().getTime()));
 				return pstmt;
 			}
 		}, keyHolder);

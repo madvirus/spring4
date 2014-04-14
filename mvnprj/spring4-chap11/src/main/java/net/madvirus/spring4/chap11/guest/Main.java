@@ -10,6 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		useJdbcTemplate();
+		useJdbc();
 	}
 
 	private static void useJdbcTemplate() {
@@ -19,6 +20,11 @@ public class Main {
 
 		MessageDao messageDao = ctx.getBean("jdbcTemplateMessageDao",
 				MessageDao.class);
+		runMessageDao(messageDao);
+		ctx.close();
+	}
+
+	private static void runMessageDao(MessageDao messageDao) {
 		Message message = new Message();
 		message.setMessage("메시지");
 		message.setCreationTime(new Date());
@@ -30,6 +36,16 @@ public class Main {
 		System.out.printf("전체 개수: %d\n", count);
 		List<Message> messages = messageDao.select(0, 10);
 		System.out.printf("읽어온 메시지 개수: %d\n", messages.size());
+	}
+
+	private static void useJdbc() {
+		String configLocation = "classpath:applicationContext.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(
+				configLocation);
+
+		MessageDao messageDao = ctx.getBean("jdbcMessageDao",
+				MessageDao.class);
+		runMessageDao(messageDao);
 		ctx.close();
 	}
 

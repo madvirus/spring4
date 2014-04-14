@@ -9,4 +9,6 @@ public interface MessageDao {
 	public int counts();
 	
 	public int insert(Message message);
+	
+	public int delete(int id);
 }

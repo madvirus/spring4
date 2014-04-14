@@ -2,21 +2,20 @@ package net.madvirus.spring4.chap11.guest.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import net.madvirus.spring4.chap11.guest.Message;
+import net.madvirus.spring4.chap11.guest.MessageDao;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-
-import net.madvirus.spring4.chap11.guest.Message;
-import net.madvirus.spring4.chap11.guest.MessageDao;
 
 public class JdbcTemplateMessageDao implements MessageDao {
 	private JdbcTemplate jdbcTemplate;
@@ -25,14 +24,15 @@ public class JdbcTemplateMessageDao implements MessageDao {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	private MessageRowMapper messageRowMapper = new MessageRowMapper();
+	private RowMapper<Message> messageRowMapper = new MessageRowMapper();
+
 	@Override
 	public List<Message> select(int start, int size) {
 		List<Message> messages = jdbcTemplate.query(
 				"select * from guestmessage order by id desc limit ?, ?",
-				new Object[] { start, size }, 
+				new Object[] { start, size },
 				messageRowMapper
-		);
+				);
 		return messages;
 	}
 
@@ -50,17 +50,24 @@ public class JdbcTemplateMessageDao implements MessageDao {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection conn)
 					throws SQLException {
-				PreparedStatement pstmt = conn.prepareStatement(
+				PreparedStatement pstmt = conn
+						.prepareStatement(
 								"insert into guestmessage (name, message, creationTime) values (?,?,?)",
 								new String[] { "id" });
 				pstmt.setString(1, message.getName());
 				pstmt.setString(2, message.getMessage());
-				pstmt.setTimestamp(3, new Timestamp(message.getCreationTime().getTime()));
+				pstmt.setTimestamp(3, new Timestamp(message.getCreationTime()
+						.getTime()));
 				return pstmt;
 			}
 		}, keyHolder);
 		Number idNum = keyHolder.getKey();
 		return idNum.intValue();
+	}
+
+	@Override
+	public int delete(int id) {
+		return jdbcTemplate.update("delete from guestmessage where id = ?", id);
 	}
 
 }

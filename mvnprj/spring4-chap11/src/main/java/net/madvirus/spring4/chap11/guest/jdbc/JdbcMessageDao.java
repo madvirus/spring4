@@ -106,7 +106,8 @@ public class JdbcMessageDao implements MessageDao {
 			int insertedCount = pstmt.executeUpdate();
 			if (insertedCount > 0) {
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select last_insert_id() from guestmessage");
+				rs = stmt
+						.executeQuery("select last_insert_id() from guestmessage");
 				if (rs.next()) {
 					return rs.getInt(1);
 				}
@@ -117,6 +118,24 @@ public class JdbcMessageDao implements MessageDao {
 		} finally {
 			JdbcUtils.closeResultSet(rs);
 			JdbcUtils.closeStatement(stmt);
+			JdbcUtils.closeStatement(pstmt);
+			JdbcUtils.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public int delete(int id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "delete from guestmessage where id = ?";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			return pstmt.executeUpdate();
+		} catch (SQLException ex) {
+			throw exceptionTranslator.translate("delete", sql, ex);
+		} finally {
 			JdbcUtils.closeStatement(pstmt);
 			JdbcUtils.closeConnection(conn);
 		}

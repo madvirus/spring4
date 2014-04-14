@@ -25,22 +25,14 @@ public class JdbcTemplateMessageDao implements MessageDao {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	private MessageRowMapper messageRowMapper = new MessageRowMapper();
 	@Override
 	public List<Message> select(int start, int size) {
 		List<Message> messages = jdbcTemplate.query(
 				"select * from guestmessage order by id desc limit ?, ?",
-				new Object[] { start, size }, new RowMapper<Message>() {
-					@Override
-					public Message mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						Message m = new Message();
-						m.setId(rs.getInt("id"));
-						m.setName(rs.getString("name"));
-						m.setMessage(rs.getString("message"));
-						m.setCreationTime(rs.getTimestamp("creationTime"));
-						return m;
-					}
-				});
+				new Object[] { start, size }, 
+				messageRowMapper
+		);
 		return messages;
 	}
 

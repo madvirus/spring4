@@ -50,12 +50,9 @@ public class JdbcTemplateMessageDao implements MessageDao {
     }
 
     @Override
-    public int insert(final Message message) {
+    public int insert(Message message) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection conn)
-                    throws SQLException {
+        jdbcTemplate.update((Connection conn) -> {
                 PreparedStatement pstmt = conn
                         .prepareStatement(
                                 "insert into guestmessage (name, message, creationTime) values (?,?,?)",
@@ -66,7 +63,7 @@ public class JdbcTemplateMessageDao implements MessageDao {
                         .getTime()));
                 return pstmt;
             }
-        }, keyHolder);
+        , keyHolder);
         Number idNum = keyHolder.getKey();
         return idNum.intValue();
     }

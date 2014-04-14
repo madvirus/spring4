@@ -23,5 +23,9 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+	<bean id="namedTemlate"
+		class="net.madvirus.spring4.chap11.guest.jdbc.NamedJdbcTemplateMessageDao">
+		<constructor-arg ref="dataSource" />
+	</bean>
 </beans>
 

@@ -14,17 +14,22 @@
 		<property name="password" value="spring4" />
 	</bean>
 
+	<bean id="jdbcMessageDao" class="net.madvirus.spring4.chap11.guest.jdbc.JdbcMessageDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
 	<bean id="jdbcTemplateMessageDao"
 		class="net.madvirus.spring4.chap11.guest.jdbc.JdbcTemplateMessageDao">
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<bean id="jdbcMessageDao" class="net.madvirus.spring4.chap11.guest.jdbc.JdbcMessageDao">
-		<property name="dataSource" ref="dataSource" />
+	<bean id="namedTemlateDao"
+		class="net.madvirus.spring4.chap11.guest.jdbc.NamedJdbcTemplateMessageDao">
+		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<bean id="namedTemlate"
-		class="net.madvirus.spring4.chap11.guest.jdbc.NamedJdbcTemplateMessageDao">
+	<bean id="simpleInsertMessageDao"
+		class="net.madvirus.spring4.chap11.guest.jdbc.SimpleInsertMessageDao">
 		<constructor-arg ref="dataSource" />
 	</bean>
 </beans>

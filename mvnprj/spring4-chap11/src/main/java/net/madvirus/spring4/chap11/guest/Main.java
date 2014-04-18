@@ -12,16 +12,7 @@ public class Main {
 		useJdbc();
 		useJdbcTemplate();
 		useNamedJdbcTemplate();
-	}
-
-	private static void useNamedJdbcTemplate() {
-		String configLocation = "classpath:applicationContext.xml";
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext(
-				configLocation);
-
-		MessageDao messageDao = ctx.getBean("namedTemlate", MessageDao.class);
-		runMessageDao(messageDao);
-		ctx.close();
+		useSimpleInsert();
 	}
 
 	private static void useJdbcTemplate() {
@@ -30,6 +21,38 @@ public class Main {
 				configLocation);
 
 		MessageDao messageDao = ctx.getBean("jdbcTemplateMessageDao",
+				MessageDao.class);
+		runMessageDao(messageDao);
+		ctx.close();
+	}
+
+	private static void useNamedJdbcTemplate() {
+		String configLocation = "classpath:applicationContext.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(
+				configLocation);
+
+		MessageDao messageDao = ctx.getBean("namedTemlateDao", MessageDao.class);
+		runMessageDao(messageDao);
+		ctx.close();
+	}
+
+	private static void useJdbc() {
+		String configLocation = "classpath:applicationContext.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(
+				configLocation);
+
+		MessageDao messageDao = ctx.getBean("jdbcMessageDao",
+				MessageDao.class);
+		runMessageDao(messageDao);
+		ctx.close();
+	}
+
+	private static void useSimpleInsert() {
+		String configLocation = "classpath:applicationContext.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(
+				configLocation);
+
+		MessageDao messageDao = ctx.getBean("simpleInsertMessageDao",
 				MessageDao.class);
 		runMessageDao(messageDao);
 		ctx.close();
@@ -47,17 +70,6 @@ public class Main {
 		System.out.printf("전체 개수: %d\n", count);
 		List<Message> messages = messageDao.select(0, 10);
 		System.out.printf("읽어온 메시지 개수: %d\n", messages.size());
-	}
-
-	private static void useJdbc() {
-		String configLocation = "classpath:applicationContext.xml";
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext(
-				configLocation);
-
-		MessageDao messageDao = ctx.getBean("jdbcMessageDao",
-				MessageDao.class);
-		runMessageDao(messageDao);
-		ctx.close();
 	}
 
 }

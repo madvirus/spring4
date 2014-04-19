@@ -11,6 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 		useJdbc();
 		useJdbcTemplate();
+		useJdbcTemplate2();
 		useNamedJdbcTemplate();
 		useSimpleInsert();
 	}
@@ -26,6 +27,18 @@ public class Main {
 		ctx.close();
 	}
 
+	
+	private static void useJdbcTemplate2() {
+		String configLocation = "classpath:applicationContext.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(
+				configLocation);
+		
+		MessageDao messageDao = ctx.getBean("jdbcTemplateMessageDao2",
+				MessageDao.class);
+		runMessageDao(messageDao);
+		ctx.close();
+	}
+	
 	private static void useNamedJdbcTemplate() {
 		String configLocation = "classpath:applicationContext.xml";
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext(

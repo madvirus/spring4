@@ -23,6 +23,11 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
+	<bean id="jdbcTemplateMessageDao2"
+		class="net.madvirus.spring4.chap11.guest.jdbc.JdbcTemplateMessageDao2">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
 	<bean id="namedTemlateDao"
 		class="net.madvirus.spring4.chap11.guest.jdbc.NamedJdbcTemplateMessageDao">
 		<constructor-arg ref="dataSource" />

@@ -54,6 +54,4 @@ public class SimpleInsertMessageDao implements MessageDao {
 		return delegate.delete(id);
 	}
 
-	
-	
 }

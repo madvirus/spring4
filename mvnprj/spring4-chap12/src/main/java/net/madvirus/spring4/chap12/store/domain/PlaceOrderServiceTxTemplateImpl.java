@@ -37,17 +37,14 @@ public class PlaceOrderServiceTxTemplateImpl implements PlaceOrderService {
 			throws ItemNotFoundException {
 		return transactionTemplate
 				.execute(new TransactionCallback<PurchaseOrderResult>() {
-
 					@Override
 					public PurchaseOrderResult doInTransaction(
 							TransactionStatus status) {
 						Item item = itemDao.findById(orderRequest.getItemId());
 						if (item == null)
-							throw new ItemNotFoundException(orderRequest
-									.getItemId());
+							throw new ItemNotFoundException(orderRequest.getItemId());
 
-						PaymentInfo paymentInfo = new PaymentInfo(item
-								.getPrice());
+						PaymentInfo paymentInfo = new PaymentInfo(item.getPrice());
 						paymentInfoDao.insert(paymentInfo);
 
 						PurchaseOrder order = new PurchaseOrder(item.getId(),

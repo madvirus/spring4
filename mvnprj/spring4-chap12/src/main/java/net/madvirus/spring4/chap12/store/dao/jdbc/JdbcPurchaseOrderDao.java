@@ -15,8 +15,9 @@ public class JdbcPurchaseOrderDao implements PurchaseOrderDao {
 	private SimpleJdbcInsert insert;
 
 	public JdbcPurchaseOrderDao(DataSource dataSource) {
-		insert = new SimpleJdbcInsert(dataSource).withTableName(
-				"PURCHASE_ORDER").usingGeneratedKeyColumns("PURCHASE_ORDER_ID")
+		insert = new SimpleJdbcInsert(dataSource)
+				.withTableName("PURCHASE_ORDER")
+				.usingGeneratedKeyColumns("PURCHASE_ORDER_ID")
 				.usingColumns("ITEM_ID", "PAYMENT_INFO_ID", "ADDRESS");
 	}
 
@@ -26,7 +27,8 @@ public class JdbcPurchaseOrderDao implements PurchaseOrderDao {
 		args.put("ITEM_ID", order.getItemId());
 		args.put("PAYMENT_INFO_ID", order.getPaymentInfoId());
 		args.put("ADDRESS", order.getAddress());
-		insert.execute(args);
+		Number genId = insert.executeAndReturnKey(args);
+		order.setId(genId.intValue());
 	}
 
 }

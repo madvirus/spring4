@@ -24,7 +24,6 @@ public class JdbcItemDao implements ItemDao {
 		return jdbcTemplate.queryForObject(
 				"select * from ITEM where ITEM_ID = ?",
 				new Object[] { itemId }, new RowMapper<Item>() {
-
 					@Override
 					public Item mapRow(ResultSet rs, int row)
 							throws SQLException {

@@ -23,3 +23,6 @@ create table shop.PURCHASE_ORDER (
 ) engine=InnoDB character set = utf8;
 
 insert into shop.ITEM values (1, 15000);
+
+truncate shop.PAYMENT_INFO;
+truncate shop.PURCHASE_ORDER;

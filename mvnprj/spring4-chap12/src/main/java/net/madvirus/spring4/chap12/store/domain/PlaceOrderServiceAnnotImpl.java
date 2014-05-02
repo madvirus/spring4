@@ -34,7 +34,7 @@ public class PlaceOrderServiceAnnotImpl implements PlaceOrderService {
 
 		PaymentInfo paymentInfo = new PaymentInfo(item.getPrice());
 		paymentInfoDao.insert(paymentInfo);
-		
+
 		PurchaseOrder order = new PurchaseOrder(item.getId(), orderRequest
 				.getAddress(), paymentInfo.getId());
 		purchaseOrderDao.insert(order);

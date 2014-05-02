@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<tx:annotation-driven />
+
+	<!-- Transaction Essentials를 이용한 JtaTransactionManager 설정 -->
+	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+		init-method="init" destroy-method="shutdownForce">
+		<constructor-arg>
+			<!-- 여기에 Atomikos 프로퍼티 위치 -->
+			<props>
+				<prop key="com.atomikos.icatch.service">
+					com.atomikos.icatch.standalone.UserTransactionServiceFactory
+				</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<property name="startupTransactionService" value="false" />
+		<property name="forceShutdown" value="true" />
+	</bean>
+
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+		<property name="transactionTimeout" value="300" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
+	</bean>
+
+	<!-- XA를 위한 DataSource 설정 -->
+	<bean id="shopDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
+		<property name="uniqueResourceName" value="shopXaDs" />
+		<property name="xaDataSourceClassName"
+			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
+		<property name="xaProperties">
+			<props>
+				<prop key="user">spring4</prop>
+				<prop key="password">spring4</prop>
+				<prop key="url">jdbc:mysql://localhost/shop?characterEncoding=utf8</prop>
+				<prop key="pinGlobalTxToPhysicalConnection">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="payDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
+		<property name="uniqueResourceName" value="payXaDs" />
+		<property name="xaDataSourceClassName"
+			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
+		<property name="xaProperties">
+			<props>
+				<prop key="user">spring4</prop>
+				<prop key="password">spring4</prop>
+				<prop key="url">jdbc:mysql://localhost/shop?characterEncoding=utf8</prop>
+				<prop key="pinGlobalTxToPhysicalConnection">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="placeOrderService"
+		class="net.madvirus.spring4.chap12.store.domain.PlaceOrderServiceAnnotImpl">
+		<property name="itemDao" ref="itemDao" />
+		<property name="paymentInfoDao" ref="paymentInfoDao" />
+		<property name="purchaseOrderDao" ref="purchaseOrderDao" />
+	</bean>
+
+	<bean id="itemDao" class="net.madvirus.spring4.chap12.store.dao.jdbc.JdbcItemDao">
+		<constructor-arg>
+			<ref bean="shopDataSource" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="paymentInfoDao"
+		class="net.madvirus.spring4.chap12.store.dao.jdbc.JdbcPaymentInfoDao">
+		<constructor-arg>
+			<ref bean="payDataSource" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="purchaseOrderDao"
+		class="net.madvirus.spring4.chap12.store.dao.jdbc.JdbcPurchaseOrderDao">
+		<constructor-arg>
+			<ref bean="shopDataSource" />
+		</constructor-arg>
+	</bean>
+
+</beans>

@@ -6,7 +6,7 @@ public class AuthFailLogger {
 	private int failCounts;
 	
 	public void insertBadPw(String userId, String inputPw) {
-		System.out.printf("AuthFail [type=badpw, userid=%s, pw=%s\n", userId, inputPw);
+		System.out.printf("AuthFail [type=badpw, userid=%s, pw=%s]\n", userId, inputPw);
 		failCounts++;
 		if (threshold > 0 && failCounts > threshold) {
 			notifyTooManyFail();

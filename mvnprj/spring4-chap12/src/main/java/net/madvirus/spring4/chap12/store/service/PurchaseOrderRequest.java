@@ -1,4 +1,4 @@
-package net.madvirus.spring4.chap12.store.domain;
+package net.madvirus.spring4.chap12.store.service;
 
 public class PurchaseOrderRequest {
 

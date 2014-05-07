@@ -10,8 +10,8 @@ import net.madvirus.spring4.chap12.store.dao.PurchaseOrderDao;
 import net.madvirus.spring4.chap12.store.dao.jdbc.JdbcItemDao;
 import net.madvirus.spring4.chap12.store.dao.jdbc.JdbcPaymentInfoDao;
 import net.madvirus.spring4.chap12.store.dao.jdbc.JdbcPurchaseOrderDao;
-import net.madvirus.spring4.chap12.store.domain.PlaceOrderService;
-import net.madvirus.spring4.chap12.store.domain.PlaceOrderServiceAnnotImpl;
+import net.madvirus.spring4.chap12.store.service.PlaceOrderService;
+import net.madvirus.spring4.chap12.store.service.PlaceOrderServiceAnnotImpl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

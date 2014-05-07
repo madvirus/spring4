@@ -1,8 +1,8 @@
 package net.madvirus.spring4.chap12.main;
 
-import net.madvirus.spring4.chap12.store.domain.PlaceOrderService;
-import net.madvirus.spring4.chap12.store.domain.PurchaseOrderRequest;
-import net.madvirus.spring4.chap12.store.domain.PurchaseOrderResult;
+import net.madvirus.spring4.chap12.store.service.PlaceOrderService;
+import net.madvirus.spring4.chap12.store.service.PurchaseOrderRequest;
+import net.madvirus.spring4.chap12.store.service.PurchaseOrderResult;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

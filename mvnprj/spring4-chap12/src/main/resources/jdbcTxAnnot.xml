@@ -16,7 +16,7 @@
 	</bean>
 
 	<bean id="placeOrderService"
-		class="net.madvirus.spring4.chap12.store.domain.PlaceOrderServiceAnnotImpl">
+		class="net.madvirus.spring4.chap12.store.service.PlaceOrderServiceAnnotImpl">
 		<property name="itemDao" ref="itemDao" />
 		<property name="paymentInfoDao" ref="paymentInfoDao" />
 		<property name="purchaseOrderDao" ref="purchaseOrderDao" />

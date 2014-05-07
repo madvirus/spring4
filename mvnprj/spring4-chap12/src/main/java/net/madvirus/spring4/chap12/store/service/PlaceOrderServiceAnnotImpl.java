@@ -1,8 +1,12 @@
-package net.madvirus.spring4.chap12.store.domain;
+package net.madvirus.spring4.chap12.store.service;
 
 import net.madvirus.spring4.chap12.store.dao.ItemDao;
 import net.madvirus.spring4.chap12.store.dao.PaymentInfoDao;
 import net.madvirus.spring4.chap12.store.dao.PurchaseOrderDao;
+import net.madvirus.spring4.chap12.store.domain.Item;
+import net.madvirus.spring4.chap12.store.domain.ItemNotFoundException;
+import net.madvirus.spring4.chap12.store.domain.PaymentInfo;
+import net.madvirus.spring4.chap12.store.domain.PurchaseOrder;
 
 import org.springframework.transaction.annotation.Transactional;
 

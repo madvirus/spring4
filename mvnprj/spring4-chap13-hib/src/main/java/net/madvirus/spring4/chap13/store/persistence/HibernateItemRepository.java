@@ -17,11 +17,8 @@ public class HibernateItemRepository implements ItemRepository {
 
 	@Override
 	public Item findById(Integer itemId) {
-		Item item = (Item)sessionFactory.getCurrentSession().load(Item.class, itemId);
-		item.getPrice();
+		Item item = (Item) sessionFactory.getCurrentSession().get(Item.class, itemId);
 		return item;
-//		Item item = (Item) sessionFactory.getCurrentSession().get(Item.class, itemId);
-//		return item;
 	}
 
 }

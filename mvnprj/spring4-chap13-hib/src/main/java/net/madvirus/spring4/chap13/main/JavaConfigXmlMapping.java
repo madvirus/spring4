@@ -5,6 +5,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import net.madvirus.spring4.chap13.store.domain.ItemRepository;
+import net.madvirus.spring4.chap13.store.domain.PaymentInfoRepository;
+import net.madvirus.spring4.chap13.store.domain.PurchaseOrderRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernateItemRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernatePaymentInfoRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernatePurchaseOrderRepository;
@@ -12,17 +15,17 @@ import net.madvirus.spring4.chap13.store.service.PlaceOrderServiceImpl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableTransactionManagement
-public class JavaConfigXmlMapping implements TransactionManagementConfigurer {
+public class JavaConfigXmlMapping {
 
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
@@ -38,9 +41,13 @@ public class JavaConfigXmlMapping implements TransactionManagementConfigurer {
 		return ds;
 	}
 
-	@Override
 	@Bean
-	public PlatformTransactionManager annotationDrivenTransactionManager() {
+	public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor() {
+		return new PersistenceExceptionTranslationPostProcessor();
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
 		HibernateTransactionManager txMgr = new HibernateTransactionManager();
 		txMgr.setSessionFactory(sessionFactoryBean().getObject());
 		return txMgr;
@@ -67,21 +74,21 @@ public class JavaConfigXmlMapping implements TransactionManagementConfigurer {
 	}
 
 	@Bean
-	public HibernateItemRepository itemRepository() {
+	public ItemRepository itemRepository() {
 		HibernateItemRepository itemRepository = new HibernateItemRepository();
 		itemRepository.setSessionFactory(sessionFactoryBean().getObject());
 		return itemRepository;
 	}
 
 	@Bean
-	public HibernatePaymentInfoRepository paymentInfoRepository() {
+	public PaymentInfoRepository paymentInfoRepository() {
 		HibernatePaymentInfoRepository paymentInfoRepository = new HibernatePaymentInfoRepository();
 		paymentInfoRepository.setSessionFactory(sessionFactoryBean().getObject());
 		return paymentInfoRepository;
 	}
 
 	@Bean
-	public HibernatePurchaseOrderRepository purchaseOrderRepository() {
+	public PurchaseOrderRepository purchaseOrderRepository() {
 		HibernatePurchaseOrderRepository purchaseOrderRepository = new HibernatePurchaseOrderRepository();
 		purchaseOrderRepository.setSessionFactory(sessionFactoryBean().getObject());
 		return purchaseOrderRepository;

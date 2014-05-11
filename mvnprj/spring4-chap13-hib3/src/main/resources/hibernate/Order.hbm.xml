@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.madvirus.spring4.chap13.store.domain">
+	<class name="PaymentInfo" table="PAYMENT_INFO">
+		<id name="id" column="PAYMENT_INFO_ID">
+			<generator class="identity" />
+		</id>
+		<property name="price" column="PRICE" />
+	</class>
+
+	<class name="PurchaseOrder" table="PURCHASE_ORDER">
+		<id name="id" column="PURCHASE_ORDER_ID">
+			<generator class="identity" />
+		</id>
+		<property name="itemId" column="ITEM_ID" />
+		<property name="address" column="ADDRESS" />
+		<property name="paymentInfoId" column="PAYMENT_INFO_ID" />
+	</class>
+
+</hibernate-mapping>

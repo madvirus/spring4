@@ -5,9 +5,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import net.madvirus.spring4.chap13.store.domain.Item;
-import net.madvirus.spring4.chap13.store.domain.PaymentInfo;
-import net.madvirus.spring4.chap13.store.domain.PurchaseOrder;
 import net.madvirus.spring4.chap13.store.persistence.HibernateItemRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernatePaymentInfoRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernatePurchaseOrderRepository;
@@ -16,8 +13,8 @@ import net.madvirus.spring4.chap13.store.service.PlaceOrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -25,7 +22,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableTransactionManagement
-public class JavaConfigAnnotationMapping {
+public class JavaConfigXmlMapping {
 
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
@@ -43,9 +40,11 @@ public class JavaConfigAnnotationMapping {
 
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor() {
-		return new PersistenceExceptionTranslationPostProcessor();
+		PersistenceExceptionTranslationPostProcessor result = new PersistenceExceptionTranslationPostProcessor();
+		result.setProxyTargetClass(true);
+		return result;
 	}
-
+	
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		HibernateTransactionManager txMgr = new HibernateTransactionManager();
@@ -57,7 +56,7 @@ public class JavaConfigAnnotationMapping {
 	public LocalSessionFactoryBean sessionFactoryBean() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setAnnotatedClasses(Item.class, PaymentInfo.class, PurchaseOrder.class);
+		sessionFactoryBean.setMappingResources("hibernate/Item.hbm.xml", "hibernate/Order.hbm.xml");
 		Properties prop = new Properties();
 		prop.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
 		sessionFactoryBean.setHibernateProperties(prop);

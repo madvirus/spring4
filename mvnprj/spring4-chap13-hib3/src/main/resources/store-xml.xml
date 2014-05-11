@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<tx:annotation-driven />
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>hibernate/Item.hbm.xml</value>
+				<value>hibernate/Order.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+			</value>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="placeOrderService"
+		class="net.madvirus.spring4.chap13.store.service.PlaceOrderServiceImpl">
+		<property name="itemRepository" ref="itemRepository" />
+		<property name="paymentInfoRepository" ref="paymentInfoRepository" />
+		<property name="purchaseOrderRepository" ref="purchaseOrderRepository" />
+	</bean>
+
+	<bean id="itemRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.HibernateItemRepository">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="paymentInfoRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.HibernatePaymentInfoRepository">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="purchaseOrderRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.HibernatePurchaseOrderRepository">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>

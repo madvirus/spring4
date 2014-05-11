@@ -6,8 +6,11 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import net.madvirus.spring4.chap13.store.domain.Item;
+import net.madvirus.spring4.chap13.store.domain.ItemRepository;
 import net.madvirus.spring4.chap13.store.domain.PaymentInfo;
+import net.madvirus.spring4.chap13.store.domain.PaymentInfoRepository;
 import net.madvirus.spring4.chap13.store.domain.PurchaseOrder;
+import net.madvirus.spring4.chap13.store.domain.PurchaseOrderRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernateItemRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernatePaymentInfoRepository;
 import net.madvirus.spring4.chap13.store.persistence.HibernatePurchaseOrderRepository;
@@ -16,8 +19,9 @@ import net.madvirus.spring4.chap13.store.service.PlaceOrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -55,7 +59,7 @@ public class JavaConfigAnnotationMapping {
 
 	@Bean
 	public LocalSessionFactoryBean sessionFactoryBean() {
-		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+		AnnotationSessionFactoryBean sessionFactoryBean = new AnnotationSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
 		sessionFactoryBean.setAnnotatedClasses(Item.class, PaymentInfo.class, PurchaseOrder.class);
 		Properties prop = new Properties();
@@ -74,21 +78,21 @@ public class JavaConfigAnnotationMapping {
 	}
 
 	@Bean
-	public HibernateItemRepository itemRepository() {
+	public ItemRepository itemRepository() {
 		HibernateItemRepository itemRepository = new HibernateItemRepository();
 		itemRepository.setSessionFactory(sessionFactoryBean().getObject());
 		return itemRepository;
 	}
 
 	@Bean
-	public HibernatePaymentInfoRepository paymentInfoRepository() {
+	public PaymentInfoRepository paymentInfoRepository() {
 		HibernatePaymentInfoRepository paymentInfoRepository = new HibernatePaymentInfoRepository();
 		paymentInfoRepository.setSessionFactory(sessionFactoryBean().getObject());
 		return paymentInfoRepository;
 	}
 
 	@Bean
-	public HibernatePurchaseOrderRepository purchaseOrderRepository() {
+	public PurchaseOrderRepository purchaseOrderRepository() {
 		HibernatePurchaseOrderRepository purchaseOrderRepository = new HibernatePurchaseOrderRepository();
 		purchaseOrderRepository.setSessionFactory(sessionFactoryBean().getObject());
 		return purchaseOrderRepository;

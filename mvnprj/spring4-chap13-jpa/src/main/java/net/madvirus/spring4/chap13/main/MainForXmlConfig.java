@@ -6,7 +6,7 @@ import net.madvirus.spring4.chap13.store.service.PlaceOrderService;
 import net.madvirus.spring4.chap13.store.service.PurchaseOrderRequest;
 import net.madvirus.spring4.chap13.store.service.PurchaseOrderResult;
 
-public class Main {
+public class MainForXmlConfig {
 
 	public static void main(String[] args) {
 		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext(

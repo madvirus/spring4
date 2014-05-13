@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:annotation-config />
+
+	<tx:annotation-driven />
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="database" value="MYSQL" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="packagesToScan">
+			<list>
+				<value>net.madvirus.spring4.chap13.store</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="placeOrderService"
+		class="net.madvirus.spring4.chap13.store.service.PlaceOrderServiceImpl">
+		<property name="itemRepository" ref="itemRepository" />
+		<property name="paymentInfoRepository" ref="paymentInfoRepository" />
+		<property name="purchaseOrderRepository" ref="purchaseOrderRepository" />
+	</bean>
+
+	<bean id="itemRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.JpaItemRepository">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="paymentInfoRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.JpaPaymentInfoRepository">
+	</bean>
+
+	<bean id="purchaseOrderRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.JpaPurchaseOrderRepository">
+	</bean>
+
+</beans>

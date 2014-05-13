@@ -1,16 +1,14 @@
 package net.madvirus.spring4.chap13.store.persistence;
 
+import java.util.Random;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 
 import net.madvirus.spring4.chap13.store.domain.Item;
 import net.madvirus.spring4.chap13.store.domain.ItemRepository;
 
 public class JpaItemRepository implements ItemRepository {
-
-	@PersistenceContext(unitName = "shop")
-	private EntityManager entityManager;
 
 	private EntityManagerFactory entityManagerFactory;
 
@@ -20,9 +18,11 @@ public class JpaItemRepository implements ItemRepository {
 
 	@Override
 	public Item findById(Integer itemId) {
-//		EntityManager entityManager = entityManagerFactory.createEntityManager();
-//		entityManager.joinTransaction();
-		return entityManager.find(Item.class, itemId);
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		// entityManager.joinTransaction();
+		Item item = entityManager.find(Item.class, itemId);
+		item.setPrice(20000 + new Random().nextInt(1000));
+		return item;
 	}
 
 }

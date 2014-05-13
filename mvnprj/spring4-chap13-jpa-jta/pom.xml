@@ -49,13 +49,13 @@
 
 		<!-- JTA 환경 설정 테스트 위한 의존 -->
 		<dependency>
-			<groupId>org.jboss.jbossts.jta</groupId>
-			<artifactId>narayana-jta</artifactId>
-			<version>4.17.19.Final</version>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>3.9.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.atomikos</groupId>
-			<artifactId>transactions-jdbc</artifactId>
+			<artifactId>transactions-hibernate3</artifactId>
 			<version>3.9.3</version>
 		</dependency>
 	</dependencies>

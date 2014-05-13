@@ -45,6 +45,8 @@
 	<!-- XA를 위한 DataSource 설정 -->
 	<bean id="shopDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
 		<property name="uniqueResourceName" value="shopXaDs" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxPoolSize" value="10" />
 		<property name="xaDataSourceClassName"
 			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
 		<property name="xaProperties">
@@ -59,6 +61,8 @@
 
 	<bean id="payDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
 		<property name="uniqueResourceName" value="payXaDs" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxPoolSize" value="10" />
 		<property name="xaDataSourceClassName"
 			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
 		<property name="xaProperties">

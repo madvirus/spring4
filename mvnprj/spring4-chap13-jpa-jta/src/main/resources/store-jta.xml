@@ -15,22 +15,43 @@
 	<tx:annotation-driven />
 
 	<!-- Transaction Essentials를 이용한 JtaTransactionManager 설정 -->
-	<bean id="arjunaTransactionManager" class="com.arjuna.ats.jta.TransactionManager"
-		factory-method="transactionManager">
+	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+		init-method="init" destroy-method="shutdownForce">
+		<constructor-arg>
+			<!-- 여기에 Atomikos 프로퍼티 위치 -->
+			<props>
+				<prop key="com.atomikos.icatch.service">
+					com.atomikos.icatch.standalone.UserTransactionServiceFactory
+				</prop>
+			</props>
+		</constructor-arg>
 	</bean>
-	<bean id="arjunaUserTransaction" class="com.arjuna.ats.jta.UserTransaction"
-		factory-method="userTransaction">
+
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<property name="startupTransactionService" value="false" />
+		<property name="forceShutdown" value="true" />
+	</bean>
+
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+		<property name="transactionTimeout" value="300" />
 	</bean>
 
 	<bean id="transactionManager"
 		class="org.springframework.transaction.jta.JtaTransactionManager">
-		<property name="transactionManager" ref="arjunaTransactionManager" />
-		<property name="userTransaction" ref="arjunaUserTransaction" />
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
 	</bean>
 
 	<!-- XA를 위한 DataSource 설정 -->
 	<bean id="shopDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
 		<property name="uniqueResourceName" value="shopXaDs" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxPoolSize" value="10" />
 		<property name="xaDataSourceClassName"
 			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
 		<property name="xaProperties">
@@ -45,6 +66,8 @@
 
 	<bean id="payDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
 		<property name="uniqueResourceName" value="payXaDs" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxPoolSize" value="10" />
 		<property name="xaDataSourceClassName"
 			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
 		<property name="xaProperties">
@@ -63,6 +86,7 @@
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="database" value="MYSQL" />
+		<property name="showSql" value="true" />
 	</bean>
 
 	<bean id="shopEntityManagerFactory"
@@ -73,8 +97,7 @@
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 		<property name="jpaProperties">
 			<value>
-				transaction.factory_class=org.hibernate.transaction.JTATransactionFactory
-				transaction.jta.platform=org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform
+				hibernate.transaction.jta.platform=net.madvirus.spring4.chap13.atomikos.AtomikosJtaPlatform
 			</value>
 		</property>
 	</bean>
@@ -87,8 +110,7 @@
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 		<property name="jpaProperties">
 			<value>
-				transaction.factory_class=org.hibernate.transaction.JTATransactionFactory
-				transaction.jta.platform=org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform
+				hibernate.transaction.jta.platform=net.madvirus.spring4.chap13.atomikos.AtomikosJtaPlatform
 			</value>
 		</property>
 	</bean>

@@ -42,6 +42,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 		PurchaseOrder order = new PurchaseOrder(item.getId(), orderRequest
 				.getAddress(), paymentInfo.getId());
 		purchaseOrderRepository.save(order);
+		if (true) throw new RuntimeException("!!");
 		return new PurchaseOrderResult(item, paymentInfo, order);
 	}
 

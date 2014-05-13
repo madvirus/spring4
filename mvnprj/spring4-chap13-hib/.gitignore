@@ -3,3 +3,4 @@
 /.project
 *.log
 *.epoch
+*.lck

@@ -18,6 +18,7 @@
 		<property name="mappingResources">
 			<list>
 				<value>hibernate/Item.hbm.xml</value>
+				<value>hibernate/Payment.hbm.xml</value>
 				<value>hibernate/Order.hbm.xml</value>
 			</list>
 		</property>

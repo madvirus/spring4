@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:annotation-config />
+
+	<tx:annotation-driven />
+
+	<!-- Transaction Essentials를 이용한 JtaTransactionManager 설정 -->
+	<bean id="arjunaTransactionManager" class="com.arjuna.ats.jta.TransactionManager"
+		factory-method="transactionManager">
+	</bean>
+	<bean id="arjunaUserTransaction" class="com.arjuna.ats.jta.UserTransaction"
+		factory-method="userTransaction">
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManager" ref="arjunaTransactionManager" />
+		<property name="userTransaction" ref="arjunaUserTransaction" />
+	</bean>
+
+	<!-- XA를 위한 DataSource 설정 -->
+	<bean id="shopDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
+		<property name="uniqueResourceName" value="shopXaDs" />
+		<property name="xaDataSourceClassName"
+			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
+		<property name="xaProperties">
+			<props>
+				<prop key="user">spring4</prop>
+				<prop key="password">spring4</prop>
+				<prop key="url">jdbc:mysql://localhost/shop?characterEncoding=utf8</prop>
+				<prop key="pinGlobalTxToPhysicalConnection">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="payDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
+		<property name="uniqueResourceName" value="payXaDs" />
+		<property name="xaDataSourceClassName"
+			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
+		<property name="xaProperties">
+			<props>
+				<prop key="user">spring4</prop>
+				<prop key="password">spring4</prop>
+				<prop key="url">jdbc:mysql://localhost/shop?characterEncoding=utf8</prop>
+				<prop key="pinGlobalTxToPhysicalConnection">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="database" value="MYSQL" />
+	</bean>
+
+	<bean id="shopEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="/META-INF/conf-4-jta1.xml" />
+		<property name="persistenceUnitName" value="shop" />
+		<property name="jtaDataSource" ref="shopDataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="jpaProperties">
+			<value>
+				transaction.factory_class=org.hibernate.transaction.JTATransactionFactory
+				transaction.jta.platform=org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform
+			</value>
+		</property>
+	</bean>
+
+	<bean id="payEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="/META-INF/conf-4-jta2.xml" />
+		<property name="persistenceUnitName" value="pay" />
+		<property name="jtaDataSource" ref="payDataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="jpaProperties">
+			<value>
+				transaction.factory_class=org.hibernate.transaction.JTATransactionFactory
+				transaction.jta.platform=org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform
+			</value>
+		</property>
+	</bean>
+
+	<bean id="placeOrderService"
+		class="net.madvirus.spring4.chap13.store.service.PlaceOrderServiceImpl">
+		<property name="itemRepository" ref="itemRepository" />
+		<property name="paymentInfoRepository" ref="paymentInfoRepository" />
+		<property name="purchaseOrderRepository" ref="purchaseOrderRepository" />
+	</bean>
+
+	<bean id="itemRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.JpaItemRepository">
+		<property name="entityManagerFactory" ref="shopEntityManagerFactory" />
+	</bean>
+
+	<bean id="paymentInfoRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.JpaPaymentInfoRepository">
+	</bean>
+
+	<bean id="purchaseOrderRepository"
+		class="net.madvirus.spring4.chap13.store.persistence.JpaPurchaseOrderRepository">
+	</bean>
+
+</beans>

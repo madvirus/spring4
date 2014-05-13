@@ -57,7 +57,7 @@ public class JavaConfigXmlMapping {
 	public LocalSessionFactoryBean sessionFactoryBean() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setMappingResources("hibernate/Item.hbm.xml", "hibernate/Order.hbm.xml");
+		sessionFactoryBean.setMappingResources("hibernate/Item.hbm.xml", "hibernate/Order.hbm.xml", "hibernate/Payment.hbm.xml");
 		Properties prop = new Properties();
 		prop.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
 		sessionFactoryBean.setHibernateProperties(prop);

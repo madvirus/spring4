@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   
        http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:annotation-config />
 
 	<tx:annotation-driven />
 
@@ -74,37 +79,25 @@
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-	<bean id="shopSessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="shopDataSource" />
-		<property name="mappingResources">
-			<list>
-				<value>hibernate/Item.hbm.xml</value>
-				<value>hibernate/Order.hbm.xml</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<value>
-				hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
-			</value>
-		</property>
-		<property name="jtaTransactionManager" ref="transactionManager" />
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="database" value="MYSQL" />
 	</bean>
-	
-	<bean id="paySessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="payDataSource" />
-		<property name="mappingResources">
-			<list>
-				<value>hibernate/Payment.hbm.xml</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<value>
-				hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
-			</value>
-		</property>
-		<property name="jtaTransactionManager" ref="transactionManager" />
+
+	<bean id="shopEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="/META-INF/conf-4-jta1.xml"/>
+		<property name="persistenceUnitName" value="shop" />
+		<property name="dataSource" ref="shopDataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+	</bean>
+
+	<bean id="orderEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="/META-INF/conf-4-jta2.xml"/>
+		<property name="persistenceUnitName" value="order" />
+		<property name="dataSource" ref="shopDataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
 
 	<bean id="placeOrderService"
@@ -115,18 +108,16 @@
 	</bean>
 
 	<bean id="itemRepository"
-		class="net.madvirus.spring4.chap13.store.persistence.HibernateItemRepository">
-		<property name="sessionFactory" ref="shopSessionFactory" />
+		class="net.madvirus.spring4.chap13.store.persistence.JpaItemRepository">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<bean id="paymentInfoRepository"
-		class="net.madvirus.spring4.chap13.store.persistence.HibernatePaymentInfoRepository">
-		<property name="sessionFactory" ref="paySessionFactory" />
+		class="net.madvirus.spring4.chap13.store.persistence.JpaPaymentInfoRepository">
 	</bean>
 
 	<bean id="purchaseOrderRepository"
-		class="net.madvirus.spring4.chap13.store.persistence.HibernatePurchaseOrderRepository">
-		<property name="sessionFactory" ref="shopSessionFactory" />
+		class="net.madvirus.spring4.chap13.store.persistence.JpaPurchaseOrderRepository">
 	</bean>
 
 </beans>

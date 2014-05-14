@@ -19,7 +19,6 @@ public class JpaItemRepository implements ItemRepository {
 	@Override
 	public Item findById(Integer itemId) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		// entityManager.joinTransaction();
 		Item item = entityManager.find(Item.class, itemId);
 		item.setPrice(20000 + new Random().nextInt(1000));
 		return item;

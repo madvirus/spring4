@@ -96,9 +96,11 @@
 		<property name="jtaDataSource" ref="shopDataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 		<property name="jpaProperties">
-			<value>
-				hibernate.transaction.jta.platform=net.madvirus.spring4.chap13.atomikos.AtomikosJtaPlatform
-			</value>
+			<props>
+				<prop key="hibernate.transaction.jta.platform">
+					net.madvirus.spring4.chap13.atomikos.AtomikosJtaPlatform
+				</prop>
+			</props>
 		</property>
 	</bean>
 

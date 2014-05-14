@@ -15,7 +15,6 @@ public class JpaPaymentInfoRepository implements PaymentInfoRepository {
 	@Override
 	public void save(PaymentInfo paymentInfo) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-//		entityManager.joinTransaction();
 		entityManager.persist(paymentInfo);
 	}
 

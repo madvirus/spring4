@@ -1,4 +1,4 @@
-package net.madvirus.spring4.chap13.store.domain;
+package net.madvirus.spring4.chap13.store.model;
 
 public class ItemNotFoundException extends RuntimeException {
 

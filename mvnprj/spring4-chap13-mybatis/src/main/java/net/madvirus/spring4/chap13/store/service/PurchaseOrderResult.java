@@ -1,8 +1,8 @@
 package net.madvirus.spring4.chap13.store.service;
 
-import net.madvirus.spring4.chap13.store.domain.Item;
-import net.madvirus.spring4.chap13.store.domain.PaymentInfo;
-import net.madvirus.spring4.chap13.store.domain.PurchaseOrder;
+import net.madvirus.spring4.chap13.store.model.Item;
+import net.madvirus.spring4.chap13.store.model.PaymentInfo;
+import net.madvirus.spring4.chap13.store.model.PurchaseOrder;
 
 public class PurchaseOrderResult {
 	private Item item;

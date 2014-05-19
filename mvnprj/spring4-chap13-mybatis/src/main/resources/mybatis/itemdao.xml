@@ -4,9 +4,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="net.madvirus.spring4.chap13.store.persistence.MyBatisItemDao">
+<mapper namespace="net.madvirus.spring4.chap13.store.dao.ItemDao">
 
-	<select id="findById" resultType="net.madvirus.spring4.chap13.store.domain.Item">
+	<select id="findById" resultType="net.madvirus.spring4.chap13.store.model.Item">
 		select * from ITEM where ITEM_ID = #{id}
 	</select>
 </mapper>

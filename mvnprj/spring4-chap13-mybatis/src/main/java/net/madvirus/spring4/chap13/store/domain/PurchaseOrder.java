@@ -1,5 +1,8 @@
 package net.madvirus.spring4.chap13.store.domain;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("PurchaseOrder")
 public class PurchaseOrder {
 
 	private Integer id;

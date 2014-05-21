@@ -49,21 +49,20 @@ public class JavaConfig {
 	}
 
 	@Bean
-	public EntityManagerFactory emf() {
+	public LocalContainerEntityManagerFactoryBean emf() {
 		LocalContainerEntityManagerFactoryBean emfBean = new LocalContainerEntityManagerFactoryBean();
 		emfBean.setDataSource(dataSource());
 		emfBean.setPersistenceUnitName("store");
 		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 		jpaVendorAdapter.setDatabase(Database.MYSQL);
 		emfBean.setJpaVendorAdapter(jpaVendorAdapter);
-		emfBean.afterPropertiesSet();
-		return emfBean.getObject();
+		return emfBean;
 	}
 
 	@Bean
-	public PlatformTransactionManager transactionManager() {
+	public PlatformTransactionManager transactionManager(EntityManagerFactory emFactory) {
 		JpaTransactionManager txMgr = new JpaTransactionManager();
-		txMgr.setEntityManagerFactory(emf());
+		txMgr.setEntityManagerFactory(emFactory);
 		return txMgr;
 	}
 
@@ -79,7 +78,7 @@ public class JavaConfig {
 	@Bean
 	public ItemRepository itemRepository() {
 		JpaItemRepository itemRepository = new JpaItemRepository();
-		itemRepository.setEntityManagerFactory(emf());
+		itemRepository.setEntityManagerFactory(emf().getObject());
 		return itemRepository;
 	}
 

@@ -6,11 +6,10 @@ import net.madvirus.spring4.chap13.store.service.PurchaseOrderResult;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-public class MainByXmlConfigXmlMapping {
+public class MainForScanXml {
 
 	public static void main(String[] args) {
-		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext(
-				"classpath:/dataSource.xml", "classpath:/store-xml.xml");
+		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("classpath:/store-scan.xml");
 
 		PlaceOrderService orderService = ctx.getBean(PlaceOrderService.class);
 		PurchaseOrderRequest orderRequest = new PurchaseOrderRequest();

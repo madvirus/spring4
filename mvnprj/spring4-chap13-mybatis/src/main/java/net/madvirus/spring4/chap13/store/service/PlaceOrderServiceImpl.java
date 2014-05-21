@@ -1,5 +1,6 @@
 package net.madvirus.spring4.chap13.store.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.madvirus.spring4.chap13.store.dao.ItemDao;
@@ -11,21 +12,23 @@ import net.madvirus.spring4.chap13.store.model.PaymentInfo;
 import net.madvirus.spring4.chap13.store.model.PurchaseOrder;
 
 public class PlaceOrderServiceImpl implements PlaceOrderService {
-
+	@Autowired
 	private ItemDao itemDao;
+	@Autowired
 	private PaymentInfoDao paymentInfoDao;
+	@Autowired
 	private PurchaseOrderDao purchaseOrderDao;
 
-	public void setItemDao(ItemDao itemRepository) {
-		this.itemDao = itemRepository;
+	public void setItemDao(ItemDao itemDao) {
+		this.itemDao = itemDao;
 	}
 
-	public void setPaymentInfoDao(PaymentInfoDao paymentInformationRepository) {
-		this.paymentInfoDao = paymentInformationRepository;
+	public void setPaymentInfoDao(PaymentInfoDao paymentInfoDao) {
+		this.paymentInfoDao = paymentInfoDao;
 	}
 
-	public void setPurchaseOrderDao(PurchaseOrderDao purchaseOrderRepository) {
-		this.purchaseOrderDao = purchaseOrderRepository;
+	public void setPurchaseOrderDao(PurchaseOrderDao purchaseOrderDao) {
+		this.purchaseOrderDao = purchaseOrderDao;
 	}
 
 	@Transactional

@@ -2,12 +2,17 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://mybatis.org/schema/mybatis-spring
+       http://mybatis.org/schema/mybatis-spring.xsd">
 
 	<tx:annotation-driven />
+
+	<mybatis:scan base-package="net.madvirus.spring4.chap13.store.dao" />
 
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
@@ -34,45 +39,16 @@
 				<value>classpath:/mybatis/purchaseorderdao.xml</value>
 			</list>
 		</property>
-		<property name="typeAliasesPackage" value="net.madvirus.spring4.chap13.store.model" />
-<!-- 		<property name="typeAliases"> -->
-<!-- 			<list> -->
-<!-- 				<value>net.madvirus.spring4.chap13.store.model.PurchaseOrder</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-	</bean>
+		<property name="typeAliases">
+			<list>
+				<value>net.madvirus.spring4.chap13.store.model.PurchaseOrder</value>
+			</list>
+		</property>
 
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
-
-	<bean id="itemDao"
-		class="net.madvirus.spring4.chap13.store.dao.MyBatisItemDao">
-		<property name="sqlSession" ref="sqlSessionTemplate" />
-	</bean>
-
-	<bean id="itemDao2"
-		class="net.madvirus.spring4.chap13.store.dao.MyBatisItemDao2">
-		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
-	</bean>
-
-	<bean id="purchaseOrderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface"
-			value="net.madvirus.spring4.chap13.store.dao.PurchaseOrderDao" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
-
-	<bean id="paymentInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface"
-			value="net.madvirus.spring4.chap13.store.dao.PaymentInfoDao" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
 	<bean id="placeOrderService"
 		class="net.madvirus.spring4.chap13.store.service.PlaceOrderServiceImpl">
-		<property name="itemDao" ref="itemDao2" />
-		<property name="purchaseOrderDao" ref="purchaseOrderDao" />
-		<property name="paymentInfoDao" ref="paymentInfoDao" />
 	</bean>
 </beans>
 

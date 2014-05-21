@@ -4,13 +4,12 @@ import net.madvirus.spring4.chap13.store.service.PlaceOrderService;
 import net.madvirus.spring4.chap13.store.service.PurchaseOrderRequest;
 import net.madvirus.spring4.chap13.store.service.PurchaseOrderResult;
 
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class MainByXmlConfigXmlMapping {
+public class MainForJavaScanConfig {
 
 	public static void main(String[] args) {
-		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext(
-				"classpath:/dataSource.xml", "classpath:/store-xml.xml");
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(JavaScanConfig.class);
 
 		PlaceOrderService orderService = ctx.getBean(PlaceOrderService.class);
 		PurchaseOrderRequest orderRequest = new PurchaseOrderRequest();

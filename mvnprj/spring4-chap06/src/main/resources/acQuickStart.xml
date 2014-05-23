@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<!-- Advice 클래스를 빈으로 등록 -->
+	<!-- 공통 기능을 제공할 클래스를 빈으로 등록 -->
 	<bean id="profiler" class="net.madvirus.spring4.chap06.aop.Profiler" />
 	<bean id="memberUpdateTraceAdvice"
 		class="net.madvirus.spring4.chap06.aop.UpdateMemberInfoTraceAdvice" />

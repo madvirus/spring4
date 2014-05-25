@@ -30,4 +30,9 @@ public class Address {
 		return zipcode;
 	}
 
+	@Override
+	public String toString() {
+		return "Address [address1=" + address1 + ", address2=" + address2 + ", zipcode=" + zipcode + "]";
+	}
+
 }

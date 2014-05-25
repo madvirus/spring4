@@ -1,13 +1,18 @@
 package net.madvirus.spring4.chap14.domain;
 
+import java.util.Date;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -22,9 +27,12 @@ public class Employee {
 
 	@Embedded
 	@AttributeOverrides({
-			@AttributeOverride(name = "address1", column = @Column(name = "HOME_ADDR1")),
-			@AttributeOverride(name = "address2", column = @Column(name = "HOME_ADDR2")),
-			@AttributeOverride(name = "zipcode", column = @Column(name = "HOME_ZIPCODE"))
+			@AttributeOverride(name = "address1",
+					column = @Column(name = "HOME_ADDR1")),
+			@AttributeOverride(name = "address2",
+					column = @Column(name = "HOME_ADDR2")),
+			@AttributeOverride(name = "zipcode",
+					column = @Column(name = "HOME_ZIPCODE"))
 	})
 	private Address address;
 
@@ -32,15 +40,21 @@ public class Employee {
 	private int birthYear;
 
 	@ManyToOne
-	@Column(name = "TEAM_ID")
+	@JoinColumn(name = "TEAM_ID")
 	private Team team;
 
-	public Employee(Long id, String name, Address address, int birthYear, Team team) {
+	@Temporal(TemporalType.DATE)
+	@Column(name = "JOINED_DATE")
+	private Date joinedDate;
+
+	public Employee(Long id, String name, Address address, int birthYear,
+			Team team, Date joinedDate) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.birthYear = birthYear;
 		this.team = team;
+		this.joinedDate = joinedDate;
 	}
 
 	protected Employee() {
@@ -66,12 +80,22 @@ public class Employee {
 		return team;
 	}
 
+	public Date getJoinedDate() {
+		return joinedDate;
+	}
+
 	public void setAddress(Address address) {
 		this.address = address;
 	}
 
 	public void changeTeam(Team newTeam) {
 		this.team = newTeam;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", address=" + address + ", birthYear=" + birthYear + ", team=" + team + ", joinedDate=" + joinedDate
+				+ "]";
 	}
 
 }

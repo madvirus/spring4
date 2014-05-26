@@ -2,6 +2,8 @@ package net.madvirus.spring4.chap14.domain;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.Repository;
 
@@ -20,4 +22,9 @@ public interface EmployeeRepository extends Repository<Employee, Long> {
 
 	public List<Employee> findAll(Sort sort);
 	public List<Employee> findByTeam(Team team, Sort sort);
+	
+	public List<Employee> findByBirthYearLessThan(int birthYear, Pageable pageable);
+	
+	public Page<Employee> findByTeam(Team team, Pageable pageable);
+	
 }

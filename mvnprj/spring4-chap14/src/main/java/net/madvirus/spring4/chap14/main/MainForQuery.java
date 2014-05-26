@@ -8,6 +8,8 @@ import net.madvirus.spring4.chap14.domain.Team;
 import net.madvirus.spring4.chap14.domain.TeamRepository;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
@@ -34,15 +36,20 @@ public class MainForQuery {
 				empRepo.findByBirthYearOrderByTeamNameAscNameAsc(1977));
 		
 		Sort sort = new Sort(
-				new Order(Direction.ASC, "team.id"),
+				new Order(Direction.DESC, "team.id"),
 				new Order(Direction.ASC, "name")
 				);
-		printEmployees("findAll(Sort)", empRepo.findAll(sort));
+		printEmployees("findAll(Sort by team.id desc, name)", empRepo.findAll(sort));
+		
+		sort = new Sort("team.id", "birthYear");
+		printEmployees("findAll(Sort by team.id, birthYear)", empRepo.findAll(sort));
+		
 		Team team = ctx.getBean(TeamRepository.class).findOne(1L);
-		
 		sort = new Sort("team.id", "id");
-		printEmployees("findByTeam()", empRepo.findByTeam(team, sort));
+		printEmployees("findByTeam(team, Sort by team.id, id)", empRepo.findByTeam(team, sort));
 		
+		Pageable pageable = new PageRequest(2, 2, new Sort("birthYear"));
+		printEmployees("findByBirthYearLessThan", empRepo.findByBirthYearLessThan(2000, pageable));
 		ctx.close();
 	}
 

@@ -35,4 +35,6 @@ public interface EmployeeRepository extends Repository<Employee, Long> {
 	public Employee findByName(String name);
 	public Employee findByBirthYearGreaterThan(int birthYear);
 	
+	public Iterable<Employee> findByTeamIdOrderByNameDesc(Long teamId, Sort sort);
+	
 }

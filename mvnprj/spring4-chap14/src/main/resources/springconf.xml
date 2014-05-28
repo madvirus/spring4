@@ -38,7 +38,7 @@
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="database" value="MYSQL" />
-<!-- 		<property name="showSql" value="true" /> -->
+		<property name="showSql" value="true" />
 	</bean>
 
 	<bean id="entityManagerFactory"

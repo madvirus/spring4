@@ -66,6 +66,10 @@ public class MainForQuery {
 		
 		Page<Employee> empPage = empRepo.findByTeam(team, pageable);
 		printPageEmployees("Page<Employee> findByTeam(team, pageable)",  empPage);
+		
+		
+		printEmployees("List<Employee> findByTeamIdOrderByNameDesc(teamId, sort)",  empRepo.findByTeamIdOrderByNameDesc(1L, new Sort("birthYear")));
+		
 		ctx.close();
 	}
 

@@ -22,6 +22,9 @@ public class Employee {
 	@Column(name = "EMPLOYEE_ID")
 	private Long id;
 
+	@Column(name = "EMPLOYEE_NUM")
+	private String employeeNumber;
+
 	@Column(name = "NAME")
 	private String name;
 
@@ -47,9 +50,9 @@ public class Employee {
 	@Column(name = "JOINED_DATE")
 	private Date joinedDate;
 
-	public Employee(Long id, String name, Address address, int birthYear,
+	public Employee(String employeeNum, String name, Address address, int birthYear,
 			Team team, Date joinedDate) {
-		this.id = id;
+		this.employeeNumber = employeeNum;
 		this.name = name;
 		this.address = address;
 		this.birthYear = birthYear;
@@ -62,6 +65,10 @@ public class Employee {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getEmployeeNumber() {
+		return employeeNumber;
 	}
 
 	public String getName() {

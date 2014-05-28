@@ -38,6 +38,7 @@
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="database" value="MYSQL" />
+<!-- 		<property name="showSql" value="true" /> -->
 	</bean>
 
 	<bean id="entityManagerFactory"
@@ -49,6 +50,11 @@
 				<value>net.madvirus.spring4.chap14.domain</value>
 			</list>
 		</property>
+<!-- 		<property name="jpaProperties"> -->
+<!-- 			<value> -->
+<!-- 				hibernate.format_sql = true -->
+<!-- 			</value> -->
+<!-- 		</property> -->
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

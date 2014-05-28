@@ -20,11 +20,19 @@ public interface EmployeeRepository extends Repository<Employee, Long> {
 	public List<Employee> findByTeamIdOrderByIdDesc(Long teamId);
 	public List<Employee> findByBirthYearOrderByTeamNameAscNameAsc(int year);
 
+	public long count();
+	public long countByTeamId(Long teamId);
+	
 	public List<Employee> findAll(Sort sort);
 	public List<Employee> findByTeam(Team team, Sort sort);
 	
 	public List<Employee> findByBirthYearLessThan(int birthYear, Pageable pageable);
 	
+	public List<Employee> findByTeamId(Long teamId, Pageable pageable);
 	public Page<Employee> findByTeam(Team team, Pageable pageable);
+	
+	public Employee findByEmployeeNumber(String empNum);
+	public Employee findByName(String name);
+	public Employee findByBirthYearGreaterThan(int birthYear);
 	
 }

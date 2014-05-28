@@ -7,6 +7,8 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +22,7 @@ public class Employee {
 
 	@Id
 	@Column(name = "EMPLOYEE_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name = "EMPLOYEE_NUM")
@@ -63,6 +66,9 @@ public class Employee {
 	protected Employee() {
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public Long getId() {
 		return id;
 	}

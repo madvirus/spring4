@@ -9,14 +9,14 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class MainForUpdate {
 
 	public static void main(String[] args) {
-		GenericXmlApplicationContext ctx = 
+		GenericXmlApplicationContext ctx =
 				new GenericXmlApplicationContext("classpath:/springconf.xml");
 
-		UpdateEmployeeService updateEmpSvc = 
+		UpdateEmployeeService updateEmpSvc =
 				ctx.getBean(UpdateEmployeeService.class);
 		updateEmpSvc.updateEmployee(
 				new UpdateRequest(1L, new Address("서울시", "관악구", "123456")));
-		
+
 		ctx.close();
 	}
 }

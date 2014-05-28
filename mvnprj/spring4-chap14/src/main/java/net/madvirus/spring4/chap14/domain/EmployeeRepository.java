@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
 
 public interface EmployeeRepository extends Repository<Employee, Long> {
 	public Employee save(Employee emp);
@@ -31,10 +33,22 @@ public interface EmployeeRepository extends Repository<Employee, Long> {
 	public List<Employee> findByTeamId(Long teamId, Pageable pageable);
 	public Page<Employee> findByTeam(Team team, Pageable pageable);
 	
-	public Employee findByEmployeeNumber(String empNum);
+	@Query("from Employee e where e.employeeNumber = ?1 or e.name like %?2%")
+	public Employee findByEmployeeNumberOrNameLike(String empNum, String name);
 	public Employee findByName(String name);
 	public Employee findByBirthYearGreaterThan(int birthYear);
 	
 	public Iterable<Employee> findByTeamIdOrderByNameDesc(Long teamId, Sort sort);
+	
+	public void delete(Long id);
+	
+	@Query("from Employee e where e.birthYear < :year order by e.birthYear")
+	public List<Employee> findEmployeeBornBefore(@Param("year") int year);
+	
+	@Query("from Employee e where e.birthYear < :year")
+	public List<Employee> findEmployeeBornBefore(@Param("year") int year, Sort sort);
+	
+	@Query("from Employee e where e.birthYear < :year order by e.birthYear")
+	public Page<Employee> findEmployeeBornBefore(@Param("year") int year, Pageable pageable);
 	
 }

@@ -53,4 +53,6 @@ public interface EmployeeRepository extends Repository<Employee, Long> {
 	public Page<Employee> findEmployeeBornBefore(@Param("year") int year, Pageable pageable);
 
 	public List<Employee> findAll(Specification<Employee> spec);
+	
+	public Option<Employee> find(Long id);
 }

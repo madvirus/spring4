@@ -1,5 +1,11 @@
 package net.madvirus.spring4.chap14.application;
 
+import static net.madvirus.spring4.chap14.domain.EmployeeSpec.employeeNumberEq;
+import static net.madvirus.spring4.chap14.domain.EmployeeSpec.joinedDateGt;
+import static net.madvirus.spring4.chap14.domain.EmployeeSpec.nameEq;
+import static net.madvirus.spring4.chap14.domain.EmployeeSpec.teamIdEq;
+import static org.springframework.data.jpa.domain.Specifications.where;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -7,10 +13,8 @@ import javax.transaction.Transactional;
 
 import net.madvirus.spring4.chap14.domain.Employee;
 import net.madvirus.spring4.chap14.domain.EmployeeRepository;
-import net.madvirus.spring4.chap14.domain.EmployeeSpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
 public class SpecEmployeeListService implements EmployeeListService {
@@ -25,24 +29,22 @@ public class SpecEmployeeListService implements EmployeeListService {
 	@Transactional
 	@Override
 	public List<Employee> getEmployee(String keyword, Long teamId) {
-		Specification<Employee> spec = null;
 		if (hasValue(keyword) || hasValue(teamId)) {
 			if (hasValue(keyword) && !hasValue(teamId)) {
-				spec = Specifications.where(
-						EmployeeSpec.nameEq(keyword)).or(EmployeeSpec.employeeNumberEq(keyword));
+				return employeeRepository.findAll(
+						where(nameEq(keyword)).or(employeeNumberEq(keyword))
+				);
 			} else if (!hasValue(keyword) && hasValue(teamId)) {
-				spec = EmployeeSpec.teamIdEq(teamId);
+				return employeeRepository.findAll(teamIdEq(teamId));
 			} else {
-				Specifications<Employee> spec1 = Specifications.where(EmployeeSpec.nameEq(keyword)).
-						or(EmployeeSpec.employeeNumberEq(keyword));
-				spec = spec1.and(EmployeeSpec.teamIdEq(teamId));
+				Specifications<Employee> spec1 = where(nameEq(keyword)).or(employeeNumberEq(keyword));
+				return employeeRepository.findAll(spec1.and(teamIdEq(teamId)));
 			}
 		} else {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DATE, -30);
-			spec = EmployeeSpec.joinedDateGt(cal.getTime());
+			return employeeRepository.findAll(joinedDateGt(cal.getTime()));
 		}
-		return employeeRepository.findAll(spec);
 	}
 
 	private boolean hasValue(Object value) {

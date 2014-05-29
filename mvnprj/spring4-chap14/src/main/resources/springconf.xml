@@ -61,4 +61,9 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+
+	<bean id="jpaEmployeeListService" class="net.madvirus.spring4.chap14.application.JpaEmployeeListService">
+	</bean>
+	<bean id="specEmployeeListService" class="net.madvirus.spring4.chap14.application.SpecEmployeeListService">
+	</bean>
 </beans>

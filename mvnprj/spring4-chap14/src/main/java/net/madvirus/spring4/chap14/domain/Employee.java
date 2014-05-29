@@ -69,6 +69,7 @@ public class Employee {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -107,8 +108,8 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", address=" + address + ", birthYear=" + birthYear + ", team=" + team + ", joinedDate=" + joinedDate
-				+ "]";
+		return "Employee [id=" + id + ", employeeNumber=" + employeeNumber + ", name=" + name + ", address=" + address
+				+ ", birthYear=" + birthYear + ", team=" + team + ", joinedDate=" + joinedDate + "]";
 	}
 
 }

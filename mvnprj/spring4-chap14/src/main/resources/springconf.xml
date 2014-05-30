@@ -16,7 +16,8 @@
 
 	<tx:annotation-driven />
 
-	<jpa:repositories base-package="net.madvirus.spring4.chap14.domain">
+	<jpa:repositories base-package="net.madvirus.spring4.chap14.domain"
+		factory-class="net.madvirus.spring4.chap14.common.CustomRepositoryFactoryBean">
 	</jpa:repositories>
 
 	<bean id="updateEmployeeService"
@@ -50,20 +51,26 @@
 				<value>net.madvirus.spring4.chap14.domain</value>
 			</list>
 		</property>
-<!-- 		<property name="jpaProperties"> -->
-<!-- 			<value> -->
-<!-- 				hibernate.format_sql = true -->
-<!-- 			</value> -->
-<!-- 		</property> -->
+		<!-- <property name="jpaProperties"> -->
+		<!-- <value> -->
+		<!-- hibernate.format_sql = true -->
+		<!-- </value> -->
+		<!-- </property> -->
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-
-	<bean id="jpaEmployeeListService" class="net.madvirus.spring4.chap14.application.JpaEmployeeListService">
+	<bean id="jpaEmployeeListService"
+		class="net.madvirus.spring4.chap14.application.JpaEmployeeListService">
 	</bean>
-	<bean id="specEmployeeListService" class="net.madvirus.spring4.chap14.application.SpecEmployeeListService">
+	
+	<bean id="specEmployeeListService"
+		class="net.madvirus.spring4.chap14.application.SpecEmployeeListService">
+	</bean>
+
+	<bean id="updateTeamService"
+		class="net.madvirus.spring4.chap14.application.UpdateTeamServiceImpl">
 	</bean>
 </beans>

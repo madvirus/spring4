@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.madvirus.spring4.chap14.domain.Employee;
 import net.madvirus.spring4.chap14.domain.EmployeeRepository;
+import net.madvirus.spring4.chap14.domain.Option;
 import net.madvirus.spring4.chap14.domain.Team;
 import net.madvirus.spring4.chap14.domain.TeamRepository;
 
@@ -31,16 +32,14 @@ public class MainForQuery {
 		useBasicCountQueryMethod(empRepo);
 		useSortOrPageableQueryMethod(ctx, empRepo);
 		useQueryAnnotationMethod(empRepo);
-		
-		List<Team> teams = teamRepo.findByName("S");
-		printTeams("findByName()", teams);
-		ctx.close();
-	}
 
-	private static void printTeams(String title, List<Team> teams) {
-		printTitle(title);
-		for (Team t : teams)
-			System.out.println(t);
+		List<Team> teams = teamRepo.findByNameLike("S");
+		printTeams("findByNameLike(S)", teams);
+		printTeam("findByName(SW팀)", teamRepo.findByName("SW팀"));
+
+		useCustomImpl(empRepo);
+		useCustomImpl(teamRepo);
+		ctx.close();
 	}
 
 	private static void useBasicFindByQueryMethod(EmployeeRepository empRepo) {
@@ -54,9 +53,9 @@ public class MainForQuery {
 				empRepo.findByBirthYearOrderByTeamNameAscNameAsc(1977));
 
 		printTitle("Employee findByEmployeeNumberOrNameLike(\"1234567890\", \"최\")");
-		Employee emp = empRepo.findByEmployeeNumberOrNameLike("1234567890", "최");
-		System.out.println(emp);
-		System.out.println(empRepo.findByName("정도전"));
+		printEmployee("Employee findByEmployeeNumberOrNameLike(\"1234567890\", \"최\")",
+				empRepo.findByEmployeeNumberOrNameLike("1234567890", "최"));
+		printEmployee("Employee findByName(\"최범균\")", empRepo.findByName("최범균"));
 		// birthYear 프로퍼티 값이 1970보다 큰 엔티티가 두 개 이상이면 아래 코드는 익셉션을 발생시킨다.
 		// Employee emp2 = empRepo.findByBirthYearGreaterThan(1970);
 	}
@@ -90,18 +89,35 @@ public class MainForQuery {
 		Page<Employee> empPage = empRepo.findByTeam(team, pageable);
 		printPageEmployees("Page<Employee> findByTeam(team, pageable)", empPage);
 
-		printEmployees("List<Employee> findByTeamIdOrderByNameDesc(teamId, sort)", empRepo.findByTeamIdOrderByNameDesc(1L, new Sort("birthYear")));
+		printEmployees("List<Employee> findByTeamIdOrderByNameDesc(teamId, sort)",
+				empRepo.findByTeamIdOrderByNameDesc(1L, new Sort("birthYear")));
 	}
 
 	private static void useQueryAnnotationMethod(EmployeeRepository empRepo) {
 		Employee employee = empRepo.findByEmployeeNumberOrNameLike("1234567910", "범");
 		printTitle("1234567910 사번 또는 이름에 '범'자 포함 = " + (employee == null ? "없음" : "존재"));
-		
+
 		printEmployees("List<Employee> findEmployeeBornBefore(1980)", empRepo.findEmployeeBornBefore(1980));
 		printEmployees("List<Employee> findEmployeeBornBefore(1980, sort)",
 				empRepo.findEmployeeBornBefore(1980, new Sort("name")));
 		printEmployees("List<Employee> findEmployeeBornBefore(1980, sort)",
 				empRepo.findEmployeeBornBefore(1980, new PageRequest(1, 2, new Sort("name"))));
+	}
+
+	private static void useCustomImpl(EmployeeRepository empRepo) {
+		printOptionResult("Option<Employee> getOptionEmployee(1L)", empRepo.getOptionEmployee(1L));
+		printOptionResult("Option<Employee> getOption(1L)", empRepo.getOption(1L));
+		printOptionResult("Option<Employee> getOption(2L)", empRepo.getOption(100L));
+	}
+	
+	private static void useCustomImpl(TeamRepository teamRepo) {
+		printOptionResult("Option<Team> getOption(1L)", teamRepo.getOption(1L));
+		printOptionResult("Option<Team> getOption(1L)", teamRepo.getOption(10L));
+	}
+
+	private static void printOptionResult(String string, Option<?> option) {
+		printTitle(string);
+		System.out.println(option.hasValue() ? option.get() : "값 없음");
 	}
 
 	private static void printPageEmployees(String title, Page<Employee> empPage) {
@@ -116,11 +132,27 @@ public class MainForQuery {
 		}
 	}
 
+	private static void printEmployee(String title, Employee employee) {
+		printTitle(title);
+		System.out.println(employee);
+	}
+
 	private static void printEmployees(String title, Iterable<Employee> employees) {
 		printTitle(title);
 		for (Employee emp : employees) {
 			System.out.println(emp.toString());
 		}
+	}
+
+	private static void printTeam(String title, Team team) {
+		printTitle(title);
+		System.out.println(team);
+	}
+
+	private static void printTeams(String title, List<Team> teams) {
+		printTitle(title);
+		for (Team t : teams)
+			System.out.println(t);
 	}
 
 	private static void printTitle(String title) {

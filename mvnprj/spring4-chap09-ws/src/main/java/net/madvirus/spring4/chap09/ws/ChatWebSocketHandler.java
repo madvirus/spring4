@@ -1,8 +1,8 @@
 package net.madvirus.spring4.chap09.ws;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -11,7 +11,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 
-	private Map<String, WebSocketSession> users = new HashMap<>();
+	private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
 
 	@Override
 	public void afterConnectionEstablished(

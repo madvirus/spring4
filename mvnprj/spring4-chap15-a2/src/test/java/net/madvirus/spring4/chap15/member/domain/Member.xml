@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<MEMBER MEMBER_ID="1" USER_ID="madvirus" ENC_PASSWORD="61626364"
+		EMAIL="madvirus@madvirus.net" NAME="최범균" LOCKER_ID="1" />
+
+	<LOCKER LOCKER_ID="1" LOCKER_SIZE="1" OCCUPIED="Y" />
+	<LOCKER LOCKER_ID="2" LOCKER_SIZE="1" OCCUPIED="N" />
+</dataset>

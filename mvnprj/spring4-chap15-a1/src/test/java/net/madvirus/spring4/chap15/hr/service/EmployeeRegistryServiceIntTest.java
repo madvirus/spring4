@@ -1,16 +1,12 @@
 package net.madvirus.spring4.chap15.hr.service;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import net.madvirus.spring4.chap15.conf.SpringAppConfig;
 import net.madvirus.spring4.chap15.hr.model.Employee;
@@ -27,7 +23,6 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
 
 @ContextConfiguration(classes = SpringAppConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)

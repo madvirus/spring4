@@ -11,7 +11,7 @@
 
 	<mvc:default-servlet-handler />
 
-	<mvc:view-controller path="/index" view-name="index" />
+	<mvc:view-controller path="/home" view-name="home/main" />
 	<mvc:view-controller path="/member/main" view-name="member/main" />
 	<mvc:view-controller path="/admin/main" view-name="admin/main" />
 

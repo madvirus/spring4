@@ -81,8 +81,8 @@
 </li>
 <li>익셉션 처리
 	<ul>
-	<li><a href="cal/divide?op1=10&op2=0">/cal/divide?op1=10&op2=0</a>: @ExceptionHandler, CalculationController</li>
-	<li><a href="event/detail2"">/event/detail2</a>: @ControllerAdvice 사용, CommonExceptionHandler. 설정(sample.xml, SampleConfig.java)에서 CommonExceptionHandler 부분의 주석 해제 후</li>
+	<li><a href="cal/divide?op1=10&op2=0">/cal/divide?op1=10&amp;op2=0</a>: @ExceptionHandler, CalculationController</li>
+	<li><a href="event/detail2">/event/detail2</a>: @ControllerAdvice 사용, CommonExceptionHandler. 설정(sample.xml, SampleConfig.java)에서 CommonExceptionHandler 부분의 주석 해제 후</li>
 	<li><a href="files/a111">/files/a111</a>: 익셉션 클래스에 @ResponseStatus 사용, FileController.fileInfo()/NoFileInfoException</li>
 	</ul>
 </li>

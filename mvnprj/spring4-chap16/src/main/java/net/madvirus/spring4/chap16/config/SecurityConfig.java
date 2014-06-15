@@ -1,10 +1,13 @@
 package net.madvirus.spring4.chap16.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -27,13 +30,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')")
+				.antMatchers("/manager/**").access("hasAuthority('ROLE_MANAGER')")
 				.antMatchers("/member/**").authenticated()
 				.anyRequest().permitAll()
 				.and()
 			.formLogin()
-				.and()
-			.logout();
+				.and();
+			;
 	}
 
+//
+//	@Configuration
+//	@Order(1)
+//	public static class ApiWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+//		@Override
+//		protected void configure(HttpSecurity http) throws Exception {
+//			http.antMatcher("/api/**")
+//				.csrf().disable()
+//				.authorizeRequests()
+//					.anyRequest().permitAll()
+//					.and()
+//				.logout().disable()
+//			;
+//		}
+//	}
 }

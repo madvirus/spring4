@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc
@@ -11,9 +12,11 @@
 
 	<mvc:default-servlet-handler />
 
-	<mvc:view-controller path="/home" view-name="home/main" />
-	<mvc:view-controller path="/member/main" view-name="member/main" />
-	<mvc:view-controller path="/admin/main" view-name="admin/main" />
+	<mvc:view-controller path="/index" view-name="index" />
+	<mvc:view-controller path="/home/main" view-name="homeMain" />
+	<mvc:view-controller path="/manager/main" view-name="managerMain" />
+	<mvc:view-controller path="/admin/main" view-name="adminMain" />
+	<mvc:view-controller path="/member/main" view-name="memberMain" />
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

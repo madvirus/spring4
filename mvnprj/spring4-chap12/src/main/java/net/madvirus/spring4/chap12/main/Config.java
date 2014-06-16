@@ -41,7 +41,6 @@ public class Config implements TransactionManagementConfigurer {
 	}
 
 	@Override
-	@Bean
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		DataSourceTransactionManager txMgr = new DataSourceTransactionManager();
 		txMgr.setDataSource(dataSource());

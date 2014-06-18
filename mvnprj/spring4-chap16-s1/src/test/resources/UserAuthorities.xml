@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<users username="bkchoi" password="1234" enabled="true" />
+	<users username="admin" password="asdf" enabled="true" />
+	
+	<authorities username="admin" authority="USER" />
+	<authorities username="admin" authority="USER_MANAGER" />
+	<authorities username="bkchoi" authority="USER" />
+
+</dataset>

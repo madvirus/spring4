@@ -8,8 +8,10 @@
 <body>
 <ul>
 	<sec:authorize access="hasAuthority('USER_MANAGER')">
-	<li><a href="<c:url value='/admin/usermanager/main' />">사용자 관리자</a></li>
+	<li><a href="<c:url value='/admin/usermanager/main' />">
+	사용자 관리자</a></li>
 	</sec:authorize>
+
 	<sec:authorize access="hasAuthority('USER')">
 	<li><a href="<c:url value='/member/main' />">회원메인</a></li>
 	</sec:authorize>

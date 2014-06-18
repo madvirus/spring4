@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/user/register")
 public class JoinController {
+	private UserJoinService userJoinService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String form() {

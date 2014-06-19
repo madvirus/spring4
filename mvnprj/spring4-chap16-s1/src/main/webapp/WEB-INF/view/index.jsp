@@ -18,7 +18,7 @@
 	
 	<sec:authorize access="!isAuthenticated()">
 	<li><a href="<c:url value='/spring_security_login' />">로그인</a></li>
-	<li><a href="<c:url value='/user/register' />">회원가입</a></li>
+	<li><a href="<c:url value='/user/join' />">회원가입</a></li>
 	</sec:authorize>
 
 	<sec:authorize access="isAuthenticated()">

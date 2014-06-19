@@ -68,7 +68,7 @@ public class SecurityTest {
 	
 	@Test
 	public void test_Logout() throws Exception {
-		MvcResult result = mockMvc.perform(get("/j_spring_security_logout"))
+		mockMvc.perform(get("/j_spring_security_logout"))
 				.andDo(print())
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/"))

@@ -10,10 +10,11 @@
 
 	<sec:authentication-manager alias="authenticationManager">
 		<sec:authentication-provider>
-			<sec:jdbc-user-service data-source-ref="dataSource" />
+			<sec:jdbc-user-service data-source-ref="dataSource" 
+				id="jdbcUserService" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
-
+	
 	<sec:http use-expressions="true">
 		<sec:intercept-url pattern="/admin/usermanager/**" 
 		                   access="hasAuthority('USER_MANAGER')" />

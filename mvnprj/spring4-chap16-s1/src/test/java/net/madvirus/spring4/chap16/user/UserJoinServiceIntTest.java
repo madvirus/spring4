@@ -13,6 +13,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 @ContextConfiguration({ "classpath:/spring-security-s1.xml", "classpath:/spring-application.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,7 +28,10 @@ public class UserJoinServiceIntTest {
 	private UserJoinService userJoinService;
 
 	@Test
-	@ExpectedDatabase(value = "NewUserAdded.xml", table = "users", query = "select * from users where username='madvirus'")
+	@ExpectedDatabase(value = "NewUserAdded.xml",
+			assertionMode = DatabaseAssertionMode.NON_STRICT,
+			table = "users",
+			query = "select * from users where username='madvirus'")
 	public void newUser_Join_Successfully() throws Exception {
 		NewUser newUser = new NewUser();
 		newUser.setName("madvirus");

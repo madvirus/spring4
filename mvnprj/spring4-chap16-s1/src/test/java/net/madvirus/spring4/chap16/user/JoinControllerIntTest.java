@@ -25,6 +25,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 @ContextConfiguration({ "classpath:/spring-security-s1.xml", "classpath:/spring-application.xml",
 		"classpath:/spring-mvc-s1.xml" })
@@ -79,7 +80,10 @@ public class JoinControllerIntTest {
 	}
 
 	@Test
-	@ExpectedDatabase(value = "NewUserAdded.xml", table = "users", query = "select * from users where username='madvirus'")
+	@ExpectedDatabase(value = "NewUserAdded.xml",
+			assertionMode = DatabaseAssertionMode.NON_STRICT,
+			table = "users",
+			query = "select * from users where username='madvirus'")
 	public void return_SuccessView_By_Post_With_Valid_Param() throws Exception {
 		mockMvc.perform(createPostRequest("madvirus", "1111", "1111"))
 				.andDo(print())

@@ -11,20 +11,9 @@
 
 	<mvc:default-servlet-handler />
 
-	<mvc:view-controller path="/index" view-name="index" />
-	<mvc:view-controller path="/admin/usermanager/main"
-		view-name="usermanagerMain" />
-	<mvc:view-controller path="/member/main" view-name="memberMain" />
-	<mvc:view-controller path="/user/loginform" view-name="user/loginForm" />
-	<mvc:view-controller path="/security/accessDenied" view-name="security/accessDenied" />
-
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
-	</bean>
-
-	<bean class="net.madvirus.spring4.chap16.user.JoinController">
-		<property name="userJoinService" ref="userJoinService" />
 	</bean>
 </beans>

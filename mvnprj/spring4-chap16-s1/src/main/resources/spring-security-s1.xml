@@ -25,17 +25,29 @@
 		<sec:authentication-provider>
 			<sec:jdbc-user-service data-source-ref="dataSource"
 				id="jdbcUserService" />
+			<!--
 			<sec:password-encoder ref="passwordEncoder" />
+			-->
 		</sec:authentication-provider>
 	</sec:authentication-manager>
 
 	<sec:http use-expressions="true">
+		<sec:access-denied-handler error-page="/security/accessDenied"/>
+		<sec:intercept-url pattern="/user/loginform" access="permitAll" requires-channel="https"/>
+		<sec:intercept-url pattern="/user/login" access="permitAll" requires-channel="https" />
 		<sec:intercept-url pattern="/admin/usermanager/**"
 			access="hasAuthority('USER_MANAGER')" />
 		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/**" access="permitAll" />
-		<sec:form-login />
-		<sec:logout />
+		<sec:form-login 
+			login-page="/user/loginform"
+			login-processing-url="/user/login"
+			username-parameter="userid"
+			password-parameter="password"
+			default-target-url="/index"
+			authentication-failure-url="/user/loginform?error=true"
+		/>
+		<sec:logout logout-url="/user/logout" />
 	</sec:http>
 
 </beans>

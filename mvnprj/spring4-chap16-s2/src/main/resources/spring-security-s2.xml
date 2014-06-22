@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<bean id="customAuthenticationEntryPoint"
+		class="net.madvirus.spring4.chap16.security.CustomAuthenticationEntryPoint">
+		<property name="loginPage" value="/user/loginform" />
+	</bean>
+
+	<bean id="customSuccessHandler"
+		class="net.madvirus.spring4.chap16.security.CustomAuthenticationSuccessHandler" />
+
+	<bean id="nullRequestCache"
+		class="org.springframework.security.web.savedrequest.NullRequestCache" />
+
+	<sec:http use-expressions="true">
+		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/**" access="permitAll" />
+		<sec:form-login login-page="/user/loginform"
+			login-processing-url="/user/login" authentication-failure-url="/user/loginform?error" />
+		<sec:logout logout-url="/user/logout" />
+		<sec:request-cache ref="nullRequestCache" />
+	</sec:http>
+
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:user-service>
+				<sec:user name="bkchoi" password="1234" authorities="ROLE_USER" />
+				<sec:user name="manager" password="qwer" authorities="ROLE_MANAGER" />
+				<sec:user name="admin" password="asdf" authorities="ROLE_ADMIN,ROLE_USER" />
+			</sec:user-service>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+</beans>

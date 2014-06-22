@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider>
+			<sec:user-service>
+				<sec:user name="bkchoi" password="1234" authorities="USER"/>
+			</sec:user-service>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+	<bean id="customEntryPoint"
+		class="net.madvirus.spring4.chap16.custom.CustomAuthenticationEntryPoint" />
+
+	<bean id="customSuccessHandler" class="net.madvirus.spring4.chap16.custom.CustomSuccessHandler" />
+	<bean id="customFailureHandler" class="net.madvirus.spring4.chap16.custom.CustomFailureHandler" />
+
+	<sec:http use-expressions="true" entry-point-ref="customEntryPoint">
+		<sec:intercept-url pattern="/user/loginform" access="permitAll" />
+		<sec:intercept-url pattern="/admin/usermanager/**"
+			access="hasAuthority('USER_MANAGER')" />
+		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/**" access="permitAll" />
+		<sec:form-login login-processing-url="/user/login"
+			username-parameter="userid" password-parameter="password"
+			authentication-success-handler-ref="customSuccessHandler"
+			authentication-failure-handler-ref="customFailureHandler" />
+		<sec:logout />
+	</sec:http>
+
+</beans>

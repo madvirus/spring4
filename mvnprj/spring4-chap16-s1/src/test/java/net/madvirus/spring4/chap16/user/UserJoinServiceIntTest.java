@@ -1,28 +1,14 @@
 package net.madvirus.spring4.chap16.user;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import net.madvirus.spring4.chap16.base.AbstractIntTest;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-@ContextConfiguration({ "classpath:/spring-security-s1.xml", "classpath:/spring-application.xml" })
-@RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DirtiesContextTestExecutionListener.class,
-		TransactionalTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
-@DatabaseSetup(value = "/UserAuthorities.xml")
-public class UserJoinServiceIntTest {
+public class UserJoinServiceIntTest extends AbstractIntTest {
 
 	@Autowired
 	private UserJoinService userJoinService;

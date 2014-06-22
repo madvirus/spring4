@@ -25,7 +25,9 @@
 
 	<bean id="userJoinService" class="net.madvirus.spring4.chap16.user.UserJoinService">
 		<property name="userDetailsManager" ref="jdbcUserService" />
+		<!-- 
 		<property name="passwordEncoder" ref="passwordEncoder" />
+		-->
 	</bean>
 
 	<bean id="messageSource"

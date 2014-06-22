@@ -17,12 +17,15 @@
 	</sec:authorize>
 	
 	<sec:authorize access="!isAuthenticated()">
+	<%--
 	<li><a href="<c:url value='/spring_security_login' />">로그인</a></li>
+	--%>
+	<li><a href="<c:url value='/user/loginform' />">로그인</a></li>
 	<li><a href="<c:url value='/user/join' />">회원가입</a></li>
 	</sec:authorize>
 
 	<sec:authorize access="isAuthenticated()">
-	<li><a href="<c:url value='/j_spring_security_logout' />">로그아웃</a></li>
+	<li><a href="<c:url value='/user/logout' />">로그아웃</a></li>
 	</sec:authorize>
 </ul>
 </body>

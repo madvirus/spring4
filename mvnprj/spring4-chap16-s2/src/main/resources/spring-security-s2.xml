@@ -8,31 +8,46 @@
        http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<bean id="customAuthenticationEntryPoint"
-		class="net.madvirus.spring4.chap16.security.CustomAuthenticationEntryPoint">
-		<property name="loginPage" value="/user/loginform" />
+		class="net.madvirus.spring4.chap16.CustomAuthenticationEntryPoint">
+		<property name="loginFormPath" value="/user/loginform" />
 	</bean>
 
-	<bean id="customSuccessHandler"
-		class="net.madvirus.spring4.chap16.security.CustomAuthenticationSuccessHandler" />
+	<bean id="customSuccessHandler2"
+		class="net.madvirus.spring4.chap16.CustomAuthenticationSuccessHandler2" />
+
+	<bean id="customFailureHandler"
+		class="net.madvirus.spring4.chap16.CustomAuthenticationFailureHandler">
+		<property name="loginFormPath" value="/user/loginform" />
+	</bean>
+
+	<bean id="customSecurityContextRepository"
+		class="net.madvirus.spring4.chap16.CustomSecurityContextRepository">
+	</bean>
 
 	<bean id="nullRequestCache"
 		class="org.springframework.security.web.savedrequest.NullRequestCache" />
 
-	<sec:http use-expressions="true">
+	<bean id="customLogoutSuccessHandler" 
+		class="net.madvirus.spring4.chap16.CustomLogoutSuccessHandler" />
+	
+	<sec:http use-expressions="true" entry-point-ref="customAuthenticationEntryPoint"
+		security-context-repository-ref="customSecurityContextRepository">
+		<sec:request-cache ref="nullRequestCache" />
 		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />
 		<sec:intercept-url pattern="/**" access="permitAll" />
-		<sec:form-login login-page="/user/loginform"
-			login-processing-url="/user/login" authentication-failure-url="/user/loginform?error" />
-		<sec:logout logout-url="/user/logout" />
-		<sec:request-cache ref="nullRequestCache" />
+
+		<sec:form-login authentication-success-handler-ref="customSuccessHandler2"
+			authentication-failure-handler-ref="customFailureHandler"
+			username-parameter="userid" password-parameter="password"
+			login-processing-url="/user/login" />
+
+		<sec:logout logout-url="/user/logout" success-handler-ref="customLogoutSuccessHandler" />
 	</sec:http>
 
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:user-service>
 				<sec:user name="bkchoi" password="1234" authorities="ROLE_USER" />
-				<sec:user name="manager" password="qwer" authorities="ROLE_MANAGER" />
-				<sec:user name="admin" password="asdf" authorities="ROLE_ADMIN,ROLE_USER" />
 			</sec:user-service>
 		</sec:authentication-provider>
 	</sec:authentication-manager>

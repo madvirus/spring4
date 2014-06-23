@@ -1,4 +1,4 @@
-package net.madvirus.spring4.chap16.security;
+package net.madvirus.spring4.chap16;
 
 import java.io.IOException;
 
@@ -12,20 +12,20 @@ import org.springframework.security.web.util.UrlUtils;
 
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-	private String loginPage;
+	private String loginFormPath;
 
 	@Override
 	public void commence(HttpServletRequest request,
-			HttpServletResponse response,
-			AuthenticationException authException)
+			HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException {
 		String redirectUrl = UrlUtils.buildFullRequestUrl(request);
 		String encoded = response.encodeRedirectURL(redirectUrl);
-		response.sendRedirect(loginPage + "?returl=" + encoded);
+		response.sendRedirect(request.getContextPath() + loginFormPath +
+				"?returl=" + encoded);
 	}
 
-	public void setLoginPage(String loginPage) {
-		this.loginPage = loginPage;
+	public void setLoginFormPath(String loginPage) {
+		this.loginFormPath = loginPage;
 	}
 
 }

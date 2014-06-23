@@ -33,8 +33,8 @@
 
 	<sec:http use-expressions="true">
 		<sec:access-denied-handler error-page="/security/accessDenied"/>
-		<sec:intercept-url pattern="/user/loginform" access="permitAll" requires-channel="https"/>
-		<sec:intercept-url pattern="/user/login" access="permitAll" requires-channel="https" />
+		<sec:intercept-url pattern="/user/loginform" access="permitAll" />
+		<sec:intercept-url pattern="/user/login" access="permitAll" />
 		<sec:intercept-url pattern="/admin/usermanager/**"
 			access="hasAuthority('USER_MANAGER')" />
 		<sec:intercept-url pattern="/member/**" access="isAuthenticated()" />

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="localhost" />
+		<property name="port" value="25" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="simpleNotifier"
+		class="net.madvirus.spring4.chap17.mail.SimpleRegistrationNotifier">
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+	<bean id="templateMailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="no-reply@madvirus.net" />
+		<property name="subject" value="[템플릿]회원 가입 안내" />
+		<property name="text" value="[템플릿] 회원 가입을 환영합니다." />
+	</bean>
+
+	<bean id="simpleNotifier2"
+		class="net.madvirus.spring4.chap17.mail.SimpleRegistrationNotifier2">
+		<property name="mailSender" ref="mailSender" />
+		<property name="templateMailMessage" ref="templateMailMessage" />
+	</bean>
+
+	<bean id="mimeNotifier"
+		class="net.madvirus.spring4.chap17.mail.MimeRegistrationNotifier">
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+	<bean id="mimeAttachmentNotifier" class="net.madvirus.spring4.chap17.mail.MimeAttachmentNotifier">
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+	<bean id="mimeInlineNotifier" class="net.madvirus.spring4.chap17.mail.MimeInlineNotifier">
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+</beans>
+

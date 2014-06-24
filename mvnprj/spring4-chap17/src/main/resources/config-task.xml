@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<task:annotation-driven executor="executor" scheduler="scheduler" proxy-target-class="false"/>
+	<bean id="logProcessor" class="net.madvirus.spring4.chap17.task.LogProcessor" />
+	<bean id="messageSender" class="net.madvirus.spring4.chap17.task.MessageSender" />
+
+	<task:executor id="executor" keep-alive="10" pool-size="10-20"
+		queue-capacity="10" rejection-policy="ABORT" />
+
+	<bean id="processor" class="net.madvirus.spring4.chap17.task.Processor">
+		<property name="taskExecutor" ref="executor" />
+	</bean>
+
+	<task:scheduler id="scheduler" pool-size="4" />
+
+	<task:scheduled-tasks scheduler="scheduler">
+		<task:scheduled ref="logCollector" method="collect"
+			cron="*/5 * * * * *" />
+	</task:scheduled-tasks>
+
+	<bean id="logCollector" class="net.madvirus.spring4.chap17.task.LogCollector" />
+</beans>

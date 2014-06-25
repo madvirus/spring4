@@ -47,12 +47,11 @@ public class StoreController {
 	public void create(@RequestBody Store store, HttpServletResponse response) {
 		Store newStore = new Store(storeNextId++, store.getName());
 		storeMap.put(newStore.getId(), newStore);
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+		UriComponents uriComp = UriComponentsBuilder.newInstance()
 				.scheme("http").host("localhost").port(8080)
-				.path("/spring4-chap17-s/stores/{storeId}").build()
-				.expand(newStore.getId())
-				.encode();
-		response.setHeader("Location", uriComponents.toUriString());
+				.path("/spring4-chap17-s/stores/{storeId}").build();
+		UriComponents encodedUri = uriComp.expand(newStore.getId()).encode();
+		response.setHeader("Location", encodedUri.toUriString());
 	}
 
 	@RequestMapping(value = "/stores/{storeId}/items/{itemId}", method = RequestMethod.GET)

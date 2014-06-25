@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public class RestClientMain {
 
@@ -77,14 +78,22 @@ public class RestClientMain {
 		printTitle("exchange");
 
 		// getForEntity를 exchage를 이용해서 구현한 코드
+		URI uri = UriComponentsBuilder.newInstance()
+				.scheme("http")
+				.host("localhost")
+				.port(8080)
+				.path("/spring4-chap17-s/stores/{storeId}/items/{itemId}")
+				.build()
+				.expand("1", "I100").encode()
+				.toUri();
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("AUTHKEY", "mykey");
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Void> requestEntity = new HttpEntity<>((Void) null, headers);
 
 		ResponseEntity<Item> itemResponse = restTemplate.exchange(
-				"http://localhost:8080/spring4-chap17-s/stores/{storeId}/items/{itemId}",
-				HttpMethod.GET, requestEntity, Item.class, "1", "I100");
+				uri, HttpMethod.GET, requestEntity, Item.class);
 		Item item = itemResponse.getBody();
 		System.out.println(item);
 

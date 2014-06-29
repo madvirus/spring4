@@ -1,6 +1,7 @@
 package net.madvirus.spring4.chap18;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HelloController {
 
 	@RequestMapping("/hello")
-	public String greeting(@RequestParam("name") String name) {
+	public String greeting(@RequestParam("name") String name, Model model) {
+		model.addAttribute("greeting", new Greeting("안녕하세요, " + name));
 		return "hello";
 	}
 

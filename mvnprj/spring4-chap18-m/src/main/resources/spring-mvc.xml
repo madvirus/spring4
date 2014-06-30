@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc
@@ -9,7 +10,9 @@
 
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
-
+	<mvc:view-controller path="/main" view-name="redirect:/main/home"/>
+	<mvc:resources location="/js/" mapping="/js/**" />
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
@@ -17,4 +20,5 @@
 	</bean>
 
 	<bean class="net.madvirus.spring4.chap18.HelloController" />
+	<bean class="net.madvirus.spring4.chap18.BookController" />
 </beans>

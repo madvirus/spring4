@@ -12,38 +12,14 @@ public class HelloController {
 
 	@RequestMapping("/hello")
 	public String greeting(@RequestParam("name") String name, Model model) {
-		model.addAttribute("greeting", new Greeting("안녕하세요, " + name));
+		model.addAttribute("greeting",
+				new Greeting("안녕하세요, " + name, new Name(name)));
 		return "hello";
 	}
 
 	@RequestMapping("/hello.json")
 	@ResponseBody
 	public Greeting greetingJson(@RequestBody Name name) {
-		return new Greeting("안녕하세요, " + name);
-	}
-
-	public static class Name {
-		private String name;
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-	}
-
-	public static class Greeting {
-		private String greeting;
-
-		public Greeting(String greeting) {
-			this.greeting = greeting;
-		}
-
-		public String getGreeting() {
-			return greeting;
-		}
-
+		return new Greeting("안녕하세요, " + name.getName(), name);
 	}
 }

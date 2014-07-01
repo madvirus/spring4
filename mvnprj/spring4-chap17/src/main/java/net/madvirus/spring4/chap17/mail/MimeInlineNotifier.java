@@ -28,8 +28,7 @@ public class MimeInlineNotifier implements RegistrationNotifier {
 			messageHelper.setFrom("no-reply@madvirus.net", "운영자");
 			messageHelper.setTo(new InternetAddress(member.getEmail(), "utf-8"));
 
-			messageHelper.addInline("signature", 
-					new FileDataSource("sign.jpg"));
+			messageHelper.addInline("signature", new FileDataSource("sign.jpg"));
 			mailSender.send(message);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="mvnBuildRunner" 
+			class="net.madvirus.spring4.appa.MavenBuildRunner">
+		<property name="mavenPath">
+			<value>c:\apache-maven-3.1.1</value>
+		</property>
+	</bean>
+
+	<bean id="sampleProject" 
+			class="net.madvirus.spring4.appa.Project">
+		<property name="srcDirs">
+			<list>
+				<value>src/</value>
+				<value>srcResources/</value>
+			</list>
+		</property>
+		<property name="binDir" value="bin/" />
+		<property name="buildRunner">
+			<ref bean="mvnBuildRunner" />
+		</property>
+	</bean>
+
+</beans>
+

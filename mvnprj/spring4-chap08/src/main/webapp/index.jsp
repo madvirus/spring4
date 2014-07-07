@@ -21,8 +21,8 @@
 </li>
 <li>로케일 변경:
 	<ul>
-	<li><a href="changeLanguage">/changeLanguage?lang=en</a>: LocaleResolver 예, LocaleChangeController.change(), lang 파라미터로 변경</li>
-	<li><a href="auth/login">/auth/login?lang=language</a>: LocaleChangeInterceptor 예, lang으로 변경 후, lang 없이 확인</li>
+	<li><a href="changeLanguage?lang=en">/changeLanguage?lang=en</a>: LocaleResolver 예, LocaleChangeController.change(), lang 파라미터로 변경</li>
+	<li><a href="auth/login?lang=en">/auth/login?lang=en</a>: LocaleChangeInterceptor 예, lang으로 변경 후, lang 없이 확인</li>
 	</ul>
 </li>
 </ul>

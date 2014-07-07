@@ -22,3 +22,10 @@ create table memberdb.LOCKER (
 	LOCKER_SIZE int,
 	OCCUPIED CHAR(1)
 ) engine=InnoDB character set = utf8;
+
+-- test 목록 초기 데이터
+insert into memberdb.MEMBER (MEMBER_ID, USER_ID, ENC_PASSWORD, EMAIL, NAME, LOCKER_ID) 
+values (1, 'madvirus', '61626364', 'madvirus@madvirus.net', '최범균', 1);
+
+insert into memberdb.LOCKER value (1, 1, 'Y');
+insert into memberdb.LOCKER value (2, 1, 'N');

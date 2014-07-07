@@ -6,7 +6,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:/springconf.xml", "classpath:/spring-mvc.xml" })
+@ContextConfiguration({ "classpath:/springconf.xml", "classpath:/springconf2.xml" })
 @WebAppConfiguration
 public abstract class AbstractCommonConfTest {
 }

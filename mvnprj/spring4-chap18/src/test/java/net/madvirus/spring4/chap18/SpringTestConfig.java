@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-@ContextConfiguration({ "classpath:/springconf.xml", "classpath:/spring-mvc.xml" })
+@ContextConfiguration({ "classpath:/springconf.xml", "classpath:/springconf2.xml" })
 @WebAppConfiguration
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

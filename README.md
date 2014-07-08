@@ -38,7 +38,7 @@ File > Import ... > General/Existing Projects into Workspace 메뉴를 이용해
 
 # 프로젝트 목록
 | 프로젝트 | 타입 | 설정 |
-|-|-|-|
+|---|---|---|
 | spring4-chap01 | 어플리케이션 | 스프링 기초 예제 |
 | spring4-chap02 | 어플리케이션 | 스프링 DI와 관련된 다양한 예제 코드 |
 | spring4-chap03 | 어플리케이션 | 라이프사이클 범위와 관련된 예제 코드 |

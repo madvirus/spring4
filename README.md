@@ -26,7 +26,7 @@
 File > Import ... > Maven/Existing Maven Projects 메뉴를 이용해서 메이븐 프로젝트를 임포트 한다.
 
 ## 이클립스 프로젝트
-메이븐에 익숙하지 않은 사용자는 이클립스 프로젝트 형식으로 제공되는 소스 프로젝트를 다운로드 받아서 임포트해도 된다.
+메이븐에 익숙하지 않은 사용자는 이클립스 프로젝트 형식으로 제공되는 소스 프로젝트를 https://drive.google.com/file/d/0B2WFL4DD6ByESmUyR184Z25LS2s/edit?usp=sharing 에서 다운로드 받아서 임포트해도 된다.
 
 File > Import ... > General/Existing Projects into Workspace 메뉴를 이용해서 이클립스 프로젝트를 임포트한다.
 

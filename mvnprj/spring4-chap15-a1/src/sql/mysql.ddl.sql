@@ -4,7 +4,7 @@ create database hrdb character set=utf8;
 
 grant all privileges on hrdb.* to 'spring4'@'localhost';
 
-DROP TABLE  hrdb.EMPLOYEE;
+DROP TABLE hrdb.EMPLOYEE;
 DROP TABLE hrdb.TEAM;
 
 -- hrdb DB에 아래 테이블 생성
